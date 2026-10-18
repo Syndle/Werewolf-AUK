@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUK Werewolf — Koleksi Resmi Kartu Peran</title>
+    <title>AUK Werewolf — Card Game Role Collection</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Cinzel Decorative, Cinzel, and Plus Jakarta Sans -->
@@ -22,17 +22,6 @@
                         display: ['"Cinzel Decorative"', 'serif'],
                         serif: ['"Cinzel"', 'serif'],
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        gothic: {
-                            bg: '#06060b',
-                            surface: '#10101a',
-                            card: '#151522',
-                            gold: '#d4af37',
-                            crimson: '#990f02',
-                            blood: '#e11d48',
-                            mystic: '#9333ea'
-                        }
                     }
                 }
             }
@@ -41,90 +30,68 @@
 
     <style>
         :root {
-            --glow-good: rgba(59, 130, 246, 0.75);
-            --glow-werewolf: rgba(225, 29, 72, 0.8);
-            --glow-neutral: rgba(168, 85, 247, 0.78);
-        }
-
-        body {
-            background-color: #020306;
-            color: #e2e8f0;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(ellipse 85% 55% at 50% -10%, rgba(186, 214, 255, 0.16) 0%, rgba(56, 102, 168, 0.06) 45%, transparent 75%),
-                radial-gradient(circle at 50% 22%, rgba(15, 23, 42, 0.55) 0%, transparent 65%),
-                linear-gradient(180deg, #020306 0%, #05070e 50%, #020205 100%);
+            --glow-good: rgba(59, 130, 246, 0.55);
+            --glow-werewolf: rgba(225, 29, 72, 0.6);
+            --glow-neutral: rgba(168, 85, 247, 0.55);
         }
 
         /* =============================================================
-           MOONLIGHT RAYS & DRIFTING THIN MIST ATMOSPHERE
+           NIGHT MODE (WEREWOLF) & DAY MODE (VILLAGER) THEME TRANSITIONS
            ============================================================= */
-        .moonlight-beams {
+        body {
+            transition: background-color 0.7s ease, color 0.5s ease, background-image 0.7s ease;
+            overflow-x: hidden;
+        }
+
+        body.night-mode {
+            background-color: #03050a;
+            color: #e2e8f0;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(148, 163, 184, 0.10) 0%, rgba(30, 41, 59, 0.04) 40%, transparent 70%),
+                linear-gradient(180deg, #03050a 0%, #060913 55%, #020307 100%);
+        }
+
+        body.day-mode {
+            background-color: #f8fafc;
+            color: #0f172a;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(253, 224, 71, 0.32) 0%, rgba(186, 230, 253, 0.35) 45%, transparent 75%),
+                linear-gradient(180deg, #fef9c3 0%, #e0f2fe 42%, #f8fafc 100%);
+        }
+
+        /* Subtle Ambient Light Beams (Softened & Simplified) */
+        .ambient-beams {
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 1;
             overflow: hidden;
+            transition: opacity 0.7s ease;
         }
 
-        .moon-source-halo {
+        .top-light-halo {
             position: absolute;
-            top: -140px;
+            top: -150px;
             left: 50%;
             transform: translateX(-50%);
-            width: 680px;
-            height: 420px;
-            background: radial-gradient(circle, rgba(226, 240, 255, 0.22) 0%, rgba(148, 187, 233, 0.09) 38%, transparent 72%);
-            filter: blur(25px);
-            animation: moonPulse 9s ease-in-out infinite alternate;
+            width: 520px;
+            height: 320px;
+            border-radius: 50%;
+            filter: blur(36px);
+            transition: background 0.7s ease, opacity 0.7s ease;
         }
 
-        .moon-ray {
-            position: absolute;
-            top: -20%;
-            left: 50%;
-            width: 34vw;
-            min-width: 300px;
-            height: 135vh;
-            transform-origin: top center;
-            background: linear-gradient(180deg, rgba(224, 242, 254, 0.11) 0%, rgba(148, 163, 184, 0.04) 48%, transparent 92%);
-            filter: blur(32px);
-            mix-blend-mode: screen;
+        body.night-mode .top-light-halo {
+            background: radial-gradient(circle, rgba(226, 232, 240, 0.10) 0%, rgba(148, 163, 184, 0.04) 45%, transparent 70%);
+            opacity: 0.75;
         }
 
-        .moon-ray-1 {
-            transform: translateX(-50%) rotate(-18deg);
-            animation: raySway1 16s ease-in-out infinite alternate;
-        }
-        .moon-ray-2 {
-            width: 24vw;
-            background: linear-gradient(180deg, rgba(241, 245, 249, 0.14) 0%, rgba(186, 230, 253, 0.05) 52%, transparent 95%);
-            transform: translateX(-50%) rotate(0deg);
-            animation: raySway2 13s ease-in-out infinite alternate;
-        }
-        .moon-ray-3 {
-            transform: translateX(-50%) rotate(18deg);
-            animation: raySway3 18s ease-in-out infinite alternate;
+        body.day-mode .top-light-halo {
+            background: radial-gradient(circle, rgba(250, 204, 21, 0.32) 0%, rgba(253, 224, 71, 0.14) 50%, transparent 75%);
+            opacity: 0.95;
         }
 
-        @keyframes moonPulse {
-            0% { opacity: 0.72; transform: translateX(-50%) scale(0.96); }
-            100% { opacity: 1; transform: translateX(-50%) scale(1.06); }
-        }
-        @keyframes raySway1 {
-            0% { transform: translateX(-52%) rotate(-21deg); opacity: 0.55; }
-            100% { transform: translateX(-48%) rotate(-14deg); opacity: 0.9; }
-        }
-        @keyframes raySway2 {
-            0% { transform: translateX(-50%) rotate(-3deg) scaleX(0.92); opacity: 0.75; }
-            100% { transform: translateX(-50%) rotate(3deg) scaleX(1.08); opacity: 1; }
-        }
-        @keyframes raySway3 {
-            0% { transform: translateX(-48%) rotate(14deg); opacity: 0.55; }
-            100% { transform: translateX(-52%) rotate(21deg); opacity: 0.9; }
-        }
-
-        /* Thin Drifting Nocturnal Mist Layers (Kabut Tipis) */
+        /* Thin Drifting Mist / Morning Cloud Layers */
         .mist-container {
             position: fixed;
             inset: 0;
@@ -137,202 +104,117 @@
             position: absolute;
             left: -50%;
             width: 200%;
-            height: 48vh;
-            background-repeat: repeat-x;
-            filter: blur(36px);
-            opacity: 0.34;
+            height: 42vh;
+            filter: blur(42px);
             will-change: transform;
+            transition: opacity 0.7s ease;
         }
 
         .mist-layer-1 {
-            bottom: -6vh;
+            bottom: -8vh;
+            opacity: 0.22;
             background: 
-                radial-gradient(ellipse 40% 50% at 20% 60%, rgba(203, 213, 225, 0.16) 0%, transparent 75%),
-                radial-gradient(ellipse 45% 55% at 55% 70%, rgba(148, 163, 184, 0.14) 0%, transparent 75%),
-                radial-gradient(ellipse 38% 50% at 85% 55%, rgba(203, 213, 225, 0.15) 0%, transparent 75%);
-            animation: mistDriftRight 46s linear infinite alternate;
+                radial-gradient(ellipse 40% 50% at 25% 60%, rgba(203, 213, 225, 0.14) 0%, transparent 75%),
+                radial-gradient(ellipse 45% 50% at 75% 65%, rgba(148, 163, 184, 0.12) 0%, transparent 75%);
+            animation: mistDriftRight 55s linear infinite alternate;
         }
 
-        .mist-layer-2 {
-            top: 32vh;
-            height: 42vh;
-            opacity: 0.25;
+        body.day-mode .mist-layer-1 {
+            opacity: 0.45;
             background: 
-                radial-gradient(ellipse 45% 40% at 30% 50%, rgba(186, 230, 253, 0.12) 0%, transparent 75%),
-                radial-gradient(ellipse 50% 45% at 75% 60%, rgba(148, 163, 184, 0.13) 0%, transparent 75%);
-            animation: mistDriftLeft 62s linear infinite alternate;
+                radial-gradient(ellipse 40% 50% at 25% 60%, rgba(255, 255, 255, 0.65) 0%, transparent 75%),
+                radial-gradient(ellipse 45% 50% at 75% 65%, rgba(254, 243, 199, 0.5) 0%, transparent 75%);
         }
 
         @keyframes mistDriftRight {
-            0% { transform: translate3d(-12%, 0, 0) scaleY(1); }
-            100% { transform: translate3d(12%, -3%, 0) scaleY(1.08); }
-        }
-        @keyframes mistDriftLeft {
-            0% { transform: translate3d(10%, 0, 0) scaleY(1.05); }
-            100% { transform: translate3d(-10%, 3%, 0) scaleY(0.95); }
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #020306;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1e293b;
-            border: 1px solid #94a3b8;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
+            0% { transform: translate3d(-8%, 0, 0); }
+            100% { transform: translate3d(8%, -2%, 0); }
         }
 
         /* =============================================================
-           INTERACTIVE 3D BLACK WEREWOLF SILHOUETTE LOGO (SHARP & ELEGANT)
+           CENTERED SIMPLE 3D LOGO WITH GENTLE HOVER & DAY/NIGHT MORPH
            ============================================================= */
         .logo-3d-stage {
-            perspective: 1200px;
-            transform-style: preserve-3d;
+            perspective: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .logo-3d-card {
             transform-style: preserve-3d;
-            transition: transform 0.16s ease-out, filter 0.35s ease, box-shadow 0.35s ease;
-            will-change: transform, filter;
+            transition: transform 0.25s ease-out, box-shadow 0.4s ease, border-color 0.4s ease, background 0.5s ease;
+            will-change: transform;
         }
 
         .logo-3d-stage:not(:hover) .logo-3d-card {
-            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), filter 0.45s ease, box-shadow 0.45s ease;
+            transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease, background 0.5s ease;
         }
 
-        /* Multi-depth 3D Parallax Layers inside Logo */
-        .logo-layer-bg {
-            transform: translateZ(-16px);
-            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .logo-layer-ring {
-            transform: translateZ(12px);
-            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .logo-layer-moon {
-            transform: translateZ(24px);
-            filter: drop-shadow(0 0 18px rgba(226, 232, 240, 0.45));
-            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
-        }
-        .logo-layer-wolf {
-            transform: translateZ(48px);
-            filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.96)) drop-shadow(0 0 8px rgba(226, 232, 240, 0.28));
-            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
-        }
-        .logo-layer-eye {
-            transform: translateZ(64px);
-            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+        .logo-emblem-svg {
+            transform: translateZ(14px);
+            transition: transform 0.35s ease, opacity 0.45s ease;
         }
 
-        /* Enhanced 3D Depth Expansion on Hover */
-        .logo-3d-stage:hover .logo-layer-moon {
-            transform: translateZ(34px) scale(1.04);
-            filter: drop-shadow(0 0 28px rgba(248, 250, 252, 0.78)) drop-shadow(0 0 46px rgba(148, 163, 184, 0.55));
-        }
-        .logo-3d-stage:hover .logo-layer-wolf {
-            transform: translateZ(62px) scale(1.07);
-            filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 1)) drop-shadow(0 0 14px rgba(248, 250, 252, 0.6));
-        }
-        .logo-3d-stage:hover .logo-layer-eye {
-            transform: translateZ(78px) scale(1.1);
-            filter: drop-shadow(0 0 14px #f8fafc) drop-shadow(0 0 24px #38bdf8);
+        .logo-3d-stage:hover .logo-emblem-svg {
+            transform: translateZ(20px) scale(1.02);
         }
 
-        /* Specular Glare Overlay on 3D Logo */
-        .logo-specular-glare {
-            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.42) 0%, rgba(226, 232, 240, 0.14) 38%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            mix-blend-mode: screen;
-            transform: translateZ(70px);
-        }
-        .logo-3d-stage:hover .logo-specular-glare {
-            opacity: 1;
-        }
-
-        /* Slow Celestial Rune Rotation */
-        .spin-slow-cw {
-            animation: spinCW 42s linear infinite;
-        }
-        .spin-slow-ccw {
-            animation: spinCCW 32s linear infinite;
-        }
-        .logo-3d-stage:hover .spin-slow-cw {
-            animation-duration: 14s;
-        }
-        .logo-3d-stage:hover .spin-slow-ccw {
-            animation-duration: 10s;
-        }
-        @keyframes spinCW {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        @keyframes spinCCW {
-            from { transform: rotate(360deg); }
-            to { transform: rotate(0deg); }
-        }
-
-        /* Moonlight Howl Click Shockwave Animation */
-        @keyframes howlShockwave {
+        /* Click Ripple Pulse */
+        @keyframes emblemPulse {
             0% {
-                transform: scale(0.88);
-                opacity: 0.95;
-                box-shadow: 0 0 0 0 rgba(248, 250, 252, 0.85), 0 0 30px 10px rgba(148, 163, 184, 0.75);
+                transform: scale(0.95);
+                opacity: 0.8;
             }
             100% {
-                transform: scale(1.85);
+                transform: scale(1.45);
                 opacity: 0;
-                box-shadow: 0 0 90px 45px rgba(248, 250, 252, 0), 0 0 120px 60px rgba(148, 163, 184, 0);
             }
         }
-        .howl-pulse-active {
-            animation: howlShockwave 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .pulse-ring-active {
+            animation: emblemPulse 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Pure 3D Card Perspective & Tilt */
+        /* =============================================================
+           3D CARD PERSPECTIVE & TRANSPARENT OUTER CORNER CLIPPING
+           ============================================================= */
         .card-perspective {
             perspective: 1100px;
         }
 
         .werewolf-card {
-            transition: transform 0.18s ease-out, box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
+            transition: transform 0.18s ease-out, box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, background-color 0.4s ease;
             transform-style: preserve-3d;
             will-change: transform, box-shadow;
+            border-radius: 1.15rem;
         }
 
         .card-perspective:not(:hover) .werewolf-card {
             transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.35s ease;
         }
 
-        /* Desktop Pure 3D Hover Glow & Elevation (No Text Overlay Blocking Image) */
         @media (hover: hover) {
             .card-perspective:hover {
-                z-index: 35;
+                z-index: 30;
             }
             .card-perspective[data-faction="good"]:hover .werewolf-card {
-                box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.95), 0 0 38px 5px var(--glow-good);
+                box-shadow: 0 22px 45px -12px rgba(0, 0, 0, 0.75), 0 0 28px 2px var(--glow-good);
                 border-color: #60a5fa;
             }
             .card-perspective[data-faction="werewolf"]:hover .werewolf-card {
-                box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.95), 0 0 40px 6px var(--glow-werewolf);
+                box-shadow: 0 22px 45px -12px rgba(0, 0, 0, 0.75), 0 0 28px 2px var(--glow-werewolf);
                 border-color: #f43f5e;
             }
             .card-perspective[data-faction="neutral"]:hover .werewolf-card {
-                box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.95), 0 0 38px 5px var(--glow-neutral);
+                box-shadow: 0 22px 45px -12px rgba(0, 0, 0, 0.75), 0 0 28px 2px var(--glow-neutral);
                 border-color: #c084fc;
             }
         }
 
-        /* Dynamic 3D Specular Glare Following Cursor */
         .card-dynamic-glare {
-            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.08) 35%, transparent 70%);
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.06) 38%, transparent 70%);
             opacity: 0;
             transition: opacity 0.3s ease;
             mix-blend-mode: overlay;
@@ -342,380 +224,366 @@
             opacity: 1;
         }
 
-        /* Modal 3D Card Preview */
-        .modal-card-3d-wrapper {
-            perspective: 1100px;
+        /* Seamless Transparent Card Artwork Container (Removes white corners/borders cleanly) */
+        .card-art-frame {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 1rem;
+            background: transparent;
         }
-        .modal-card-3d {
-            transition: transform 0.2s ease-out, box-shadow 0.35s ease;
-            transform-style: preserve-3d;
+
+        .card-art-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.95rem;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        /* Adaptive Theme Surfaces */
+        body.night-mode .theme-header {
+            background-color: rgba(4, 6, 12, 0.85);
+            border-color: rgba(51, 65, 85, 0.45);
+        }
+        body.day-mode .theme-header {
+            background-color: rgba(255, 255, 255, 0.88);
+            border-color: rgba(203, 213, 225, 0.8);
+        }
+
+        body.night-mode .theme-panel {
+            background-color: rgba(15, 17, 28, 0.92);
+            border-color: rgba(148, 163, 184, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
+        }
+        body.day-mode .theme-panel {
+            background-color: rgba(255, 255, 255, 0.92);
+            border-color: rgba(203, 213, 225, 0.9);
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        body.night-mode .theme-card-shell {
+            background: radial-gradient(circle at 50% 35%, rgba(30, 41, 59, 0.45), rgba(7, 9, 15, 0.95));
+        }
+        body.day-mode .theme-card-shell {
+            background: radial-gradient(circle at 50% 35%, rgba(241, 245, 249, 0.9), rgba(226, 232, 240, 0.95));
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #060911;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
         }
     </style>
 </head>
-<body class="min-h-screen font-sans selection:bg-slate-800 selection:text-amber-200 relative">
+<body class="night-mode min-h-screen font-sans selection:bg-amber-500/30 selection:text-amber-200 relative">
 
-    <!-- Pitch-Black Night Sky Canvas with Twinkling Stars & Shooting Stars -->
-    <canvas id="nightSkyCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+    <!-- Sky Canvas (Twinkling Stars in Night Mode / Warm Floating Sun-Motes in Day Mode) -->
+    <canvas id="skyCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
 
-    <!-- Atmospheric Moonlight Rays From Top Center -->
-    <div class="moonlight-beams">
-        <div class="moon-source-halo"></div>
-        <div class="moon-ray moon-ray-1"></div>
-        <div class="moon-ray moon-ray-2"></div>
-        <div class="moon-ray moon-ray-3"></div>
+    <!-- Soft Top Halo (Reduced Moonlight in Night Mode / Warm Sunlight in Day Mode) -->
+    <div class="ambient-beams">
+        <div class="top-light-halo"></div>
     </div>
 
-    <!-- Thin Drifting Mist Layers (Kabut Tipis Malam) -->
+    <!-- Subtle Mist Layer -->
     <div class="mist-container">
-        <div class="mist-layer mist-layer-2"></div>
         <div class="mist-layer mist-layer-1"></div>
     </div>
 
     <!-- Sticky Navigation Bar -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-[#030408]/85 border-b border-slate-700/40 shadow-lg shadow-black/80">
+    <header class="theme-header sticky top-0 z-50 backdrop-blur-md border-b transition-colors duration-500">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
-            <!-- Interactive 3D Elegant Centered Black Werewolf Silhouette Brand Logo -->
-            <a href="#" id="navLogoLink" class="logo-3d-stage flex items-center gap-3.5 group shrink-0 select-none focus:outline-none" title="Klik untuk efek Moonlight Pulse & tampilkan semua kartu">
-                <div id="navLogoCard" class="logo-3d-card relative w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-b from-[#0f1420] via-[#06080f] to-[#020205] p-1 border border-slate-400/40 group-hover:border-slate-200 shadow-[0_0_25px_-5px_rgba(226,232,240,0.35)] flex items-center justify-center">
-                    <!-- Shockwave Ring on Click -->
-                    <div class="logo-shockwave absolute inset-0 rounded-2xl pointer-events-none"></div>
-                    <!-- Dynamic 3D Specular Glare -->
-                    <div class="logo-specular-glare absolute inset-0 rounded-2xl pointer-events-none"></div>
-
-                    <!-- Layer 1: Symmetrical Silver Lunar Frame -->
-                    <div class="logo-layer-ring absolute inset-1 rounded-xl pointer-events-none flex items-center justify-center opacity-75 group-hover:opacity-100 transition-opacity">
-                        <svg class="w-full h-full spin-slow-cw" viewBox="0 0 100 100" fill="none">
-                            <circle cx="50" cy="50" r="46" stroke="url(#navSilverGrad)" stroke-width="1.2" stroke-dasharray="6 3 1.5 3" />
-                            <defs>
-                                <linearGradient id="navSilverGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-                                    <stop offset="0%" stop-color="#f8fafc" />
-                                    <stop offset="50%" stop-color="#64748b" />
-                                    <stop offset="100%" stop-color="#f8fafc" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-
-                    <!-- Layer 2: Centered Silver Full Moon Backlight -->
-                    <div class="logo-layer-moon absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <svg class="w-11 h-11 sm:w-12 sm:h-12" viewBox="0 0 120 120" fill="none">
-                            <defs>
-                                <radialGradient id="navMoonDisc" cx="50%" cy="46%" r="44%">
-                                    <stop offset="0%" stop-color="#ffffff" />
-                                    <stop offset="65%" stop-color="#e2e8f0" />
-                                    <stop offset="100%" stop-color="#94a3b8" />
-                                </radialGradient>
-                            </defs>
-                            <circle cx="60" cy="58" r="35" fill="url(#navMoonDisc)" opacity="0.92" />
-                        </svg>
-                    </div>
-
-                    <!-- Layer 3: Sharp Centered Jet-Black Werewolf Silhouette -->
-                    <div class="logo-layer-wolf absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <svg class="w-11 h-11 sm:w-12 sm:h-12" viewBox="0 0 120 120" fill="none">
-                            <!-- Symmetrical, Razor-Sharp Jet-Black Werewolf Crest Centered in Frame -->
-                            <path d="M60 18
-                                     L66 28 L77 14 L81 36
-                                     L93 32 L86 47
-                                     L98 54 L87 65
-                                     L94 74 L81 82
-                                     L84 95 L71 91
-                                     L60 105
-                                     L49 91 L36 95
-                                     L39 82 L26 74
-                                     L33 65 L22 54
-                                     L34 47 L27 32
-                                     L39 36 L43 14
-                                     L54 28 Z" 
-                                  fill="#040508" 
-                                  stroke="#e2e8f0" 
-                                  stroke-width="1.6" 
-                                  stroke-linejoin="miter" />
-                            <!-- Inner Geometric Dark Facet Lines for Sharpness -->
-                            <path d="M60 24 L60 86 M43 18 L52 44 M77 18 L68 44 M34 65 L52 76 L60 96 L68 76 L86 65" 
-                                  stroke="#334155" stroke-width="1" stroke-linecap="round" opacity="0.7" />
-                        </svg>
-                    </div>
-
-                    <!-- Layer 4: Sharp Piercing Silver-White Eyes -->
-                    <div class="logo-layer-eye absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <svg class="w-11 h-11 sm:w-12 sm:h-12" viewBox="0 0 120 120" fill="none">
-                            <polygon points="44,53 55,57 47,60" fill="#f8fafc" />
-                            <polygon points="76,53 65,57 73,60" fill="#f8fafc" />
-                            <polygon points="56,74 60,79 64,74 60,71" fill="#94a3b8" />
-                        </svg>
-                    </div>
+            
+            <!-- Brand Identity & Day/Night Quick Toggle -->
+            <button id="navLogoBtn" type="button" class="flex items-center gap-3.5 group shrink-0 select-none focus:outline-none text-left" title="Klik untuk mengganti Mode Malam (Werewolf) / Siang (Villager)">
+                <div id="navEmblemBox" class="relative w-12 h-12 rounded-2xl bg-[#0b0f19] border border-slate-500/40 flex items-center justify-center shadow-md transition-all duration-300 group-hover:border-amber-400/70">
+                    <!-- Night Werewolf Mini Icon -->
+                    <svg id="navWolfSvg" class="w-9 h-9 transition-all duration-500" viewBox="0 0 120 120" fill="none">
+                        <circle cx="60" cy="60" r="42" fill="#e2e8f0" opacity="0.9" />
+                        <!-- Classic Standard Werewolf Head Silhouette -->
+                        <path d="M60 22 C54 29 49 33 45 33 L34 17 L37 42 C31 47 27 54 25 62 L18 66 L26 73 C28 82 34 89 42 94 L39 103 L51 98 C54 100 57 101 60 101 C63 101 66 100 69 98 L81 103 L78 94 C86 89 92 82 94 73 L102 66 L95 62 C93 54 89 47 83 42 L86 17 L75 33 C71 33 66 29 60 22 Z" fill="#07090e" />
+                        <path d="M44 56 L54 60 L46 63 Z M76 56 L66 60 L74 63 Z" fill="#f8fafc" />
+                        <path d="M55 76 L60 73 L65 76 L60 82 Z" fill="#cbd5e1" />
+                    </svg>
+                    <!-- Day Villager Mini Icon (Hidden in Night Mode) -->
+                    <svg id="navVillagerSvg" class="w-9 h-9 hidden transition-all duration-500" viewBox="0 0 120 120" fill="none">
+                        <circle cx="60" cy="60" r="42" fill="#fde047" />
+                        <!-- Classic Villager / Townsperson Head Silhouette -->
+                        <path d="M60 24 C45 24 35 35 35 50 C35 59 39 67 45 72 C32 77 24 88 22 101 L98 101 C96 88 88 77 75 72 C81 67 85 59 85 50 C85 35 75 24 60 24 Z" fill="#1e293b" />
+                        <!-- Villager Hat / Rustic Cap Contour -->
+                        <path d="M28 45 Q60 32 92 45 Q78 22 60 22 Q42 22 28 45 Z" fill="#0f172a" />
+                    </svg>
                 </div>
 
                 <div>
                     <div class="flex items-center gap-2">
-                        <span class="font-display text-lg sm:text-2xl font-bold tracking-wider bg-gradient-to-r from-white via-slate-200 to-amber-300 bg-clip-text text-transparent block leading-none group-hover:from-amber-200 group-hover:to-white transition-all">
+                        <span id="navBrandTitle" class="font-display text-lg sm:text-2xl font-bold tracking-wider bg-gradient-to-r from-white via-slate-200 to-amber-300 bg-clip-text text-transparent block leading-none">
                             AUK WEREWOLF
                         </span>
-                        <span class="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-serif uppercase tracking-widest bg-slate-900/90 text-slate-200 border border-slate-500/40">
-                            Nocturnal Edition
+                        <span id="modeStatusPill" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-serif uppercase tracking-widest bg-slate-900 text-amber-300 border border-amber-400/30">
+                            <i class="fa-solid fa-moon text-[9px]"></i> Malam
                         </span>
                     </div>
-                    <span class="font-serif text-[10px] sm:text-xs tracking-[0.2em] text-slate-400 group-hover:text-slate-200 transition-colors uppercase block mt-1">
-                        Koleksi Resmi Kartu Peran AUK Werewolf
+                    <span id="navBrandSub" class="font-serif text-[10px] sm:text-xs tracking-[0.16em] text-slate-400 uppercase block mt-1">
+                        Klik Logo untuk Mode Siang / Malam
                     </span>
                 </div>
-            </a>
+            </button>
 
             <!-- Live Faction Counters -->
-            <div class="hidden lg:flex items-center gap-3 bg-slate-950/90 border border-slate-800 px-4 py-1.5 rounded-full text-xs text-slate-300">
+            <div id="navStatsPill" class="hidden lg:flex items-center gap-3 bg-slate-950/80 border border-slate-800 px-4 py-1.5 rounded-full text-xs text-slate-300 transition-colors">
                 <span class="flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-                    Good Side: <strong id="navCountGood" class="text-blue-300">0</strong>
+                    <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                    Good Side: <strong id="navCountGood" class="text-blue-400">0</strong>
                 </span>
-                <span class="text-slate-700">|</span>
+                <span class="opacity-40">|</span>
                 <span class="flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                    <span class="w-2 h-2 rounded-full bg-rose-500"></span>
                     Bad Side: <strong id="navCountWolf" class="text-rose-400">0</strong>
                 </span>
-                <span class="text-slate-700">|</span>
+                <span class="opacity-40">|</span>
                 <span class="flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
-                    Neutral Side: <strong id="navCountNeutral" class="text-purple-300">0</strong>
+                    <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                    Neutral Side: <strong id="navCountNeutral" class="text-purple-400">0</strong>
                 </span>
             </div>
 
-            <!-- Action Button: Random Destiny -->
+            <!-- Action Buttons: Overview Modal & Random Role -->
             <div class="flex items-center gap-2">
+                <button id="openOverviewModalBtn" 
+                        class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-600/50 text-slate-100 text-xs sm:text-sm font-serif font-semibold tracking-wide transition-all flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-table-cells text-sky-400"></i>
+                    <span class="hidden sm:inline">Grid Overview</span>
+                </button>
                 <button id="randomRoleBtn" 
-                        class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-slate-800/80 to-slate-900/90 hover:from-slate-700 hover:to-slate-800 border border-slate-500/50 text-slate-100 text-xs sm:text-sm font-serif font-semibold tracking-wide transition-all flex items-center gap-2 shadow-md hover:shadow-slate-500/20">
-                    <i class="fa-solid fa-dice-d20 text-amber-300"></i>
-                    <span>Kocok Takdir Acak</span>
+                        class="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-rose-700 hover:from-amber-500 hover:to-rose-600 border border-amber-300/40 text-white text-xs sm:text-sm font-serif font-semibold tracking-wide transition-all flex items-center gap-2 shadow-md">
+                    <i class="fa-solid fa-dice-d20"></i>
+                    <span class="hidden sm:inline">Takdir Acak</span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- Notification Toast -->
-    <div id="toastBanner" class="fixed bottom-5 right-5 z-50 hidden max-w-sm bg-slate-950/95 border border-slate-500/50 text-slate-100 px-4 py-3 rounded-2xl shadow-2xl backdrop-blur-md items-center gap-3 text-xs sm:text-sm">
-        <i class="fa-solid fa-moon text-amber-300 text-base"></i>
-        <span id="toastMessage">Menampilkan seluruh koleksi kartu AUK Werewolf.</span>
+    <div id="toastBanner" class="fixed bottom-5 right-5 z-50 hidden max-w-sm bg-slate-950/95 border border-amber-400/40 text-slate-100 px-4 py-3 rounded-2xl shadow-2xl backdrop-blur-md items-center gap-3 text-xs sm:text-sm">
+        <i id="toastIcon" class="fa-solid fa-moon text-amber-300 text-base"></i>
+        <span id="toastMessage">Mode Malam Aktif</span>
     </div>
 
-    <!-- Hero Section -->
-    <section class="relative pt-8 pb-8 sm:pt-12 sm:pb-12 overflow-hidden z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative flex flex-col items-center text-center">
+    <!-- Hero Section (Strictly Centered Logo, Clean Title, Polished Description) -->
+    <section class="relative pt-8 pb-7 sm:pt-12 sm:pb-10 overflow-hidden z-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center">
             
-            <!-- Interactive 3D Elegant Black Werewolf Silhouette Hero Emblem (Centered, Sharp & Neat) -->
-            <div id="heroLogoStage" class="logo-3d-stage relative mb-6 sm:mb-8 cursor-pointer select-none group" title="Arahkan kursor untuk efek 3D Paralaks • Klik untuk memicu Moonlight Pulse">
-                
-                <!-- Ambient Outer Silver Moonlight & Night Aura -->
-                <div class="absolute -inset-8 rounded-full bg-gradient-to-b from-slate-200/25 via-sky-400/10 to-transparent blur-2xl group-hover:scale-110 group-hover:from-slate-100/40 group-hover:via-sky-300/20 transition-all duration-500 pointer-events-none"></div>
-
-                <!-- 3D Tilt Container -->
-                <div id="heroLogoCard" class="logo-3d-card relative w-40 h-40 sm:w-48 sm:h-48 rounded-full bg-gradient-to-b from-[#111827] via-[#060911] to-[#020306] border-2 border-slate-400/50 group-hover:border-white shadow-[0_0_65px_-10px_rgba(226,232,240,0.48)] flex items-center justify-center">
+            <!-- Strictly Centered Interactive Logo (Werewolf in Night Mode <-> Villager in Day Mode) -->
+            <div class="w-full flex justify-center items-center mb-6">
+                <div id="heroLogoStage" class="logo-3d-stage relative cursor-pointer select-none group" title="Klik logo untuk beralih antara Malam (Werewolf) & Siang (Villager)">
                     
-                    <!-- Shockwave Ring on Click -->
-                    <div class="logo-shockwave absolute inset-0 rounded-full pointer-events-none"></div>
+                    <!-- Soft Understated Glow Behind Emblem -->
+                    <div id="heroLogoGlow" class="absolute -inset-4 rounded-full bg-slate-300/10 blur-xl transition-all duration-500 pointer-events-none"></div>
 
-                    <!-- Dynamic 3D Specular Glare Overlay -->
-                    <div class="logo-specular-glare absolute inset-0 rounded-full pointer-events-none z-30"></div>
+                    <!-- Subtle 3D Emblem Container -->
+                    <div id="heroLogoCard" class="logo-3d-card relative w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-b from-[#111622] to-[#05070c] border-2 border-slate-400/40 shadow-[0_10px_35px_rgba(0,0,0,0.65)] flex items-center justify-center mx-auto">
+                        
+                        <!-- Click Pulse Ring -->
+                        <div id="heroPulseRing" class=" absolute inset-0 rounded-full border-2 border-amber-300/60 opacity-0 pointer-events-none"></div>
 
-                    <!-- Depth Layer 0: Deep Pitch-Black Night Core (translateZ -16px) -->
-                    <div class="logo-layer-bg absolute inset-2 rounded-full overflow-hidden pointer-events-none">
-                        <div class="w-full h-full bg-[radial-gradient(circle_at_50%_38%,rgba(226,232,240,0.22),rgba(15,23,42,0.85)_68%,#020306_100%)]"></div>
-                    </div>
-
-                    <!-- Depth Layer 1: Symmetrical Sacred Geometry & Lunar Rings (translateZ +12px) -->
-                    <div class="logo-layer-ring absolute inset-1.5 rounded-full pointer-events-none flex items-center justify-center">
-                        <svg class="w-full h-full spin-slow-cw opacity-80 group-hover:opacity-100 transition-opacity" viewBox="0 0 200 200" fill="none">
-                            <circle cx="100" cy="100" r="94" stroke="url(#heroSilverRing)" stroke-width="1.4" stroke-dasharray="12 5 2 5" />
-                            <circle cx="100" cy="100" r="86" stroke="#cbd5e1" stroke-width="0.7" stroke-dasharray="3 6" opacity="0.6" />
-                            <!-- Symmetrical North/South/East/West Star Pointers -->
-                            <polygon points="100,2 103,10 100,18 97,10" fill="#f8fafc" />
-                            <polygon points="100,182 103,190 100,198 97,190" fill="#cbd5e1" />
-                            <polygon points="2,100 10,97 18,100 10,103" fill="#cbd5e1" />
-                            <polygon points="182,100 190,97 198,100 190,103" fill="#cbd5e1" />
+                        <!-- NIGHT MODE LOGO: Classic Standard Werewolf Head Silhouette -->
+                        <svg id="heroWolfLogo" class="logo-emblem-svg w-32 h-32 sm:w-40 sm:h-40 block" viewBox="0 0 200 200" fill="none">
+                            <!-- Simple Minimalist Outer Ring -->
+                            <circle cx="100" cy="100" r="90" stroke="#94a3b8" stroke-width="1" stroke-opacity="0.35" />
+                            
+                            <!-- Soft Understated Full Moon Disc -->
+                            <circle cx="100" cy="100" r="66" fill="url(#simpleMoonGrad)" />
                             <defs>
-                                <linearGradient id="heroSilverRing" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
-                                    <stop offset="0%" stop-color="#ffffff" />
-                                    <stop offset="50%" stop-color="#64748b" />
-                                    <stop offset="100%" stop-color="#ffffff" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                        <svg class="w-4/5 h-4/5 absolute spin-slow-ccw opacity-55 group-hover:opacity-90 transition-opacity" viewBox="0 0 160 160" fill="none">
-                            <polygon points="80,8 148,125 12,125" stroke="#94a3b8" stroke-width="0.9" stroke-dasharray="5 5" fill="none" opacity="0.5" />
-                            <polygon points="80,152 148,35 12,35" stroke="#94a3b8" stroke-width="0.9" stroke-dasharray="5 5" fill="none" opacity="0.5" />
-                            <circle cx="80" cy="80" r="71" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="18 8 3 8" />
-                        </svg>
-                    </div>
-
-                    <!-- Depth Layer 2: Luminous Silver Full Moon Backdrop Centered Behind Wolf (translateZ +24px) -->
-                    <div class="logo-layer-moon absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <svg class="w-36 h-36 sm:w-44 sm:h-44" viewBox="0 0 200 200" fill="none">
-                            <defs>
-                                <radialGradient id="heroMoonHalo" cx="50%" cy="46%" r="42%">
-                                    <stop offset="0%" stop-color="#ffffff" />
-                                    <stop offset="58%" stop-color="#e2e8f0" />
-                                    <stop offset="88%" stop-color="#94a3b8" />
-                                    <stop offset="100%" stop-color="#475569" />
+                                <radialGradient id="simpleMoonGrad" cx="50%" cy="42%" r="52%">
+                                    <stop offset="0%" stop-color="#f8fafc" />
+                                    <stop offset="70%" stop-color="#cbd5e1" />
+                                    <stop offset="100%" stop-color="#94a3b8" />
                                 </radialGradient>
                             </defs>
-                            <!-- Radiant Full Moon Disc framing the black wolf silhouette -->
-                            <circle cx="100" cy="96" r="58" fill="url(#heroMoonHalo)" stroke="#f8fafc" stroke-width="1.5" opacity="0.95" />
-                            <!-- Subtle Moon Crater Texture -->
-                            <circle cx="72" cy="76" r="7" fill="#94a3b8" opacity="0.28" />
-                            <circle cx="128" cy="72" r="5.5" fill="#94a3b8" opacity="0.25" />
-                            <circle cx="64" cy="108" r="4.5" fill="#94a3b8" opacity="0.25" />
-                            <circle cx="134" cy="112" r="8" fill="#94a3b8" opacity="0.24" />
-                        </svg>
-                    </div>
 
-                    <!-- Depth Layer 3: Razor-Sharp Symmetrical Jet-Black Werewolf Head Silhouette (translateZ +48px) -->
-                    <div class="logo-layer-wolf absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <svg class="w-36 h-36 sm:w-44 sm:h-44" viewBox="0 0 200 200" fill="none">
+                            <!-- Classic Organic Werewolf Head Silhouette (Centered, Clean, Realistic Wolf Proportions) -->
+                            <path d="M100 32
+                                     C91 44, 83 50, 76 52
+                                     L56 24
+                                     C53 38, 53 53, 58 66
+                                     C47 74, 39 85, 34 98
+                                     L24 103
+                                     L37 113
+                                     C36 122, 41 131, 50 137
+                                     L42 149
+                                     L64 146
+                                     C71 154, 80 161, 88 166
+                                     L100 174
+                                     L112 166
+                                     C120 161, 129 154, 136 146
+                                     L158 149
+                                     L150 137
+                                     C159 131, 164 122, 163 113
+                                     L176 103
+                                     L166 98
+                                     C161 85, 153 74, 142 66
+                                     C147 53, 147 38, 144 24
+                                     L124 52
+                                     C117 50, 109 44, 100 32 Z"
+                                  fill="#06080e"
+                                  stroke="#1e293b"
+                                  stroke-width="1.5"
+                                  stroke-linejoin="round" />
+
+                            <!-- Inner Ear Contours -->
+                            <path d="M60 36 L59 59 L72 54 Z" fill="#111827" />
+                            <path d="M140 36 L141 59 L128 54 Z" fill="#111827" />
+
+                            <!-- Classic Wolf Eyes -->
+                            <path d="M69 92 Q79 89 87 96 Q77 99 69 92 Z" fill="#f8fafc" />
+                            <path d="M131 92 Q121 89 113 96 Q123 99 131 92 Z" fill="#f8fafc" />
+
+                            <!-- Classic Wolf Snout Bridge & Nose Silhouette -->
+                            <path d="M100 68 L95 114 L100 119 L105 114 Z" fill="#111827" opacity="0.65" />
+                            <path d="M90 124 Q100 119 110 124 L105 134 Q100 137 95 134 Z" fill="#e2e8f0" />
+                            <!-- Subtle Lower Jaw Fur Contour -->
+                            <path d="M78 143 Q100 154 122 143" stroke="#cbd5e1" stroke-width="1.6" stroke-linecap="round" opacity="0.7" />
+                        </svg>
+
+                        <!-- DAY MODE LOGO: Classic Villager (Warga Desa) Head Silhouette -->
+                        <svg id="heroVillagerLogo" class="logo-emblem-svg w-32 h-32 sm:w-40 sm:h-40 hidden" viewBox="0 0 200 200" fill="none">
+                            <!-- Warm Sun Rays Ring -->
+                            <circle cx="100" cy="100" r="90" stroke="#f59e0b" stroke-width="1.2" stroke-dasharray="6 6" stroke-opacity="0.55" />
+                            
+                            <!-- Bright Golden Morning Sun Disc -->
+                            <circle cx="100" cy="100" r="68" fill="url(#daySunGrad)" />
                             <defs>
-                                <linearGradient id="heroBlackWolfFill" x1="100" y1="22" x2="100" y2="178" gradientUnits="userSpaceOnUse">
-                                    <stop offset="0%" stop-color="#0b0e17" />
-                                    <stop offset="50%" stop-color="#040509" />
-                                    <stop offset="100%" stop-color="#010103" />
-                                </linearGradient>
-                                <linearGradient id="heroSilverRim" x1="40" y1="20" x2="160" y2="175" gradientUnits="userSpaceOnUse">
-                                    <stop offset="0%" stop-color="#ffffff" />
-                                    <stop offset="50%" stop-color="#cbd5e1" />
-                                    <stop offset="100%" stop-color="#94a3b8" />
-                                </linearGradient>
+                                <radialGradient id="daySunGrad" cx="50%" cy="40%" r="55%">
+                                    <stop offset="0%" stop-color="#fef08a" />
+                                    <stop offset="65%" stop-color="#facc15" />
+                                    <stop offset="100%" stop-color="#f59e0b" />
+                                </radialGradient>
                             </defs>
 
-                            <!-- Main Centered Regal Jet-Black Werewolf Head Crest -->
-                            <path d="M100 32
-                                     L110 48 L128 24 L135 61
-                                     L154 53 L143 78
-                                     L164 89 L145 107
-                                     L157 122 L135 135
-                                     L140 156 L118 148
-                                     L100 174
-                                     L82 148 L60 156
-                                     L65 135 L43 122
-                                     L55 107 L36 89
-                                     L57 78 L46 53
-                                     L65 61 L72 24
-                                     L90 48 Z" 
-                                  fill="url(#heroBlackWolfFill)" 
-                                  stroke="url(#heroSilverRim)" 
-                                  stroke-width="2.2" 
-                                  stroke-linejoin="miter" />
+                            <!-- Classic Medieval Villager Head & Hood/Hat Silhouette (Centered) -->
+                            <!-- Shoulders / Rustic Tunic Collar -->
+                            <path d="M46 154 C52 130, 72 120, 100 120 C128 120, 148 130, 154 154 C138 164, 120 168, 100 168 C80 168, 62 164, 46 154 Z"
+                                  fill="#1e293b" />
+                            <!-- V-Neck Tunic Detail -->
+                            <path d="M88 122 L100 142 L112 122" stroke="#fef08a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 
-                            <!-- Sharp Sculpted Inner Ear & Facial Armor Contours -->
-                            <polygon points="74,34 69,62 85,53" fill="#111827" stroke="#64748b" stroke-width="0.9" />
-                            <polygon points="126,34 131,62 115,53" fill="#111827" stroke="#64748b" stroke-width="0.9" />
+                            <!-- Head & Clean Face Silhouette -->
+                            <path d="M100 54 C81 54, 69 68, 69 87 C69 105, 82 118, 100 118 C118 118, 131 105, 131 87 C131 68, 119 54, 100 54 Z"
+                                  fill="#0f172a" />
 
-                            <!-- Crisp Geometric Silver-Grey Highlight Lines Giving 3D Sculpted Elegance -->
-                            <path d="M100 38 L100 132" stroke="#475569" stroke-width="1.3" stroke-linecap="round" opacity="0.85" />
-                            <path d="M88 52 L100 74 L112 52" stroke="#64748b" stroke-width="1.2" stroke-linejoin="miter" opacity="0.75" />
-                            <path d="M55 78 L80 94 L92 122 L100 134 L108 122 L120 94 L145 78" stroke="#64748b" stroke-width="1.2" stroke-linejoin="miter" opacity="0.7" />
-                            <path d="M65 135 L86 126 L100 146 L114 126 L135 135" stroke="#475569" stroke-width="1.2" stroke-linejoin="miter" opacity="0.75" />
+                            <!-- Classic Villager Peasant Cap / Fedora-Hood Brim -->
+                            <path d="M52 72 Q100 52 148 72 C142 50, 124 36, 100 36 C76 36, 58 50, 52 72 Z"
+                                  fill="#1e293b" stroke="#fef08a" stroke-width="1.5" />
+                            <path d="M46 73 Q100 57 154 73" stroke="#fef08a" stroke-width="2.5" stroke-linecap="round" />
 
-                            <!-- Sharp Lower Fang Accents -->
-                            <polygon points="85,140 89,151 94,143" fill="#e2e8f0" />
-                            <polygon points="115,140 111,151 106,143" fill="#e2e8f0" />
-                        </svg>
-                    </div>
-
-                    <!-- Depth Layer 4: Piercing Moonlight Eyes & Snout Crest (translateZ +64px) -->
-                    <div class="logo-layer-eye absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <svg class="w-36 h-36 sm:w-44 sm:h-44" viewBox="0 0 200 200" fill="none">
-                            <!-- Left & Right Fierce Angular Eyes -->
-                            <polygon points="71,88 91,95 77,100" fill="#ffffff" />
-                            <polygon points="74,90 88,95 78,98" fill="#bae6fd" />
-                            <polygon points="129,88 109,95 123,100" fill="#ffffff" />
-                            <polygon points="126,90 112,95 122,98" fill="#bae6fd" />
-                            <!-- Sharp Snout Nose Shield -->
-                            <polygon points="93,121 100,117 107,121 100,130" fill="#cbd5e1" />
-                            <!-- Forehead Diamond Star -->
-                            <polygon points="100,56 103,63 100,70 97,63" fill="#f8fafc" />
+                            <!-- Gentle Friendly Eyes & Villager Features -->
+                            <circle cx="88" cy="86" r="3" fill="#fef08a" />
+                            <circle cx="112" cy="86" r="3" fill="#fef08a" />
+                            <path d="M92 101 Q100 106 108 101" stroke="#fef08a" stroke-width="2" stroke-linecap="round" />
                         </svg>
                     </div>
                 </div>
-
-                <!-- Interactive 3D Badge Caption Below Emblem -->
-                <div class="mt-3.5 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-slate-950/90 border border-slate-500/40 text-[10px] font-serif text-slate-200 uppercase tracking-widest shadow-md group-hover:border-white group-hover:text-white transition-all">
-                    <i class="fa-solid fa-moon text-sky-300 animate-pulse"></i>
-                    <span>Black Wolf Crest 3D • Arahkan Kursor & Klik</span>
-                </div>
             </div>
 
-            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/80 border border-slate-600/40 text-slate-200 text-xs font-medium tracking-widest uppercase mb-3">
-                <i class="fa-solid fa-star text-amber-300"></i> Koleksi Resmi Kartu Peran AUK Werewolf
-            </div>
-
-            <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-4xl leading-tight drop-shadow-[0_4px_24px_rgba(255,255,255,0.18)]">
-                AUK <span class="bg-gradient-to-r from-slate-100 via-amber-200 to-slate-300 bg-clip-text text-transparent">WEREWOLF</span>
+            <!-- Main Centered Title -->
+            <h1 id="heroMainTitle" class="font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-3xl mx-auto leading-tight transition-colors duration-500">
+                AUK <span class="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent">WEREWOLF</span>
             </h1>
 
-            <p class="mt-3 max-w-2xl text-xs sm:text-base text-slate-300 leading-relaxed">
-                Galeri lengkap kartu peran orisinal <strong>AUK Werewolf</strong> di bawah sinar rembulan malam yang terbagi dalam 
-                <span class="text-blue-400 font-semibold">Good Side</span>, 
-                <span class="text-rose-400 font-semibold">Bad Side</span>, dan 
-                <span class="text-purple-400 font-semibold">Neutral Side</span>. 
-                <span class="text-amber-300 font-semibold">Arahkan kursor (Hover)</span> untuk efek kartu 3D interaktif, dan <span class="text-amber-300 font-semibold underline decoration-amber-500/60 underline-offset-4">Klik Kartu</span> untuk membuka deskripsi serta penjelasan lengkapnya.
+            <!-- Decorative Divider -->
+            <div class="w-28 h-0.5 bg-gradient-to-r from-transparent via-amber-400/70 to-transparent my-4 mx-auto"></div>
+
+            <!-- Neat, Atmospheric Card Game Description -->
+            <p id="heroMainDesc" class="max-w-2xl mx-auto text-xs sm:text-base text-slate-300 leading-relaxed font-normal transition-colors duration-500">
+                Saat malam tiba dan kabut menyelimuti desa, kepercayaan diuji di balik setiap kartu peran. Kenali kekuatan unik dari aliansi 
+                <span class="text-blue-400 font-semibold">Good Side</span>, ancaman tersembunyi 
+                <span class="text-rose-400 font-semibold">Bad Side</span>, hingga agenda rahasia 
+                <span class="text-purple-400 font-semibold">Neutral Side</span> dalam permainan deduksi, strategi, dan manipulasi <strong>AUK Werewolf</strong>.
             </p>
         </div>
     </section>
 
-    <!-- Controls: Faction Filters & Search Bar -->
-    <section class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-9">
-        <div class="bg-[#10101a]/95 backdrop-blur-xl border border-amber-500/25 rounded-2xl p-4 sm:p-5 shadow-2xl shadow-black/80">
-            <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+    <!-- Controls: Faction Filters, Search Bar & Grid Overview Switcher -->
+    <section class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <div class="theme-panel backdrop-blur-xl border rounded-2xl p-4 sm:p-5 transition-colors duration-500">
+            <div class="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-4">
                 
                 <!-- Faction Filter Tabs -->
                 <div class="flex flex-wrap items-center gap-2" id="factionTabs">
-                    <button data-filter="all" class="filter-btn px-4 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2 bg-gradient-to-r from-amber-600 to-rose-700 text-white shadow-lg shadow-rose-950/60 border border-amber-300/50">
+                    <button data-filter="all" class="filter-btn px-4 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2 bg-gradient-to-r from-amber-600 to-rose-700 text-white shadow-lg border border-amber-300/50">
                         <i class="fa-solid fa-layer-group"></i>
                         <span>Semua Kartu</span>
                         <span class="ml-1 px-2 py-0.5 text-[11px] rounded-full bg-black/40 text-amber-200" id="tabCountAll">0</span>
                     </button>
 
-                    <button data-filter="good" class="filter-btn px-4 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2 bg-slate-900/90 hover:bg-blue-950/60 text-slate-300 hover:text-blue-200 border border-slate-700/80 hover:border-blue-500/50">
+                    <button data-filter="good" class="filter-btn px-4 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2 bg-slate-900/90 hover:bg-blue-950/70 text-slate-200 border border-slate-700/80">
                         <i class="fa-solid fa-shield-heart text-blue-400"></i>
                         <span>Good Side</span>
                         <span class="ml-1 px-2 py-0.5 text-[11px] rounded-full bg-blue-950 text-blue-300 border border-blue-500/30" id="tabCountGood">0</span>
                     </button>
 
-                    <button data-filter="werewolf" class="filter-btn px-4 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2 bg-slate-900/90 hover:bg-rose-950/60 text-slate-300 hover:text-rose-200 border border-slate-700/80 hover:border-rose-500/50">
+                    <button data-filter="werewolf" class="filter-btn px-4 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2 bg-slate-900/90 hover:bg-rose-950/70 text-slate-200 border border-slate-700/80">
                         <i class="fa-solid fa-paw text-rose-500"></i>
                         <span>Bad Side</span>
                         <span class="ml-1 px-2 py-0.5 text-[11px] rounded-full bg-rose-950 text-rose-300 border border-rose-500/30" id="tabCountWolf">0</span>
                     </button>
 
-                    <button data-filter="neutral" class="filter-btn px-4 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2 bg-slate-900/90 hover:bg-purple-950/60 text-slate-300 hover:text-purple-200 border border-slate-700/80 hover:border-purple-500/50">
+                    <button data-filter="neutral" class="filter-btn px-4 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2 bg-slate-900/90 hover:bg-purple-950/70 text-slate-200 border border-slate-700/80">
                         <i class="fa-solid fa-masks-theater text-purple-400"></i>
                         <span>Neutral Side</span>
                         <span class="ml-1 px-2 py-0.5 text-[11px] rounded-full bg-purple-950 text-purple-300 border border-purple-500/30" id="tabCountNeutral">0</span>
                     </button>
                 </div>
 
-                <!-- Search Input -->
-                <div class="flex items-center gap-2.5">
-                    <div class="relative flex-1 sm:w-72">
+                <!-- Right Controls: Search Input + Grid Overview Layout Switcher + Counter -->
+                <div class="flex flex-wrap sm:flex-nowrap items-center justify-between xl:justify-end gap-3">
+                    <!-- Search Input -->
+                    <div class="relative flex-1 sm:w-64">
                         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                         <input 
                             type="text" 
                             id="searchInput" 
                             placeholder="Cari nama peran atau kekuatan..." 
-                            class="w-full pl-10 pr-9 py-2.5 bg-slate-950/90 border border-slate-700/80 focus:border-amber-500 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all"
+                            class="w-full pl-10 pr-9 py-2 bg-slate-950/90 border border-slate-700/80 focus:border-amber-500 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none transition-all"
                         >
                         <button id="clearSearchBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
                             <i class="fa-solid fa-circle-xmark"></i>
                         </button>
                     </div>
-                </div>
-            </div>
 
-            <!-- Live Status Bar -->
-            <div class="mt-4 pt-3 border-t border-slate-800/90 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-400">
-                <div class="flex items-center gap-2">
-                    <span class="inline-block w-2 h-2 rounded-full bg-amber-400 animate-ping shrink-0"></span>
-                    <span id="hudStatusText" class="text-slate-300 line-clamp-1">Gerakkan kursor di atas kartu untuk melihat efek 3D, lalu klik kartu untuk membaca penjelasan lengkap.</span>
-                </div>
-                <div class="font-serif uppercase tracking-wider text-amber-400/90 font-semibold shrink-0">
-                    Menampilkan <span id="visibleCardCount">0</span> dari <span id="totalCardCount">0</span> Kartu
+                    <!-- Grid Density / Overview Mode Switcher -->
+                    <div class="flex items-center bg-slate-950/90 p-1 rounded-xl border border-slate-700/80 shrink-0" role="group" aria-label="Pilih Tampilan Grid">
+                        <button type="button" data-grid="standard" class="grid-mode-btn px-2.5 py-1.5 rounded-lg text-xs font-serif font-semibold transition-all bg-amber-500 text-slate-950 flex items-center gap-1.5" title="Tampilan Kartu Standar (4 Kolom)">
+                            <i class="fa-solid fa-grip"></i>
+                            <span class="hidden md:inline">Standar</span>
+                        </button>
+                        <button type="button" data-grid="overview" class="grid-mode-btn px-2.5 py-1.5 rounded-lg text-xs font-serif font-semibold transition-all text-slate-300 hover:text-white flex items-center gap-1.5" title="Grid Overview Padat (7 Kolom)">
+                            <i class="fa-solid fa-table-cells"></i>
+                            <span class="hidden md:inline">Overview</span>
+                        </button>
+                        <button type="button" data-grid="list" class="grid-mode-btn px-2.5 py-1.5 rounded-lg text-xs font-serif font-semibold transition-all text-slate-300 hover:text-white flex items-center gap-1.5" title="Daftar Ringkas & Deskripsi">
+                            <i class="fa-solid fa-list-ul"></i>
+                            <span class="hidden md:inline">Ringkas</span>
+                        </button>
+                    </div>
+
+                    <!-- Card Count Badge -->
+                    <div class="font-serif text-xs uppercase tracking-wider text-amber-400 font-bold shrink-0 px-2">
+                        <span id="visibleCardCount">0</span> / <span id="totalCardCount">0</span> Kartu
+                    </div>
                 </div>
             </div>
         </div>
@@ -734,37 +602,57 @@
             <div class="w-20 h-20 rounded-full bg-rose-950/40 border border-rose-500/30 flex items-center justify-center mx-auto mb-4 text-rose-400 text-3xl">
                 <i class="fa-solid fa-ghost"></i>
             </div>
-            <h3 class="font-serif text-xl font-bold text-white mb-2">Kartu Tidak Ditemukan</h3>
+            <h3 class="font-serif text-xl font-bold mb-2">Kartu Tidak Ditemukan</h3>
             <p class="text-sm text-slate-400 mb-6">Tidak ada kartu peran AUK Werewolf yang cocok dengan kata kunci atau filter kategori tersebut.</p>
-            <button id="resetSearchBtn" class="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-black font-serif font-bold text-xs uppercase tracking-wider transition-all">
+            <button id="resetSearchBtn" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-serif font-bold text-xs uppercase tracking-wider transition-all">
                 Tampilkan Semua Kartu
             </button>
         </div>
     </main>
 
-    <!-- Full Card Inspector & Complete Explanation Modal (Triggered on Click) -->
+    <!-- Full All-Faction Grid Overview Modal (Quick Reference Matrix) -->
+    <div id="overviewModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300">
+        <div id="overviewModalContent" class="relative w-full max-w-6xl bg-[#0e111a] border border-slate-700 rounded-3xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col">
+            <!-- Header -->
+            <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+                <div>
+                    <h2 class="font-display text-lg sm:text-2xl font-bold text-white flex items-center gap-2.5">
+                        <i class="fa-solid fa-table-cells text-amber-400"></i>
+                        <span>Grid Overview — Seluruh Peran AUK Werewolf</span>
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Ringkasan cepat seluruh kartu berdasarkan faksi. Klik kartu mana saja untuk melihat detail lengkapnya.</p>
+                </div>
+                <button id="closeOverviewModalBtn" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-rose-600 text-slate-200 hover:text-white flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <!-- Matrix Content -->
+            <div id="overviewMatrixBody" class="p-5 sm:p-6 overflow-y-auto space-y-8">
+                <!-- Populated dynamically by faction -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Card Inspector & Complete Explanation Modal (Triggered on Card Click) -->
     <div id="cardModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300">
-        <div id="cardModalContent" class="relative w-full max-w-5xl bg-[#10101a] border-2 border-amber-500/40 rounded-3xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 max-h-[92vh] flex flex-col md:flex-row">
+        <div id="cardModalContent" class="relative w-full max-w-5xl bg-[#10121d] border-2 border-amber-500/40 rounded-3xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 max-h-[92vh] flex flex-col md:flex-row">
             
             <!-- Close Button -->
             <button id="closeModalBtn" class="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/80 hover:bg-rose-700 text-slate-200 hover:text-white border border-slate-600 flex items-center justify-center transition-all shadow-lg">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
 
-            <!-- Left Column: Full Uncropped 3D Card Visual Preview -->
+            <!-- Left Column: Full Transparent-Processed 3D Card Visual Preview -->
             <div id="modalVisualPane" class="w-full md:w-5/12 p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800/90">
-                <div id="modalCard3DWrapper" class="modal-card-3d-wrapper w-full max-w-[290px] sm:max-w-[320px]">
-                    <div id="modalCardPreview" class="modal-card-3d w-full aspect-[2.5/3.6] rounded-2xl border-2 overflow-hidden relative shadow-2xl bg-[#07070c] flex items-center justify-center">
-                        <!-- Populated dynamically with full card image -->
+                <div id="modalCard3DWrapper" class="card-perspective w-full max-w-[280px] sm:max-w-[310px]">
+                    <div id="modalCardPreview" class="werewolf-card w-full aspect-[2.5/3.6] rounded-2xl border-2 overflow-hidden relative shadow-2xl bg-transparent flex items-center justify-center">
+                        <!-- Populated dynamically -->
                     </div>
                 </div>
-                <p class="mt-3 text-[11px] font-serif text-slate-400 tracking-wider uppercase flex items-center gap-1.5">
-                    <i class="fa-solid fa-cube text-amber-400"></i> Gerakkan kursor pada kartu untuk efek 3D
-                </p>
             </div>
 
             <!-- Right Column: Complete Role Description & Deep Mechanical Explanation -->
-            <div class="w-full md:w-7/12 p-6 sm:p-8 overflow-y-auto space-y-5">
+            <div class="w-full md:w-7/12 p-6 sm:p-8 overflow-y-auto space-y-5 text-slate-100">
                 <div>
                     <div class="flex flex-wrap items-center gap-2 mb-2.5">
                         <span id="modalFactionBadge" class="px-3 py-1 rounded-full text-xs font-serif font-bold uppercase tracking-wider"></span>
@@ -818,22 +706,14 @@
     </div>
 
     <!-- Footer -->
-    <footer class="relative z-10 border-t border-slate-800/80 bg-[#020306]/95 py-8 text-center text-xs text-slate-500">
+    <footer class="relative z-10 border-t border-slate-800/50 bg-[#03050a]/90 py-8 text-center text-xs text-slate-400">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-full bg-gradient-to-b from-slate-800 to-black border border-slate-400/50 flex items-center justify-center shadow-md">
-                    <svg class="w-6 h-6" viewBox="0 0 120 120" fill="none">
-                        <circle cx="60" cy="58" r="34" fill="#e2e8f0" opacity="0.9" />
-                        <path d="M60 18 L66 28 L77 14 L81 36 L93 32 L86 47 L98 54 L87 65 L94 74 L81 82 L84 95 L71 91 L60 105 L49 91 L36 95 L39 82 L26 74 L33 65 L22 54 L34 47 L27 32 L39 36 L43 14 L54 28 Z" fill="#040508" stroke="#f8fafc" stroke-width="2" stroke-linejoin="miter" />
-                        <polygon points="44,53 55,57 47,60" fill="#ffffff" />
-                        <polygon points="76,53 65,57 73,60" fill="#ffffff" />
-                    </svg>
-                </div>
-                <span class="font-serif text-slate-200 tracking-wider font-bold">AUK WEREWOLF</span>
-                <span>— Koleksi Resmi Kartu Peran AUK Werewolf</span>
+                <span class="font-display text-slate-200 tracking-wider font-bold">AUK WEREWOLF</span>
+                <span>— Koleksi Kartu Peran</span>
             </div>
             <div>
-                Hover untuk efek 3D • Klik kartu untuk Deskripsi & Penjelasan Lengkap
+                Klik Logo untuk Mode Siang / Malam • Klik Kartu untuk Penjelasan Lengkap
             </div>
         </div>
     </footer>
@@ -841,30 +721,98 @@
     <!-- Application Script -->
     <script>
         // =========================================================================
-        // 0. INTERACTIVE 3D BLACK WEREWOLF SILHOUETTE LOGO CONTROLLER
+        // 0. DAY / NIGHT THEME & GENTLE 3D LOGO CONTROLLER (WEREWOLF <-> VILLAGER)
         // =========================================================================
-        function initInteractive3DLogos() {
-            const logoStages = [
-                {
-                    stage: document.getElementById("navLogoLink"),
-                    card: document.getElementById("navLogoCard"),
-                    maxTilt: 22,
-                    scale: 1.1
-                },
-                {
-                    stage: document.getElementById("heroLogoStage"),
-                    card: document.getElementById("heroLogoCard"),
-                    maxTilt: 24,
-                    scale: 1.08
-                }
-            ];
+        let isDayMode = false;
 
-            logoStages.forEach(({ stage, card, maxTilt, scale }) => {
-                if (!stage || !card) return;
-                const glare = card.querySelector(".logo-specular-glare");
-                const shockwave = card.querySelector(".logo-shockwave");
+        function toggleDayNightMode() {
+            isDayMode = !isDayMode;
+            const body = document.body;
 
-                // 3D Tilt Tracking Mouse Cursor
+            const heroWolfLogo = document.getElementById("heroWolfLogo");
+            const heroVillagerLogo = document.getElementById("heroVillagerLogo");
+            const heroLogoCard = document.getElementById("heroLogoCard");
+            const heroLogoGlow = document.getElementById("heroLogoGlow");
+            const heroPulseRing = document.getElementById("heroPulseRing");
+            const heroMainTitle = document.getElementById("heroMainTitle");
+            const heroMainDesc = document.getElementById("heroMainDesc");
+
+            const navWolfSvg = document.getElementById("navWolfSvg");
+            const navVillagerSvg = document.getElementById("navVillagerSvg");
+            const navEmblemBox = document.getElementById("navEmblemBox");
+            const navBrandTitle = document.getElementById("navBrandTitle");
+            const navBrandSub = document.getElementById("navBrandSub");
+            const modeStatusPill = document.getElementById("modeStatusPill");
+
+            // Trigger subtle click ripple
+            if (heroPulseRing) {
+                heroPulseRing.classList.remove("pulse-ring-active");
+                void heroPulseRing.offsetWidth;
+                heroPulseRing.classList.add("pulse-ring-active");
+            }
+
+            if (isDayMode) {
+                // Switch to Bright Daylight Villager Theme
+                body.classList.remove("night-mode");
+                body.classList.add("day-mode");
+
+                heroWolfLogo.classList.add("hidden");
+                heroVillagerLogo.classList.remove("hidden");
+                heroLogoCard.className = "logo-3d-card relative w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-b from-amber-100 via-sky-100 to-white border-2 border-amber-400/80 shadow-[0_12px_35px_rgba(245,158,11,0.28)] flex items-center justify-center mx-auto";
+                heroLogoGlow.className = "absolute -inset-4 rounded-full bg-amber-300/30 blur-xl transition-all duration-500 pointer-events-none";
+
+                heroMainTitle.className = "font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 max-w-3xl mx-auto leading-tight transition-colors duration-500";
+                heroMainTitle.innerHTML = `AUK <span class="bg-gradient-to-r from-amber-600 via-orange-500 to-amber-600 bg-clip-text text-transparent">WEREWOLF</span>`;
+                heroMainDesc.className = "max-w-2xl mx-auto text-xs sm:text-base text-slate-700 leading-relaxed font-normal transition-colors duration-500";
+
+                navWolfSvg.classList.add("hidden");
+                navVillagerSvg.classList.remove("hidden");
+                navEmblemBox.className = "relative w-12 h-12 rounded-2xl bg-amber-50 border border-amber-400/80 flex items-center justify-center shadow-sm transition-all duration-300";
+                navBrandTitle.className = "font-display text-lg sm:text-2xl font-bold tracking-wider bg-gradient-to-r from-slate-900 via-slate-800 to-amber-600 bg-clip-text text-transparent block leading-none";
+                navBrandSub.className = "font-serif text-[10px] sm:text-xs tracking-[0.16em] text-slate-600 uppercase block mt-1";
+                modeStatusPill.className = "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-serif uppercase tracking-widest bg-amber-100 text-amber-800 border border-amber-400/60";
+                modeStatusPill.innerHTML = `<i class="fa-solid fa-sun text-amber-500 text-[9px]"></i> Siang (Villager)`;
+
+                showToast("Mode Siang (Villager) Aktif — Desa terang benderang untuk diskusi warga!", "fa-sun text-amber-400");
+            } else {
+                // Switch to Dark Night Werewolf Theme
+                body.classList.remove("day-mode");
+                body.classList.add("night-mode");
+
+                heroVillagerLogo.classList.add("hidden");
+                heroWolfLogo.classList.remove("hidden");
+                heroLogoCard.className = "logo-3d-card relative w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-b from-[#111622] to-[#05070c] border-2 border-slate-400/40 shadow-[0_10px_35px_rgba(0,0,0,0.65)] flex items-center justify-center mx-auto";
+                heroLogoGlow.className = "absolute -inset-4 rounded-full bg-slate-300/10 blur-xl transition-all duration-500 pointer-events-none";
+
+                heroMainTitle.className = "font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-3xl mx-auto leading-tight transition-colors duration-500";
+                heroMainTitle.innerHTML = `AUK <span class="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent">WEREWOLF</span>`;
+                heroMainDesc.className = "max-w-2xl mx-auto text-xs sm:text-base text-slate-300 leading-relaxed font-normal transition-colors duration-500";
+
+                navVillagerSvg.classList.add("hidden");
+                navWolfSvg.classList.remove("hidden");
+                navEmblemBox.className = "relative w-12 h-12 rounded-2xl bg-[#0b0f19] border border-slate-500/40 flex items-center justify-center shadow-md transition-all duration-300";
+                navBrandTitle.className = "font-display text-lg sm:text-2xl font-bold tracking-wider bg-gradient-to-r from-white via-slate-200 to-amber-300 bg-clip-text text-transparent block leading-none";
+                navBrandSub.className = "font-serif text-[10px] sm:text-xs tracking-[0.16em] text-slate-400 uppercase block mt-1";
+                modeStatusPill.className = "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-serif uppercase tracking-widest bg-slate-900 text-amber-300 border border-amber-400/30";
+                modeStatusPill.innerHTML = `<i class="fa-solid fa-moon text-[9px]"></i> Malam`;
+
+                showToast("Mode Malam (Werewolf) Aktif — Sinar rembulan menyinari perburuan malam.", "fa-moon text-amber-300");
+            }
+
+            initSkyParticles();
+            renderCards();
+        }
+
+        function initGentleLogoHover() {
+            const stage = document.getElementById("heroLogoStage");
+            const card = document.getElementById("heroLogoCard");
+            const navLogoBtn = document.getElementById("navLogoBtn");
+
+            if (stage && card) {
+                // Reduced, subtle 3D tilt (max 6 degrees)
+                const maxTilt = 6;
+                const hoverScale = 1.03;
+
                 stage.addEventListener("mousemove", (e) => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
@@ -875,64 +823,32 @@
                     const rotateX = ((y - centerY) / centerY) * -maxTilt;
                     const rotateY = ((x - centerX) / centerX) * maxTilt;
 
-                    card.style.transform = `scale3d(${scale}, ${scale}, ${scale}) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
-
-                    if (glare) {
-                        const percentX = (x / rect.width) * 100;
-                        const percentY = (y / rect.height) * 100;
-                        glare.style.background = `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.48) 0%, rgba(226, 232, 240, 0.2) 38%, transparent 72%)`;
-                    }
+                    card.style.transform = `scale3d(${hoverScale}, ${hoverScale}, ${hoverScale}) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
                 });
 
                 stage.addEventListener("mouseleave", () => {
                     card.style.transform = "";
                 });
 
-                // Touch Support for Mobile 3D Tilt
-                stage.addEventListener("touchmove", (e) => {
-                    if (!e.touches[0]) return;
-                    const rect = card.getBoundingClientRect();
-                    const x = e.touches[0].clientX - rect.left;
-                    const y = e.touches[0].clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-
-                    const rotateX = Math.max(-maxTilt, Math.min(maxTilt, ((y - centerY) / centerY) * -maxTilt));
-                    const rotateY = Math.max(-maxTilt, Math.min(maxTilt, ((x - centerX) / centerX) * maxTilt));
-
-                    card.style.transform = `scale3d(${scale}, ${scale}, ${scale}) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
-                }, { passive: true });
-
-                stage.addEventListener("touchend", () => {
-                    card.style.transform = "";
-                });
-
-                // Click Effect: Moonlight Howl Shockwave + Reset Filter
                 stage.addEventListener("click", (e) => {
                     e.preventDefault();
-                    if (shockwave) {
-                        shockwave.classList.remove("howl-pulse-active");
-                        void shockwave.offsetWidth; // trigger reflow
-                        shockwave.classList.add("howl-pulse-active");
-                    }
-                    if (typeof currentFilter !== "undefined" && (currentFilter !== "all" || currentSearch !== "")) {
-                        currentFilter = "all";
-                        currentSearch = "";
-                        searchInput.value = "";
-                        clearSearchBtn.classList.add("hidden");
-                        updateActiveFilterTab("all");
-                        renderCards();
-                    }
-                    showToast("AUK Werewolf — Raungan Malam Aktif! Menampilkan seluruh koleksi kartu.");
+                    toggleDayNightMode();
                 });
-            });
+            }
+
+            if (navLogoBtn) {
+                navLogoBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    toggleDayNightMode();
+                });
+            }
         }
 
         // =========================================================================
-        // 1. COMPLETE AUK WEREWOLF CARDS DATA (ALL CARDS FROM USER'S COLLECTION)
+        // 1. COMPLETE AUK WEREWOLF CARDS DATA (ALL 47 ROLES FROM USER'S COLLECTION)
         // =========================================================================
         const werewolfCards = [
-            // ================= KATEGORI: KARTU BAIK (good) =================
+            // ================= KATEGORI: GOOD SIDE =================
             {
                 id: "ancient-keeper",
                 name: "Ancient Keeper",
@@ -999,6 +915,7 @@
                 title: "Pemegang Hak Voting Mutlak",
                 faction: "good",
                 driveId: "1gpgbU6cWTMm1c0GK9-6QK77LY22Yw2Io",
+                hasWhiteBg: true,
                 icon: "fa-gavel",
                 actionType: "Aktif Pagi • Eksekusi Mutlak",
                 desc: "Warga yang mempunyai kekuatan voting mutlak dan tidak bisa diganggu gugat. Salah satu warga desa jika divote oleh Dictator pada pagi hari, maka warga desa tersebut akan langsung digantung.",
@@ -1078,6 +995,19 @@
                 strategy: "Beri kode halus kepada warga tepercaya mengenai rumah siapa yang akan kamu kunjungi malam ini, sehingga jika kamu mati di malam hari, warga langsung tahu siapa pembunuhmu."
             },
             {
+                id: "hex",
+                name: "Hex",
+                title: "Kutukan Suara Hewan & Kebangkitan",
+                faction: "good",
+                driveId: "1oFw90AxzBiQJZjB555jaN6NbYcDcziH5",
+                hasWhiteBg: true,
+                icon: "fa-paw",
+                actionType: "Aktif • Wajib Suara Hewan & Bangkitkan Mayat",
+                desc: "Jika kamu mendapatkan role ini, maka bersiaplah anda harus bersuara seperti hewan ditentukan oleh moderator selama permainan. Jika melanggar maka akan langsung mati. Kekuatan lainnya yaitu mampu menghidupkan orang mati secara berturut-turut.",
+                explanation: "Peran penuh kutukan sekaligus keajaiban. Sepanjang permainan, pemilik kartu Hex wajib bersuara seperti hewan yang ditetapkan moderator—sekali saja berbicara normal tanpa suara hewan, ia langsung mati. Sebagai imbalannya, ia punya kekuatan luar biasa untuk menghidupkan kembali orang mati secara berturut-turut.",
+                strategy: "Tetap fokus dan jangan sampai terpancing berbicara normal saat kaget atau berdebat, sambil terus menghidupkan warga yang mati untuk menjaga keunggulan jumlah."
+            },
+            {
                 id: "hidden-villager",
                 name: "Hidden Villager",
                 title: "Warga Rahasia Kunci Takdir",
@@ -1122,7 +1052,7 @@
                 icon: "fa-dog",
                 actionType: "Pasif • Terbaca Werewolf oleh Seer",
                 desc: "Adalah villager yang terkutuk, ia tidak memiliki keahlian. Namun ketika Seer menerawangnya, ia melihatnya sebagai werewolf. Lycan tidak ikut bangun dengan para Werewolf.",
-                explanation: "Lycan murni berada di pihak warga desa (Kartu Baik) dan tidak memiliki kemampuan aktif. Namun karena darah kutukan di tubuhnya, apabila Seer menerawang Lycan di malam hari, moderator akan memberi tahu Seer bahwa ia adalah Werewolf.",
+                explanation: "Lycan murni berada di pihak warga desa (Good Side) dan tidak memiliki kemampuan aktif. Namun karena darah kutukan di tubuhnya, apabila Seer menerawang Lycan di malam hari, moderator akan memberi tahu Seer bahwa ia adalah Werewolf.",
                 strategy: "Jika Seer menuduhmu sebagai Werewolf di siang hari, jelaskan dengan tenang dan logis bahwa kamu adalah Lycan agar warga tidak membuang satu giliran gantung."
             },
             {
@@ -1143,6 +1073,7 @@
                 title: "Pemimpin Agung Desa",
                 faction: "good",
                 driveId: "1OivD7M6TDvtfgWitGuuN9TgHIWJO1B0q",
+                hasWhiteBg: true,
                 icon: "fa-landmark-dome",
                 actionType: "Pasif • Identitas Terbuka & Efek Maut",
                 desc: "Seorang penduduk desa yang terpilih menjadi ketua atau pemimpin, identitas akan langsung diketahui oleh seluruh penduduk desa. Jika President mati, werewolf dapat membunuh 2 penduduk dalam 1 malam.",
@@ -1222,18 +1153,6 @@
                 strategy: "Pasang perangkap di rumah warga yang kemungkinan besar diincar Werewolf, namun berhati-hatilah agar tidak menjebak rumah yang sedang ingin dikunjungi Harlot atau Guardian."
             },
             {
-                id: "troublemaker",
-                name: "Troublemaker",
-                title: "Pembuat Onar Penukar Role",
-                faction: "good",
-                driveId: "1_o5KWBubRhHcELh02uvUPAnbu2_8hSsh",
-                icon: "fa-arrows-spin",
-                actionType: "Aktif 1x • Tukar Kartu Role 2 Pemain",
-                desc: "Seorang Villager yang membuat masalah dengan cara menukar role salah satu pemain ke pemain lain, bisa orang baik atau jahat (hanya sekali dalam seluruh permainan).",
-                explanation: "Warga pembuat onar di Good Side. Sekali sepanjang permainan, Troublemaker dapat menunjuk dua orang pemain lain dan menukarkan kartu role mereka berdua secara paksa, memaksa kedua pemain tersebut menjalani peran barunya.",
-                strategy: "Gunakan kekuatanmu untuk menukar role pemain yang kamu curigai sebagai Werewolf dengan warga lain yang sudah terpojok agar peta kekuatan musuh berantakan!"
-            },
-            {
                 id: "villager",
                 name: "Villager",
                 title: "Warga Desa",
@@ -1242,7 +1161,7 @@
                 icon: "fa-person-rays",
                 actionType: "Diskusi & Suara Voting Siang",
                 desc: "Warga desa biasa tanpa kekuatan khusus di malam hari. Mengandalkan ketajaman analisis, diskusi, dan hak suara di siang hari untuk menemukan serta menggantung para Werewolf.",
-                explanation: "Tulang punggung suara mayoritas desa. Meski tidak bangun di malam hari, kejelian Villager dalam membaca gelagat, berargumen, dan memberikan vote di siang hari adalah penentu kemenangan Tim Baik.",
+                explanation: "Tulang punggung suara mayoritas desa. Meski tidak bangun di malam hari, kejelian Villager dalam membaca gelagat, berargumen, dan memberikan vote di siang hari adalah penentu kemenangan Good Side.",
                 strategy: "Perhatikan siapa yang selalu berusaha mengalihkan topik saat seorang tersangka mulai terpojok di diskusi siang."
             },
             {
@@ -1282,7 +1201,7 @@
                 strategy: "Kumpulkan informasi dari diskusi siang untuk memastikan nama role spesifik musuh (misal: Werewolf, Alpha Werewolf, atau Serial Killer) sebelum merapalkan tebakanmu."
             },
 
-            // ================= KATEGORI: KARTU WEREWOLF / JAHAT (werewolf) =================
+            // ================= KATEGORI: BAD SIDE (WEREWOLF) =================
             {
                 id: "alpha-werewolf",
                 name: "Alpha Werewolf",
@@ -1304,7 +1223,7 @@
                 icon: "fa-skull-crossbones",
                 actionType: "Pasif • Bangkit Jadi Werewolf Saat Dimangsa",
                 desc: "Seorang warga biasa yang menyimpan kutukan kegelapan. Jika ia dibunuh oleh Werewolf pada malam hari, ia tidak akan mati, melainkan bangkit dan bergabung ke tim Werewolf.",
-                explanation: "Pada awalnya Cursed berbaur sebagai warga biasa. Namun jika kawanan Werewolf memilihnya sebagai mangsa di malam hari, kutukan di dalam darahnya aktif: ia tidak mati, melainkan bertransformasi menjadi Werewolf dan bergabung ke kubu jahat sejak malam berikutnya.",
+                explanation: "Pada awalnya Cursed berbaur sebagai warga biasa. Namun jika kawanan Werewolf memilihnya sebagai mangsa di malam hari, kutukan di dalam darahnya aktif: ia tidak mati, melainkan bertransformasi menjadi Werewolf dan bergabung ke Bad Side sejak malam berikutnya.",
                 strategy: "Bertingkahlah seperti peran warga penting di siang hari agar Werewolf tertarik memangsamu di malam hari dan mengaktifkan transformasimu menjadi anggota kawanan serigala."
             },
             {
@@ -1373,10 +1292,10 @@
                 title: "Pemangsa Utama Malam",
                 faction: "werewolf",
                 driveId: "1cc81t3zmtPRJ4V6T0ZLv6F6ikWS8JgcF",
-                icon: "fa-wolf-pack-battalion",
+                icon: "fa-paw",
                 actionType: "Aktif Malam • Mangsa Warga Desa",
                 desc: "Predator malam pemangsa warga desa. Bangun setiap malam bersama kawanan Werewolf lainnya untuk berdiskusi secara senyap dan memilih satu warga desa untuk dimangsa hingga tewas.",
-                explanation: "Inti dari kubu jahat. Pada malam hari mereka saling mengenal dan kompak menunjuk satu korban. Pada siang hari mereka harus menyamar sebagai warga baik, memfitnah warga lain, dan menghindari tiang gantungan.",
+                explanation: "Inti dari Bad Side. Pada malam hari mereka saling mengenal dan kompak menunjuk satu korban. Pada siang hari mereka harus menyamar sebagai warga baik, memfitnah warga lain, dan menghindari tiang gantungan.",
                 strategy: "Jangan selalu membela rekan sesama Werewolf secara mencolok di siang hari; sesekali berbeda pendapatlah agar warga tidak dapat menebak jaringan kawananmu."
             },
             {
@@ -1404,7 +1323,7 @@
                 strategy: "Jika kawananmu butuh mempercepat jumlah pembunuhan di malam berikutnya, kamu bisa sengaja memancing warga untuk menggantungmu di siang hari."
             },
 
-            // ================= KATEGORI: KARTU NETRAL / PENGACAU (neutral) =================
+            // ================= KATEGORI: NEUTRAL SIDE =================
             {
                 id: "arsonist",
                 name: "Arsonist",
@@ -1414,7 +1333,7 @@
                 icon: "fa-fire",
                 actionType: "Solo • Siram Minyak & Bakar Desa",
                 desc: "Seorang warga yang mempunyai kekuatan membakar penduduk desa setiap malam. Arsonist akan menang jika setiap warga desa yang tersisa sudah dibakar atau diberikan pada masing-masing rumah yang tersisa.",
-                explanation: "Pembakar berantai berfaksi Netral Solo. Setiap malam ia menyiramkan minyak atau membakar rumah warga. Arsonist meraih kemenangan mutlak sendirian apabila seluruh rumah pemain yang masih bertahan hidup berhasil ia bakar habis.",
+                explanation: "Pembakar berantai berfaksi Neutral Side. Setiap malam ia menyiramkan minyak atau membakar rumah warga. Arsonist meraih kemenangan mutlak sendirian apabila seluruh rumah pemain yang masih bertahan hidup berhasil ia bakar habis.",
                 strategy: "Siramkan minyak ke pemain-pemain yang cenderung bertahan hidup lama (yang jarang diincar Werewolf maupun divote warga), lalu sulut apinya sekaligus!"
             },
             {
@@ -1488,18 +1407,6 @@
                 desc: "Gravedigger dapat mengambil role seorang mayat dan menggantikan peran mayat tersebut. Khusus jika menggali role Alphawolf, seorang Gravedigger tidak akan menerima kekuatan Alphawolf tersebut dan hanya menjadi Werewolf biasa.",
                 explanation: "Penggali kubur yang dapat membongkar makam pemain yang telah tewas untuk mengambil alih role mereka. Jika ia menggali kuburan Good Side ia menjadi peran Good Side tersebut; jika menggali kuburan Bad Side ia menjadi Werewolf (namun jika yang digali adalah Alpha Werewolf, ia hanya menjadi Werewolf biasa tanpa skill tarik).",
                 strategy: "Tunggu hingga ada pemain dengan role kuat yang tewas, lalu gali makamnya pada saat kubu dari role tersebut sedang berada di atas angin."
-            },
-            {
-                id: "hex",
-                name: "Hex",
-                title: "Kutukan Suara Hewan & Kebangkitan",
-                faction: "neutral",
-                driveId: "1oFw90AxzBiQJZjB555jaN6NbYcDcziH5",
-                icon: "fa-paw",
-                actionType: "Aktif • Wajib Suara Hewan & Bangkitkan Mayat",
-                desc: "Jika kamu mendapatkan role ini, maka bersiaplah anda harus bersuara seperti hewan ditentukan oleh moderator selama permainan. Jika melanggar maka akan langsung mati. Kekuatan lainnya yaitu mampu menghidupkan orang mati secara berturut-turut.",
-                explanation: "Peran penuh kutukan sekaligus keajaiban. Sepanjang permainan, pemilik kartu Hex wajib bersuara seperti hewan yang ditetapkan moderator—sekali saja berbicara normal tanpa suara hewan, ia langsung mati. Sebagai imbalannya, ia punya kekuatan luar biasa untuk menghidupkan kembali orang mati secara berturut-turut.",
-                strategy: "Tetap fokus dan jangan sampai terpancing berbicara normal saat kaget atau berdebat, sambil terus menghidupkan pemain yang mati untuk mengendalikan jalannya permainan."
             },
             {
                 id: "juggernaut",
@@ -1620,6 +1527,18 @@
                 desc: "Bisa menukar role dengan pemain lain. Jika Thief mencoba menukar role dengan kawanan Werewolf atau Traitor, maka Thief akan mati. Thief dapat memilih ingin mencuri role atau tidak pada malam itu.",
                 explanation: "Pencuri identitas malam hari. Thief bebas memilih kapan ingin beraksi menukar kartunya dengan pemain lain (kecuali Beauty yang tidak bisa dicuri). Namun aksi ini bagai judi nyawa: jika sasaran yang hendak dicuri ternyata adalah anggota Werewolf atau Traitor, Thief langsung tewas di tempat!",
                 strategy: "Tunggu dan amati diskusi hari pertama untuk memastikan seorang pemain adalah warga baik ber-skill bagus sebelum kamu mencuri rolenya di malam hari."
+            },
+            {
+                id: "troublemaker",
+                name: "Troublemaker",
+                title: "Pembuat Onar Penukar Role",
+                faction: "neutral",
+                driveId: "1_o5KWBubRhHcELh02uvUPAnbu2_8hSsh",
+                icon: "fa-arrows-spin",
+                actionType: "Aktif 1x • Tukar Kartu Role 2 Pemain",
+                desc: "Seorang warga pembuat onar yang membuat masalah dengan cara menukar role salah satu pemain ke pemain lain, bisa orang baik atau jahat (hanya sekali dalam seluruh permainan).",
+                explanation: "Pengacau identitas yang dapat mengacak peta kekuatan desa. Sekali sepanjang permainan, Troublemaker dapat menunjuk dua orang pemain lain dan menukarkan kartu role mereka berdua secara paksa, memaksa kedua pemain tersebut menjalani peran barunya.",
+                strategy: "Gunakan kekuatanmu untuk menukar role pemain yang kamu curigai sebagai Werewolf dengan pemain lain agar peta aliansi berubah drastis!"
             }
         ];
 
@@ -1657,14 +1576,118 @@
         };
 
         // =========================================================================
-        // 3. IMAGE LOADER & MULTI-ENDPOINT FALLBACK HANDLER
+        // 3. IMAGE LOADER & WHITE-BACKGROUND FLOOD-FILL TRANSPARENCY PROCESSOR
+        //    (Removes outer white backgrounds on cards like Dictator, President, Hex)
         // =========================================================================
+        const processedTransparentCache = {};
+
         function getDriveImageUrls(driveId) {
             return [
-                `https://drive.google.com/thumbnail?id=${driveId}&sz=w1000`,
                 `https://lh3.googleusercontent.com/d/${driveId}=w1000`,
+                `https://drive.google.com/thumbnail?id=${driveId}&sz=w1000`,
                 `https://drive.google.com/uc?export=view&id=${driveId}`
             ];
+        }
+
+        // Flood-fill from outer borders to remove white/light backgrounds around cards
+        // while preserving interior white text and artwork details
+        function removeOuterWhiteBackground(imgEl, cardId) {
+            if (imgEl.getAttribute("data-bg-cleaned") === "true") return;
+            if (processedTransparentCache[cardId]) {
+                imgEl.src = processedTransparentCache[cardId];
+                imgEl.setAttribute("data-bg-cleaned", "true");
+                return;
+            }
+
+            try {
+                const w = imgEl.naturalWidth;
+                const h = imgEl.naturalHeight;
+                if (!w || !h) return;
+
+                const offCanvas = document.createElement("canvas");
+                offCanvas.width = w;
+                offCanvas.height = h;
+                const offCtx = offCanvas.getContext("2d", { willReadFrequently: true });
+                offCtx.drawImage(imgEl, 0, 0);
+
+                const imgData = offCtx.getImageData(0, 0, w, h);
+                const data = imgData.data;
+
+                // Check if corners have white/light background pixels
+                const isLightBgPixel = (idx) => {
+                    const r = data[idx];
+                    const g = data[idx + 1];
+                    const b = data[idx + 2];
+                    const a = data[idx + 3];
+                    return a > 20 && r >= 220 && g >= 220 && b >= 220;
+                };
+
+                const visited = new Uint8Array(w * h);
+                const queue = [];
+
+                // Seed flood-fill from all 4 outer edges
+                for (let x = 0; x < w; x++) {
+                    const topIdx = x;
+                    const botIdx = (h - 1) * w + x;
+                    if (isLightBgPixel(topIdx * 4)) { visited[topIdx] = 1; queue.push(topIdx); }
+                    if (isLightBgPixel(botIdx * 4)) { visited[botIdx] = 1; queue.push(botIdx); }
+                }
+                for (let y = 0; y < h; y++) {
+                    const leftIdx = y * w;
+                    const rightIdx = y * w + (w - 1);
+                    if (!visited[leftIdx] && isLightBgPixel(leftIdx * 4)) { visited[leftIdx] = 1; queue.push(leftIdx); }
+                    if (!visited[rightIdx] && isLightBgPixel(rightIdx * 4)) { visited[rightIdx] = 1; queue.push(rightIdx); }
+                }
+
+                // BFS Flood-Fill connected outer white pixels -> alpha = 0
+                let head = 0;
+                while (head < queue.length) {
+                    const curr = queue[head++];
+                    const pIdx = curr * 4;
+                    data[pIdx + 3] = 0; // Make transparent
+
+                    const cx = curr % w;
+                    const cy = (curr / w) | 0;
+
+                    const neighbors = [];
+                    if (cx > 0) neighbors.push(curr - 1);
+                    if (cx < w - 1) neighbors.push(curr + 1);
+                    if (cy > 0) neighbors.push(curr - w);
+                    if (cy < h - 1) neighbors.push(curr + w);
+
+                    for (let i = 0; i < neighbors.length; i++) {
+                        const n = neighbors[i];
+                        if (!visited[n] && isLightBgPixel(n * 4)) {
+                            visited[n] = 1;
+                            queue.push(n);
+                        } else if (!visited[n]) {
+                            // Soft anti-aliased edge feathering
+                            const np = n * 4;
+                            if (data[np] > 200 && data[np + 1] > 200 && data[np + 2] > 200) {
+                                data[np + 3] = Math.min(data[np + 3], 90);
+                            }
+                        }
+                    }
+                }
+
+                offCtx.putImageData(imgData, 0, 0);
+                const cleanedDataUrl = offCanvas.toDataURL("image/png");
+                processedTransparentCache[cardId] = cleanedDataUrl;
+                imgEl.setAttribute("data-bg-cleaned", "true");
+                imgEl.src = cleanedDataUrl;
+            } catch (err) {
+                // If CORS restricts pixel reading on a specific endpoint, apply clean rounded clipping & crop-scale for white-bordered cards
+                const cardObj = werewolfCards.find(c => c.id === cardId);
+                if (cardObj && cardObj.hasWhiteBg) {
+                    imgEl.style.transform = "scale(1.045)";
+                    imgEl.style.borderRadius = "1rem";
+                }
+                imgEl.setAttribute("data-bg-cleaned", "true");
+            }
+        }
+
+        function handleCardImageLoad(imgEl, cardId) {
+            removeOuterWhiteBackground(imgEl, cardId);
         }
 
         function handleCardImageError(imgEl, cardId) {
@@ -1674,6 +1697,7 @@
             const attempt = parseInt(imgEl.getAttribute("data-attempt") || "0", 10);
 
             if (attempt + 1 < urls.length) {
+                imgEl.removeAttribute("crossorigin");
                 imgEl.setAttribute("data-attempt", String(attempt + 1));
                 imgEl.src = urls[attempt + 1];
             } else {
@@ -1684,17 +1708,16 @@
         }
 
         // =========================================================================
-        // 4. RENDER FULL UNCROPPED CARDS & PURE 3D HOVER INTERACTION
+        // 4. RENDER CARDS & GRID OVERVIEW MODES (STANDARD / COMPACT OVERVIEW / LIST)
         // =========================================================================
         const cardsGrid = document.getElementById("cardsGrid");
         const emptyState = document.getElementById("emptyState");
         const visibleCardCount = document.getElementById("visibleCardCount");
         const totalCardCount = document.getElementById("totalCardCount");
-        const hudStatusText = document.getElementById("hudStatusText");
 
         let currentFilter = "all";
         let currentSearch = "";
-        let activeModalCardId = null;
+        let currentGridMode = "standard"; // 'standard' | 'overview' | 'list'
 
         function updateCounters() {
             const goodCount = werewolfCards.filter(c => c.faction === "good").length;
@@ -1713,8 +1736,19 @@
             totalCardCount.textContent = allCount;
         }
 
+        function applyGridLayoutClass() {
+            if (currentGridMode === "overview") {
+                cardsGrid.className = "grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-4";
+            } else if (currentGridMode === "list") {
+                cardsGrid.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
+            } else {
+                cardsGrid.className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7 sm:gap-8";
+            }
+        }
+
         function renderCards() {
             updateCounters();
+            applyGridLayoutClass();
 
             const filtered = werewolfCards.filter(card => {
                 const matchesFaction = currentFilter === "all" || card.faction === currentFilter;
@@ -1739,100 +1773,128 @@
                 emptyState.classList.add("hidden");
             }
 
+            const titleColorClass = isDayMode ? "text-slate-900 group-hover:text-amber-600" : "text-white group-hover:text-amber-300";
+            const subColorClass = isDayMode ? "text-slate-600" : "text-slate-400";
+
             filtered.forEach((card, idx) => {
                 const cfg = factionConfig[card.faction];
-                const primaryUrl = getDriveImageUrls(card.driveId)[0];
+                const primaryUrl = processedTransparentCache[card.id] || getDriveImageUrls(card.driveId)[0];
                 const cardNumber = String(idx + 1).padStart(2, "0");
+                const whiteBgFixStyle = card.hasWhiteBg ? "transform: scale(1.045);" : "";
 
                 const cardWrapper = document.createElement("div");
-                cardWrapper.className = "card-perspective flex flex-col items-center group cursor-pointer select-none";
-                cardWrapper.setAttribute("data-faction", card.faction);
-                cardWrapper.setAttribute("data-id", card.id);
 
-                // Full Card Image Display without any blocking overlay on the card
-                cardWrapper.innerHTML = `
-                    <article class="werewolf-card relative w-full aspect-[2.5/3.6] rounded-2xl bg-[#07070c] border-2 ${cfg.border} overflow-hidden shadow-2xl flex items-center justify-center">
-                        
-                        <!-- Dynamic 3D Cursor Glare Layer -->
-                        <div class="card-dynamic-glare absolute inset-0 pointer-events-none z-20"></div>
-
-                        <!-- Entire Card Image Shown 100% Clearly -->
-                        <img 
-                            src="${primaryUrl}" 
-                            alt="${card.name}" 
-                            data-attempt="0"
-                            loading="lazy"
-                            onerror="handleCardImageError(this, '${card.id}')"
-                            class="w-full h-full object-contain bg-[#07070c] block"
-                        />
-
-                        <!-- Ornate Gothic Fallback (Only if Drive Image fails to load) -->
-                        <div class="gothic-svg-fallback hidden w-full h-full flex flex-col items-center justify-between p-6 text-center bg-gradient-to-b ${cfg.cardGradient}">
-                            <div class="w-full flex items-center justify-between text-[11px] font-serif text-amber-300/80">
-                                <span>#${cardNumber}</span>
-                                <span>${cfg.label}</span>
+                if (currentGridMode === "list") {
+                    // Compact Horizontal List Overview Item
+                    cardWrapper.className = `theme-panel border ${cfg.border} rounded-2xl p-3.5 flex items-center gap-4 cursor-pointer hover:border-amber-400 transition-all group`;
+                    cardWrapper.innerHTML = `
+                        <div class="w-16 sm:w-20 aspect-[2.5/3.6] rounded-xl overflow-hidden shrink-0 border ${cfg.border} bg-transparent flex items-center justify-center">
+                            <img 
+                                src="${primaryUrl}" 
+                                alt="${card.name}" 
+                                crossorigin="anonymous"
+                                data-attempt="0"
+                                loading="lazy"
+                                style="${whiteBgFixStyle}"
+                                onload="handleCardImageLoad(this, '${card.id}')"
+                                onerror="handleCardImageError(this, '${card.id}')"
+                                class="w-full h-full object-cover rounded-lg"
+                            />
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between gap-2 mb-1">
+                                <h3 class="font-display text-base font-bold ${titleColorClass} truncate">${card.name}</h3>
+                                <span class="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-serif font-bold uppercase border ${cfg.badgeBg}">
+                                    ${cfg.label}
+                                </span>
                             </div>
-                            <div class="my-auto flex flex-col items-center">
-                                <div class="w-24 h-24 rounded-full bg-black/50 border-2 border-amber-500/40 flex items-center justify-center mb-4 shadow-inner">
-                                    <i class="fa-solid ${card.icon} text-4xl text-amber-300"></i>
+                            <p class="font-serif text-[11px] text-amber-500 uppercase tracking-wider mb-1">${card.title} • ${card.actionType}</p>
+                            <p class="text-xs ${subColorClass} line-clamp-2 leading-relaxed">${card.desc}</p>
+                        </div>
+                    `;
+                } else {
+                    // Standard 4-Col or Compact 7-Col Grid Overview Card
+                    const isCompact = currentGridMode === "overview";
+                    cardWrapper.className = "card-perspective flex flex-col items-center group cursor-pointer select-none";
+                    cardWrapper.setAttribute("data-faction", card.faction);
+                    cardWrapper.setAttribute("data-id", card.id);
+
+                    cardWrapper.innerHTML = `
+                        <article class="werewolf-card theme-card-shell relative w-full aspect-[2.5/3.6] border-2 ${cfg.border} overflow-hidden shadow-xl flex items-center justify-center p-0.5">
+                            <div class="card-dynamic-glare absolute inset-0 pointer-events-none z-20"></div>
+
+                            <div class="card-art-frame">
+                                <img 
+                                    src="${primaryUrl}" 
+                                    alt="${card.name}" 
+                                    crossorigin="anonymous"
+                                    data-attempt="0"
+                                    loading="lazy"
+                                    style="${whiteBgFixStyle}"
+                                    onload="handleCardImageLoad(this, '${card.id}')"
+                                    onerror="handleCardImageError(this, '${card.id}')"
+                                    class="card-art-img"
+                                />
+
+                                <!-- Fallback if Drive image fails -->
+                                <div class="gothic-svg-fallback hidden w-full h-full flex flex-col items-center justify-between p-4 text-center bg-gradient-to-b ${cfg.cardGradient}">
+                                    <div class="w-full flex items-center justify-between text-[10px] font-serif text-amber-300/80">
+                                        <span>#${cardNumber}</span>
+                                        <span>${cfg.label}</span>
+                                    </div>
+                                    <div class="my-auto flex flex-col items-center">
+                                        <div class="w-16 h-16 rounded-full bg-black/50 border border-amber-500/40 flex items-center justify-center mb-3">
+                                            <i class="fa-solid ${card.icon} text-2xl text-amber-300"></i>
+                                        </div>
+                                        <h3 class="font-display text-base font-bold text-white">${card.name}</h3>
+                                    </div>
+                                    <div class="text-[10px] text-slate-300 line-clamp-2">${card.title}</div>
                                 </div>
-                                <h3 class="font-display text-xl font-bold text-white">${card.name}</h3>
-                                <p class="font-serif text-xs text-amber-400 uppercase mt-1">${card.title}</p>
                             </div>
-                            <div class="text-[11px] text-slate-300 line-clamp-3 bg-black/50 p-2.5 rounded-xl border border-white/10">
-                                ${card.desc}
+                        </article>
+
+                        <div class="w-full mt-2.5 px-1 flex items-center justify-between gap-1.5">
+                            <div class="truncate">
+                                <h3 class="font-display ${isCompact ? 'text-xs' : 'text-sm sm:text-base'} font-bold ${titleColorClass} transition-colors truncate">
+                                    ${card.name}
+                                </h3>
+                                ${isCompact ? '' : `<p class="font-serif text-[11px] ${subColorClass} truncate">${card.title}</p>`}
                             </div>
+                            <span class="shrink-0 ${isCompact ? 'px-1.5 py-0.5 text-[8px]' : 'px-2.5 py-1 text-[10px]'} rounded-full font-serif font-bold tracking-wider uppercase border ${cfg.badgeBg} flex items-center gap-1">
+                                <i class="fa-solid ${cfg.icon}"></i>
+                                ${isCompact ? '' : `<span>${cfg.label}</span>`}
+                            </span>
                         </div>
-                    </article>
+                    `;
 
-                    <!-- Clean Caption Below Card (Never Blocks the Card Artwork) -->
-                    <div class="w-full mt-3 px-1 flex items-center justify-between gap-2">
-                        <div class="truncate">
-                            <h3 class="font-display text-sm sm:text-base font-bold text-white group-hover:text-amber-300 transition-colors truncate">
-                                ${card.name}
-                            </h3>
-                            <p class="font-serif text-[11px] text-slate-400 truncate">${card.title}</p>
-                        </div>
-                        <span class="shrink-0 px-2.5 py-1 rounded-full text-[10px] font-serif font-bold tracking-wider uppercase border ${cfg.badgeBg} flex items-center gap-1">
-                            <i class="fa-solid ${cfg.icon}"></i>
-                            <span>${cfg.label}</span>
-                        </span>
-                    </div>
-                `;
+                    // 3D Hover Tilt on Cards
+                    const cardElement = cardWrapper.querySelector(".werewolf-card");
+                    const glareElement = cardWrapper.querySelector(".card-dynamic-glare");
 
-                // Pure 3D Interactive Hover Effect (No Popup/Overlay on Hover)
-                const cardElement = cardWrapper.querySelector(".werewolf-card");
-                const glareElement = cardWrapper.querySelector(".card-dynamic-glare");
+                    cardWrapper.addEventListener("mousemove", (e) => {
+                        if (window.matchMedia("(hover: hover)").matches) {
+                            const rect = cardElement.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            const centerX = rect.width / 2;
+                            const centerY = rect.height / 2;
 
-                cardWrapper.addEventListener("mousemove", (e) => {
-                    if (window.matchMedia("(hover: hover)").matches) {
-                        const rect = cardElement.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        const centerX = rect.width / 2;
-                        const centerY = rect.height / 2;
+                            const rotateX = ((y - centerY) / centerY) * -10;
+                            const rotateY = ((x - centerX) / centerX) * 10;
 
-                        const rotateX = ((y - centerY) / centerY) * -12;
-                        const rotateY = ((x - centerX) / centerX) * 12;
+                            cardElement.style.transform = `scale(1.05) translateY(-6px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
-                        cardElement.style.transform = `scale(1.06) translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                            const percentX = (x / rect.width) * 100;
+                            const percentY = (y / rect.height) * 100;
+                            glareElement.style.background = `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.06) 38%, transparent 70%)`;
+                        }
+                    });
 
-                        const percentX = (x / rect.width) * 100;
-                        const percentY = (y / rect.height) * 100;
-                        glareElement.style.background = `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.08) 38%, transparent 70%)`;
-                    }
-                });
+                    cardWrapper.addEventListener("mouseleave", () => {
+                        cardElement.style.transform = "";
+                    });
+                }
 
-                cardWrapper.addEventListener("mouseenter", () => {
-                    hudStatusText.innerHTML = `<strong class="text-amber-300">${card.name} (${cfg.label})</strong> — Klik kartu ini untuk membuka deskripsi & penjelasan lengkap.`;
-                });
-
-                cardWrapper.addEventListener("mouseleave", () => {
-                    cardElement.style.transform = "";
-                    hudStatusText.textContent = "Gerakkan kursor di atas kartu untuk melihat efek 3D, lalu klik kartu untuk membaca penjelasan lengkap.";
-                });
-
-                // Click Event Opens Full Explanation Modal
                 cardWrapper.addEventListener("click", () => {
                     openCardModal(card.id);
                 });
@@ -1842,7 +1904,84 @@
         }
 
         // =========================================================================
-        // 5. FULL EXPLANATION MODAL ON CLICK + 3D INTERACTIVE MODAL CARD
+        // 5. FULL OVERVIEW MATRIX MODAL (QUICK ALL-ROLES OVERVIEW BY FACTION)
+        // =========================================================================
+        const overviewModal = document.getElementById("overviewModal");
+        const overviewModalContent = document.getElementById("overviewModalContent");
+        const openOverviewModalBtn = document.getElementById("openOverviewModalBtn");
+        const closeOverviewModalBtn = document.getElementById("closeOverviewModalBtn");
+        const overviewMatrixBody = document.getElementById("overviewMatrixBody");
+
+        function openOverviewModal() {
+            const groups = [
+                { key: "good", title: "Good Side (Aliran Desa)", icon: "fa-shield-heart text-blue-400", border: "border-blue-500/30" },
+                { key: "werewolf", title: "Bad Side (Kawanan Werewolf)", icon: "fa-paw text-rose-500", border: "border-rose-500/30" },
+                { key: "neutral", title: "Neutral Side (Solo & Pengacau)", icon: "fa-masks-theater text-purple-400", border: "border-purple-500/30" }
+            ];
+
+            overviewMatrixBody.innerHTML = groups.map(g => {
+                const roles = werewolfCards.filter(c => c.faction === g.key);
+                const cfg = factionConfig[g.key];
+                const itemsHtml = roles.map(r => {
+                    const thumbUrl = processedTransparentCache[r.id] || getDriveImageUrls(r.driveId)[0];
+                    const whiteBgFixStyle = r.hasWhiteBg ? "transform: scale(1.045);" : "";
+                    return `
+                        <button type="button" onclick="closeOverviewModal(); openCardModal('${r.id}')" class="flex items-center gap-2.5 p-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border ${g.border} text-left transition-all group">
+                            <div class="w-10 h-14 rounded-lg overflow-hidden shrink-0 border ${cfg.border}">
+                                <img src="${thumbUrl}" alt="${r.name}" style="${whiteBgFixStyle}" class="w-full h-full object-cover" onerror="this.style.display='none'" />
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <div class="font-display text-xs font-bold text-white group-hover:text-amber-300 truncate">${r.name}</div>
+                                <div class="text-[10px] text-slate-400 truncate">${r.title}</div>
+                                <div class="text-[9px] text-amber-400/90 font-serif truncate mt-0.5">${r.actionType}</div>
+                            </div>
+                        </button>
+                    `;
+                }).join("");
+
+                return `
+                    <div>
+                        <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-800">
+                            <h3 class="font-display text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid ${g.icon}"></i>
+                                <span>${g.title}</span>
+                            </h3>
+                            <span class="text-xs font-serif text-slate-400">${roles.length} Kartu</span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
+                            ${itemsHtml}
+                        </div>
+                    </div>
+                `;
+            }).join("");
+
+            overviewModal.classList.remove("hidden");
+            overviewModal.classList.add("flex");
+            requestAnimationFrame(() => {
+                overviewModal.classList.remove("opacity-0");
+                overviewModalContent.classList.remove("scale-95");
+                overviewModalContent.classList.add("scale-100");
+            });
+        }
+
+        function closeOverviewModal() {
+            overviewModal.classList.add("opacity-0");
+            overviewModalContent.classList.remove("scale-100");
+            overviewModalContent.classList.add("scale-95");
+            setTimeout(() => {
+                overviewModal.classList.remove("flex");
+                overviewModal.classList.add("hidden");
+            }, 250);
+        }
+
+        openOverviewModalBtn.addEventListener("click", openOverviewModal);
+        closeOverviewModalBtn.addEventListener("click", closeOverviewModal);
+        overviewModal.addEventListener("click", (e) => {
+            if (e.target === overviewModal) closeOverviewModal();
+        });
+
+        // =========================================================================
+        // 6. FULL EXPLANATION MODAL ON CLICK + 3D INTERACTIVE MODAL CARD
         // =========================================================================
         const cardModal = document.getElementById("cardModal");
         const cardModalContent = document.getElementById("cardModalContent");
@@ -1854,34 +1993,37 @@
             const cardIndex = werewolfCards.findIndex(c => c.id === cardId);
             if (cardIndex === -1) return;
             const card = werewolfCards[cardIndex];
-            activeModalCardId = card.id;
 
             const cfg = factionConfig[card.faction];
-            const primaryUrl = getDriveImageUrls(card.driveId)[0];
+            const primaryUrl = processedTransparentCache[card.id] || getDriveImageUrls(card.driveId)[0];
+            const whiteBgFixStyle = card.hasWhiteBg ? "transform: scale(1.045);" : "";
 
-            // Visual Left Pane
             const modalVisualPane = document.getElementById("modalVisualPane");
             modalVisualPane.className = `w-full md:w-5/12 p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800/90 bg-gradient-to-b ${cfg.cardGradient}`;
 
-            modalCardPreview.className = `modal-card-3d w-full aspect-[2.5/3.6] rounded-2xl border-2 ${cfg.border} overflow-hidden relative shadow-2xl bg-[#07070c] flex items-center justify-center`;
+            modalCardPreview.className = `werewolf-card w-full aspect-[2.5/3.6] rounded-2xl border-2 ${cfg.border} overflow-hidden relative shadow-2xl bg-transparent flex items-center justify-center`;
             modalCardPreview.style.transform = "";
             modalCardPreview.innerHTML = `
                 <div id="modalCardGlare" class="card-dynamic-glare absolute inset-0 pointer-events-none z-20"></div>
-                <img 
-                    src="${primaryUrl}" 
-                    alt="${card.name}" 
-                    data-attempt="0"
-                    onerror="handleCardImageError(this, '${card.id}')"
-                    class="w-full h-full object-contain bg-[#07070c]"
-                />
-                <div class="gothic-svg-fallback hidden w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b ${cfg.cardGradient}">
-                    <i class="fa-solid ${card.icon} text-6xl text-amber-300 mb-3"></i>
-                    <div class="font-display text-xl font-bold text-white">${card.name}</div>
-                    <div class="font-serif text-xs text-amber-400 uppercase mt-1">${card.title}</div>
+                <div class="card-art-frame">
+                    <img 
+                        src="${primaryUrl}" 
+                        alt="${card.name}" 
+                        crossorigin="anonymous"
+                        data-attempt="0"
+                        style="${whiteBgFixStyle}"
+                        onload="handleCardImageLoad(this, '${card.id}')"
+                        onerror="handleCardImageError(this, '${card.id}')"
+                        class="card-art-img"
+                    />
+                    <div class="gothic-svg-fallback hidden w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b ${cfg.cardGradient}">
+                        <i class="fa-solid ${card.icon} text-6xl text-amber-300 mb-3"></i>
+                        <div class="font-display text-xl font-bold text-white">${card.name}</div>
+                        <div class="font-serif text-xs text-amber-400 uppercase mt-1">${card.title}</div>
+                    </div>
                 </div>
             `;
 
-            // Right Details Pane
             const factionBadge = document.getElementById("modalFactionBadge");
             factionBadge.className = `px-3 py-1 rounded-full text-xs font-serif font-bold uppercase tracking-wider border ${cfg.badgeBg}`;
             factionBadge.innerHTML = `<i class="fa-solid ${cfg.icon} mr-1.5"></i> ${cfg.label}`;
@@ -1895,7 +2037,6 @@
             document.getElementById("modalWinCondition").textContent = cfg.winText;
             document.getElementById("modalStrategyText").textContent = card.strategy;
 
-            // Show Modal
             cardModal.classList.remove("hidden");
             cardModal.classList.add("flex");
             requestAnimationFrame(() => {
@@ -1905,23 +2046,22 @@
             });
         }
 
-        // 3D Tilt inside Modal Card Preview
         modalCard3DWrapper.addEventListener("mousemove", (e) => {
             const rect = modalCardPreview.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -12;
-            const rotateY = ((x - centerX) / centerX) * 12;
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
 
-            modalCardPreview.style.transform = `scale(1.03) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            modalCardPreview.style.transform = `scale(1.02) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             const glare = document.getElementById("modalCardGlare");
             if (glare) {
                 const percentX = (x / rect.width) * 100;
                 const percentY = (y / rect.height) * 100;
                 glare.style.opacity = "1";
-                glare.style.background = `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.08) 40%, transparent 70%)`;
+                glare.style.background = `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.06) 40%, transparent 70%)`;
             }
         });
 
@@ -1946,26 +2086,31 @@
             if (e.target === cardModal) closeCardModal();
         });
         document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && !cardModal.classList.contains("hidden")) {
-                closeCardModal();
+            if (e.key === "Escape") {
+                if (!cardModal.classList.contains("hidden")) closeCardModal();
+                if (!overviewModal.classList.contains("hidden")) closeOverviewModal();
             }
         });
 
-        function showToast(message) {
+        function showToast(message, iconClass = "fa-moon text-amber-300") {
             const toast = document.getElementById("toastBanner");
+            const icon = document.getElementById("toastIcon");
             document.getElementById("toastMessage").textContent = message;
+            icon.className = `fa-solid ${iconClass} text-base`;
             toast.classList.remove("hidden");
             toast.classList.add("flex");
-            setTimeout(() => {
+            clearTimeout(window._toastTimer);
+            window._toastTimer = setTimeout(() => {
                 toast.classList.add("hidden");
                 toast.classList.remove("flex");
-            }, 3500);
+            }, 3200);
         }
 
         // =========================================================================
-        // 6. FILTER TABS, SEARCH & RANDOM ROLE
+        // 7. FILTER TABS, GRID MODE SWITCHER, SEARCH & RANDOM ROLE
         // =========================================================================
         const filterBtns = document.querySelectorAll(".filter-btn");
+        const gridModeBtns = document.querySelectorAll(".grid-mode-btn");
         const searchInput = document.getElementById("searchInput");
         const clearSearchBtn = document.getElementById("clearSearchBtn");
         const resetSearchBtn = document.getElementById("resetSearchBtn");
@@ -1975,9 +2120,9 @@
             filterBtns.forEach(btn => {
                 const filterType = btn.getAttribute("data-filter");
                 if (filterType === selectedFilter) {
-                    btn.className = "filter-btn px-4 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2 bg-gradient-to-r from-amber-600 to-rose-700 text-white shadow-lg shadow-rose-950/60 border border-amber-300/50";
+                    btn.className = "filter-btn px-4 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2 bg-gradient-to-r from-amber-600 to-rose-700 text-white shadow-lg border border-amber-300/50";
                 } else {
-                    btn.className = "filter-btn px-4 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2 bg-slate-900/90 hover:bg-slate-800 text-slate-300 border border-slate-700/80";
+                    btn.className = "filter-btn px-4 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-bold tracking-wider uppercase transition-all flex items-center gap-2 bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700/80";
                 }
             });
         }
@@ -1986,6 +2131,20 @@
             btn.addEventListener("click", () => {
                 currentFilter = btn.getAttribute("data-filter");
                 updateActiveFilterTab(currentFilter);
+                renderCards();
+            });
+        });
+
+        gridModeBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                currentGridMode = btn.getAttribute("data-grid");
+                gridModeBtns.forEach(b => {
+                    if (b.getAttribute("data-grid") === currentGridMode) {
+                        b.className = "grid-mode-btn px-2.5 py-1.5 rounded-lg text-xs font-serif font-semibold transition-all bg-amber-500 text-slate-950 flex items-center gap-1.5";
+                    } else {
+                        b.className = "grid-mode-btn px-2.5 py-1.5 rounded-lg text-xs font-serif font-semibold transition-all text-slate-300 hover:text-white flex items-center gap-1.5";
+                    }
+                });
                 renderCards();
             });
         });
@@ -2018,129 +2177,86 @@
         });
 
         // =========================================================================
-        // 7. AMBIENT FLOATING EMBERS CANVAS
+        // 8. SKY BACKGROUND CANVAS (NIGHT STARS <-> DAYLIGHT SUN MOTES)
         // =========================================================================
-        // 7. PITCH-BLACK NIGHT SKY, TWINKLING STARS & SHOOTING STARS CANVAS
-        // =========================================================================
-        const canvas = document.getElementById("nightSkyCanvas");
+        const canvas = document.getElementById("skyCanvas");
         const ctx = canvas.getContext("2d");
-        let stars = [];
-        let shootingStars = [];
+        let particles = [];
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
 
-        function initNightSky() {
-            stars = [];
-            shootingStars = [];
-            const starCount = Math.min(160, Math.floor((window.innerWidth * window.innerHeight) / 9000));
+        function initSkyParticles() {
+            particles = [];
+            const count = Math.min(110, Math.floor((window.innerWidth * window.innerHeight) / 12000));
 
-            for (let i = 0; i < starCount; i++) {
-                const isBrightStar = Math.random() > 0.86;
-                stars.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height * 0.92,
-                    radius: isBrightStar ? Math.random() * 1.6 + 1.1 : Math.random() * 1.1 + 0.35,
-                    baseAlpha: Math.random() * 0.55 + 0.25,
-                    twinkleSpeed: Math.random() * 0.025 + 0.006,
-                    twinklePhase: Math.random() * Math.PI * 2,
-                    isBright: isBrightStar,
-                    color: Math.random() > 0.25 ? "#f8fafc" : "#bae6fd"
-                });
+            for (let i = 0; i < count; i++) {
+                if (isDayMode) {
+                    // Warm golden daylight motes drifting gently
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        radius: Math.random() * 2.2 + 0.8,
+                        baseAlpha: Math.random() * 0.35 + 0.15,
+                        speedY: -(Math.random() * 0.25 + 0.08),
+                        speedX: (Math.random() - 0.5) * 0.2,
+                        phase: Math.random() * Math.PI * 2,
+                        color: Math.random() > 0.4 ? "#f59e0b" : "#38bdf8"
+                    });
+                } else {
+                    // Subtle night stars
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height * 0.9,
+                        radius: Math.random() * 1.3 + 0.4,
+                        baseAlpha: Math.random() * 0.45 + 0.2,
+                        speedY: 0,
+                        speedX: 0,
+                        phase: Math.random() * Math.PI * 2,
+                        color: Math.random() > 0.25 ? "#f8fafc" : "#bae6fd"
+                    });
+                }
             }
         }
 
-        function spawnShootingStar() {
-            if (shootingStars.length < 1 && Math.random() < 0.006) {
-                shootingStars.push({
-                    x: Math.random() * (canvas.width * 0.8) + canvas.width * 0.1,
-                    y: Math.random() * (canvas.height * 0.35),
-                    length: Math.random() * 70 + 50,
-                    speed: Math.random() * 7 + 8,
-                    angle: (Math.random() * 20 + 25) * (Math.PI / 180),
-                    alpha: 1
-                });
-            }
-        }
-
-        function animateNightSky() {
+        function animateSky() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Render twinkling stars
-            stars.forEach(s => {
-                s.twinklePhase += s.twinkleSpeed;
-                const currentAlpha = Math.max(0.08, Math.min(1, s.baseAlpha + Math.sin(s.twinklePhase) * 0.32));
+            particles.forEach(p => {
+                p.phase += 0.015;
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                if (p.y < -10) p.y = canvas.height + 10;
+                if (p.x < -10) p.x = canvas.width + 10;
+                if (p.x > canvas.width + 10) p.x = -10;
+
+                const alpha = Math.max(0.08, Math.min(0.85, p.baseAlpha + Math.sin(p.phase) * 0.22));
 
                 ctx.save();
                 ctx.beginPath();
-                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-                ctx.fillStyle = s.color;
-                ctx.globalAlpha = currentAlpha;
-                if (s.isBright) {
-                    ctx.shadowBlur = 8;
-                    ctx.shadowColor = "#e0f2fe";
-                }
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = alpha;
                 ctx.fill();
-
-                // Subtle 4-point star flare for brightest stars
-                if (s.isBright && currentAlpha > 0.65) {
-                    ctx.strokeStyle = "#f8fafc";
-                    ctx.lineWidth = 0.6;
-                    ctx.beginPath();
-                    ctx.moveTo(s.x - s.radius * 2.6, s.y);
-                    ctx.lineTo(s.x + s.radius * 2.6, s.y);
-                    ctx.moveTo(s.x, s.y - s.radius * 2.6);
-                    ctx.lineTo(s.x, s.y + s.radius * 2.6);
-                    ctx.stroke();
-                }
                 ctx.restore();
             });
 
-            // Render occasional shooting stars
-            spawnShootingStar();
-            for (let i = shootingStars.length - 1; i >= 0; i--) {
-                const st = shootingStars[i];
-                st.x += Math.cos(st.angle) * st.speed;
-                st.y += Math.sin(st.angle) * st.speed;
-                st.alpha -= 0.018;
-
-                if (st.alpha <= 0) {
-                    shootingStars.splice(i, 1);
-                    continue;
-                }
-
-                const tailX = st.x - Math.cos(st.angle) * st.length;
-                const tailY = st.y - Math.sin(st.angle) * st.length;
-
-                const grad = ctx.createLinearGradient(st.x, st.y, tailX, tailY);
-                grad.addColorStop(0, `rgba(248, 250, 252, ${st.alpha})`);
-                grad.addColorStop(1, "rgba(248, 250, 252, 0)");
-
-                ctx.save();
-                ctx.strokeStyle = grad;
-                ctx.lineWidth = 1.6;
-                ctx.beginPath();
-                ctx.moveTo(st.x, st.y);
-                ctx.lineTo(tailX, tailY);
-                ctx.stroke();
-                ctx.restore();
-            }
-
-            requestAnimationFrame(animateNightSky);
+            requestAnimationFrame(animateSky);
         }
 
         window.addEventListener("resize", () => {
             resizeCanvas();
-            initNightSky();
+            initSkyParticles();
         });
 
         window.onload = function () {
             resizeCanvas();
-            initNightSky();
-            animateNightSky();
-            initInteractive3DLogos();
+            initSkyParticles();
+            animateSky();
+            initGentleLogoHover();
             renderCards();
         };
     </script>
