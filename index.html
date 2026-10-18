@@ -36,7 +36,7 @@
         }
 
         /* =============================================================
-           PERMANENT DARK NIGHT ATMOSPHERE
+           PERMANENT DARK NIGHT ATMOSPHERE & SAFE HERO SPACING
            ============================================================= */
         body {
             background-color: #03050a;
@@ -45,6 +45,18 @@
                 radial-gradient(circle at 50% 0%, rgba(148, 163, 184, 0.11) 0%, rgba(30, 41, 59, 0.04) 42%, transparent 72%),
                 linear-gradient(180deg, #03050a 0%, #060913 55%, #020307 100%);
             overflow-x: hidden;
+        }
+
+        .hero-section {
+            padding-top: 3.75rem;
+            padding-bottom: 3.25rem;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
         }
 
         /* Subtle Ambient Light Beams */
@@ -102,10 +114,10 @@
         }
 
         /* =============================================================
-           TRANSPARENT WEREWOLF EMBLEM & SHIMMERING LIGHT PARTICLES
+           3D HOWLING WOLF & FULL MOON MULTI-LAYER PARALLAX LOGO
            ============================================================= */
         .logo-3d-stage {
-            perspective: 1000px;
+            perspective: 1100px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -115,12 +127,32 @@
 
         .logo-3d-card {
             transform-style: preserve-3d;
-            transition: transform 0.25s ease-out, filter 0.4s ease;
+            transition: transform 0.22s ease-out, filter 0.4s ease;
             will-change: transform;
         }
 
         .logo-3d-stage:not(:hover) .logo-3d-card {
-            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
+            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
+        }
+
+        .parallax-layer-moon {
+            transform: translateZ(10px);
+            transition: transform 0.35s ease, filter 0.35s ease;
+        }
+
+        .parallax-layer-wolf {
+            transform: translateZ(34px);
+            transition: transform 0.35s ease, filter 0.35s ease;
+        }
+
+        .logo-3d-stage:hover .parallax-layer-moon {
+            transform: translateZ(16px) scale(1.03);
+            filter: drop-shadow(0 0 32px rgba(248, 250, 252, 0.7));
+        }
+
+        .logo-3d-stage:hover .parallax-layer-wolf {
+            transform: translateZ(44px) scale(1.04);
+            filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.95));
         }
 
         /* Floating Light Sparkles ("Taburan Sinar Cahaya") around Logo */
@@ -305,26 +337,32 @@
             
             <!-- Brand Identity -->
             <a href="#" id="navLogoLink" class="flex items-center gap-3.5 group shrink-0 select-none focus:outline-none text-left">
-                <div class="relative w-12 h-12 rounded-2xl bg-[#070a12] border border-slate-600/50 flex items-center justify-center shadow-md overflow-hidden group-hover:border-amber-400/70 transition-all">
-                    <!-- Mini Full Moon & Werewolf Silhouette SVG -->
-                    <svg viewBox="0 0 100 100" class="w-10 h-10">
+                <div class="relative w-12 h-12 rounded-2xl bg-[#04060b] border border-slate-700/70 flex items-center justify-center shadow-md overflow-hidden group-hover:border-slate-300/60 transition-all">
+                    <!-- Mini Clean Howling Wolf & Silver Full Moon SVG -->
+                    <svg viewBox="0 0 120 120" class="w-11 h-11">
                         <defs>
-                            <radialGradient id="navMoonGrad" cx="45%" cy="40%" r="55%">
-                                <stop offset="0%" stop-color="#fffbeb" />
-                                <stop offset="55%" stop-color="#fde68a" />
+                            <radialGradient id="navMoonGrad" cx="42%" cy="38%" r="58%">
+                                <stop offset="0%" stop-color="#ffffff" />
+                                <stop offset="55%" stop-color="#e2e8f0" />
                                 <stop offset="85%" stop-color="#cbd5e1" />
-                                <stop offset="100%" stop-color="#64748b" />
+                                <stop offset="100%" stop-color="#94a3b8" />
                             </radialGradient>
+                            <clipPath id="navMoonClip">
+                                <circle cx="60" cy="60" r="46" />
+                            </clipPath>
                         </defs>
-                        <!-- Full Moon -->
-                        <circle cx="50" cy="50" r="42" fill="url(#navMoonGrad)" />
-                        <circle cx="34" cy="34" r="6" fill="#94a3b8" opacity="0.28" />
-                        <circle cx="65" cy="28" r="4.5" fill="#94a3b8" opacity="0.22" />
-                        <!-- Sharp Black Werewolf Head Silhouette -->
-                        <path d="M50 18 L41 32 L26 20 L30 43 L19 52 L31 61 L26 74 L42 79 L50 90 L58 79 L74 74 L69 61 L81 52 L70 43 L74 20 L59 32 Z" fill="#04060c" stroke="#1e293b" stroke-width="1.2" stroke-linejoin="round"/>
-                        <!-- Glowing Eyes -->
-                        <polygon points="37,49 46,53 39,55" fill="#f59e0b" />
-                        <polygon points="63,49 54,53 61,55" fill="#f59e0b" />
+                        <!-- Silver-White Full Moon -->
+                        <circle cx="60" cy="60" r="46" fill="url(#navMoonGrad)" />
+                        <g fill="#64748b" opacity="0.22">
+                            <circle cx="44" cy="42" r="9" />
+                            <circle cx="76" cy="48" r="11" />
+                            <circle cx="38" cy="68" r="7" />
+                        </g>
+                        <!-- Pure Black Howling Wolf & Cliff Silhouette -->
+                        <g clip-path="url(#navMoonClip)">
+                            <path d="M 16 110 L 34 86 L 47 82 L 62 87 L 79 98 L 92 110 Z" fill="#020306" />
+                            <path d="M 45 84 L 46 71 C 44 63, 45 55, 48 48 L 46 45 L 49 42 L 48 38 L 53 33 L 52 27 L 55 28 L 57 31 C 61 36, 63 43, 64 50 L 73 61 C 77 65, 79 70, 79 75 L 85 83 L 89 82 C 86 86, 81 86, 78 81 L 75 76 L 73 94 L 70 93 L 71 79 L 66 76 L 65 91 L 62 90 L 62 75 L 55 71 L 52 85 L 49 85 L 51 73 L 48 73 L 47 84 Z" fill="#020306" />
+                        </g>
                     </svg>
                 </div>
 
@@ -356,8 +394,17 @@
                 </span>
             </div>
 
-            <!-- Action Button: Be Moderator -->
+            <!-- Action Buttons: Discord Link & Be Moderator -->
             <div class="flex items-center gap-2.5">
+                <a href="https://discord.gg/pde7crzZBr"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   title="Gabung Komunitas Discord AUK Werewolf"
+                   class="px-3.5 py-2.5 rounded-xl bg-[#5865F2]/20 hover:bg-[#5865F2] border border-[#5865F2]/60 text-indigo-200 hover:text-white text-xs sm:text-sm font-serif font-bold tracking-wider uppercase transition-all flex items-center gap-2 shadow-[0_0_18px_rgba(88,101,242,0.3)] hover:shadow-[0_0_28px_rgba(88,101,242,0.65)] cursor-pointer">
+                    <i class="fa-brands fa-discord text-base sm:text-lg"></i>
+                    <span class="hidden sm:inline">Discord</span>
+                </a>
+
                 <button id="openModeratorBtn" 
                         type="button"
                         onclick="openModeratorModal()"
@@ -375,162 +422,178 @@
         <span id="toastMessage">Berhasil</span>
     </div>
 
-    <!-- Hero Section (Centered Full Moon & Werewolf Silhouette Emblem, Title, Description, & Takdir Acak Button) -->
-    <section class="relative pt-8 pb-7 sm:pt-12 sm:pb-10 overflow-hidden z-10">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center">
+    <!-- Hero Section: Strictly Separated 3D Logo Stage & Static Title/Description Container (Fixed Top & Bottom Spacing) -->
+    <section class="hero-section">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center w-full">
             
-            <!-- Strictly Centered Full Moon & Werewolf Silhouette Emblem -->
-            <div class="w-full flex justify-center items-center mb-5">
-                <div id="heroLogoStage" class="logo-3d-stage relative select-none group">
+            <!-- 1. ISOLATED 3D LOGO CONTAINER (ONLY THE LOGO HAS 3D HOVER) -->
+            <div class="mt-2 mb-7 flex justify-center items-center">
+                <div id="heroLogoStage" class="logo-3d-stage relative select-none cursor-pointer w-44 h-44 sm:w-52 sm:h-52">
                     
-                    <!-- Rotating Soft Light Rays Halo -->
-                    <div class="logo-light-rays absolute -inset-6 rounded-full opacity-75 pointer-events-none"></div>
+                    <!-- Ambient Silver Moonlight Aura Behind Emblem -->
+                    <div class="absolute -inset-6 rounded-full bg-gradient-to-b from-slate-100/20 via-slate-300/10 to-transparent blur-2xl pointer-events-none transition-transform duration-500"></div>
 
-                    <!-- Ambient Moonlight Aura Behind Emblem -->
-                    <div class="absolute -inset-4 rounded-full bg-gradient-to-b from-amber-200/20 via-slate-200/10 to-transparent blur-2xl pointer-events-none"></div>
+                    <!-- Subtle Starlight Motes Around Moon -->
+                    <span class="sparkle-mote w-1.5 h-1.5 -top-1 left-10" style="animation-delay: 0s;"></span>
+                    <span class="sparkle-mote w-1.5 h-1.5 top-6 -right-1" style="animation-delay: 0.9s;"></span>
+                    <span class="sparkle-mote w-2 h-2 bottom-8 -left-2" style="animation-delay: 1.7s;"></span>
+                    <span class="sparkle-mote w-1.5 h-1.5 bottom-2 right-8" style="animation-delay: 2.4s;"></span>
 
-                    <!-- Sprinkles of Light Particles ("Taburan Sinar Cahaya") -->
-                    <span class="sparkle-mote w-2 h-2 -top-2 left-10" style="animation-delay: 0s;"></span>
-                    <span class="sparkle-mote w-1.5 h-1.5 top-4 -right-2" style="animation-delay: 0.7s;"></span>
-                    <span class="sparkle-mote w-2.5 h-2.5 bottom-6 -left-3" style="animation-delay: 1.3s;"></span>
-                    <span class="sparkle-mote w-1.5 h-1.5 -bottom-1 right-8" style="animation-delay: 1.9s;"></span>
-                    <span class="sparkle-mote w-2 h-2 top-1/2 -right-4" style="animation-delay: 2.4s;"></span>
-                    <span class="sparkle-mote w-1.5 h-1.5 top-3 left-2" style="animation-delay: 2.9s;"></span>
-
-                    <!-- 3D Emblem Container: Full Moon & Sharp Black Werewolf Silhouette -->
+                    <!-- 3D Multi-Layer Parallax Emblem: Pure Silver Full Moon & Black Howling Wolf on Cliff -->
                     <div id="heroLogoCard" class="logo-3d-card relative w-44 h-44 sm:w-52 sm:h-52 rounded-full flex items-center justify-center mx-auto">
-                        <svg viewBox="0 0 240 240" class="w-full h-full drop-shadow-[0_0_32px_rgba(253,230,138,0.28)]">
+                        
+                        <!-- Layer 1: Realistic Textured Silver-White Full Moon -->
+                        <svg viewBox="0 0 260 260" class="parallax-layer-moon absolute inset-0 w-full h-full drop-shadow-[0_0_38px_rgba(241,245,249,0.38)]">
                             <defs>
-                                <!-- Silvery-Gold Full Moon Gradient -->
-                                <radialGradient id="fullMoonSurface" cx="42%" cy="36%" r="58%">
+                                <radialGradient id="silverFullMoonGrad" cx="42%" cy="36%" r="60%">
                                     <stop offset="0%" stop-color="#ffffff" />
-                                    <stop offset="35%" stop-color="#fef3c7" />
-                                    <stop offset="72%" stop-color="#e2e8f0" />
-                                    <stop offset="92%" stop-color="#94a3b8" />
-                                    <stop offset="100%" stop-color="#475569" />
+                                    <stop offset="35%" stop-color="#f8fafc" />
+                                    <stop offset="68%" stop-color="#e2e8f0" />
+                                    <stop offset="88%" stop-color="#cbd5e1" />
+                                    <stop offset="100%" stop-color="#94a3b8" />
                                 </radialGradient>
-                                <!-- Outer Lunar Corona -->
-                                <radialGradient id="lunarHalo" cx="50%" cy="50%" r="50%">
-                                    <stop offset="70%" stop-color="#fde68a" stop-opacity="0.28" />
+                                <radialGradient id="lunarOuterHalo" cx="50%" cy="50%" r="50%">
+                                    <stop offset="72%" stop-color="#f8fafc" stop-opacity="0.26" />
                                     <stop offset="100%" stop-color="#f8fafc" stop-opacity="0" />
                                 </radialGradient>
-                                <!-- Wolf Inner Rim Highlight -->
-                                <linearGradient id="wolfRimLight" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#f8fafc" stop-opacity="0.7" />
-                                    <stop offset="50%" stop-color="#334155" stop-opacity="0.5" />
-                                    <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.6" />
-                                </linearGradient>
                             </defs>
 
-                            <!-- Soft Outer Moon Halo -->
-                            <circle cx="120" cy="120" r="116" fill="url(#lunarHalo)" />
+                            <!-- Soft Lunar Corona -->
+                            <circle cx="130" cy="130" r="126" fill="url(#lunarOuterHalo)" />
 
-                            <!-- Decorative Celestial Ring -->
-                            <circle cx="120" cy="120" r="102" fill="none" stroke="#fef3c7" stroke-width="0.75" stroke-opacity="0.35" stroke-dasharray="5 5" />
+                            <!-- Full Moon Disc -->
+                            <circle cx="130" cy="130" r="106" fill="url(#silverFullMoonGrad)" />
 
-                            <!-- Main Glowing Full Moon (Bulan Purnama) -->
-                            <circle cx="120" cy="120" r="92" fill="url(#fullMoonSurface)" stroke="#fef3c7" stroke-width="1.5" stroke-opacity="0.7" />
-
-                            <!-- Realistic Lunar Craters -->
-                            <g fill="#64748b" opacity="0.22">
-                                <circle cx="76" cy="72" r="15" />
-                                <circle cx="164" cy="68" r="11" />
-                                <circle cx="62" cy="134" r="18" />
-                                <circle cx="174" cy="138" r="14" />
-                                <circle cx="105" cy="52" r="7" />
-                                <circle cx="145" cy="96" r="9" />
-                                <ellipse cx="88" cy="176" rx="14" ry="8" />
+                            <!-- Realistic Lunar Maria & Crater Textures -->
+                            <g fill="#64748b" opacity="0.16">
+                                <ellipse cx="92" cy="86" rx="28" ry="22" transform="rotate(-18 92 86)" />
+                                <ellipse cx="164" cy="96" rx="24" ry="18" transform="rotate(22 164 96)" />
+                                <circle cx="182" cy="138" r="19" />
+                                <circle cx="72" cy="136" r="16" />
+                                <ellipse cx="126" cy="64" rx="18" ry="11" />
+                                <circle cx="152" cy="168" r="14" />
                             </g>
+                            <g fill="#475569" opacity="0.11">
+                                <circle cx="62" cy="108" r="8" />
+                                <circle cx="108" cy="54" r="7" />
+                                <circle cx="192" cy="106" r="9" />
+                                <circle cx="84" cy="166" r="11" />
+                                <circle cx="144" cy="122" r="12" />
+                            </g>
+                            <g fill="#ffffff" opacity="0.45">
+                                <circle cx="78" cy="72" r="4" />
+                                <circle cx="174" cy="78" r="3.5" />
+                                <circle cx="196" cy="148" r="3" />
+                            </g>
+                        </svg>
 
-                            <!-- Majestic Sharp Black Werewolf Head & Neck Silhouette (Siluet Werewolf) -->
-                            <g>
-                                <!-- Outer Fur & Ears Silhouette -->
-                                <path d="M 120 30
-                                         L 103 58
-                                         L 70 28
-                                         L 76 78
-                                         L 50 92
-                                         L 68 108
-                                         L 46 128
-                                         L 72 142
-                                         L 58 164
-                                         L 86 172
-                                         L 78 192
-                                         L 104 196
-                                         L 120 212
-                                         L 136 196
-                                         L 162 192
-                                         L 154 172
-                                         L 182 164
-                                         L 168 142
-                                         L 194 128
-                                         L 172 108
-                                         L 190 92
-                                         L 164 78
-                                         L 170 28
-                                         L 137 58
+                        <!-- Layer 2: Pure Black Silhouette of Wolf Howling on Rocky Crag -->
+                        <svg viewBox="0 0 260 260" class="parallax-layer-wolf absolute inset-0 w-full h-full pointer-events-none">
+                            <defs>
+                                <clipPath id="cleanMoonClip">
+                                    <circle cx="130" cy="130" r="106" />
+                                </clipPath>
+                            </defs>
+                            <g clip-path="url(#cleanMoonClip)">
+                                <!-- Dark Craggy Rock Promontory -->
+                                <path d="M 38 242
+                                         L 68 202
+                                         L 86 190
+                                         L 104 180
+                                         L 124 185
+                                         L 152 204
+                                         L 178 224
+                                         L 196 242
                                          Z"
-                                      fill="#04060d"
-                                      stroke="url(#wolfRimLight)"
-                                      stroke-width="2"
-                                      stroke-linejoin="round" />
+                                      fill="#020305" />
 
-                                <!-- Inner Ear Details -->
-                                <polygon points="77,42 96,64 82,76" fill="#111827" />
-                                <polygon points="163,42 144,64 158,76" fill="#111827" />
-
-                                <!-- Subtle Facial Brow & Snout Bridge Lines -->
-                                <path d="M 96 76 L 120 96 L 144 76" fill="none" stroke="#334155" stroke-width="1.6" stroke-linecap="round" />
-                                <path d="M 120 96 L 111 142 L 120 154 L 129 142 Z" fill="#0b1120" stroke="#334155" stroke-width="1.2" />
-
-                                <!-- Snout & Fangs Detail -->
-                                <polygon points="113,152 120,161 127,152 120,147" fill="#cbd5e1" />
-                                <path d="M 98 166 L 120 178 L 142 166" fill="none" stroke="#475569" stroke-width="1.5" stroke-linecap="round" />
-                                <polygon points="103,168 107,179 111,171" fill="#f8fafc" />
-                                <polygon points="137,168 133,179 129,171" fill="#f8fafc" />
-
-                                <!-- Glowing Fierce Eyes -->
-                                <polygon points="86,108 109,117 92,122" fill="#f59e0b" />
-                                <polygon points="89,110 105,116 93,119" fill="#fef3c7" />
-                                <polygon points="154,108 131,117 148,122" fill="#f59e0b" />
-                                <polygon points="151,110 135,116 147,119" fill="#fef3c7" />
+                                <!-- Full-Body Howling Wolf Silhouette -->
+                                <path d="M 97 183
+                                         L 101 154
+                                         L 98 148
+                                         C 94 136, 95 122, 100 110
+                                         L 96 107
+                                         L 102 101
+                                         L 98 96
+                                         L 104 90
+                                         L 101 85
+                                         L 107 79
+                                         L 111 69
+                                         L 113 60
+                                         L 117 61
+                                         L 121 67
+                                         L 126 74
+                                         L 134 79
+                                         L 129 82
+                                         L 127 86
+                                         L 132 94
+                                         L 129 95
+                                         L 135 103
+                                         L 132 105
+                                         L 138 114
+                                         C 145 123, 154 131, 164 139
+                                         C 172 146, 177 154, 178 164
+                                         C 185 170, 191 180, 196 189
+                                         L 204 188
+                                         L 198 193
+                                         L 202 196
+                                         C 192 197, 184 193, 179 184
+                                         L 175 176
+                                         L 171 215
+                                         L 164 212
+                                         L 166 182
+                                         L 158 175
+                                         L 156 205
+                                         L 149 202
+                                         L 148 173
+                                         C 138 169, 129 164, 121 157
+                                         L 116 186
+                                         L 109 185
+                                         L 112 158
+                                         L 106 157
+                                         L 103 184
+                                         Z"
+                                      fill="#020305" />
                             </g>
                         </svg>
                     </div>
                 </div>
             </div>
 
-            <!-- Main Centered Title -->
-            <h1 id="heroMainTitle" class="font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-3xl mx-auto leading-tight">
-                AUK <span class="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent">WEREWOLF</span>
-            </h1>
+            <!-- 2. COMPLETELY SEPARATE STATIC TEXT & DESCRIPTION CONTAINER (NO 3D HOVER) -->
+            <div class="w-full flex flex-col items-center justify-center">
+                <h1 id="heroMainTitle" class="font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-3xl mx-auto leading-tight">
+                    AUK <span class="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent">WEREWOLF</span>
+                </h1>
 
-            <!-- Decorative Divider -->
-            <div class="w-28 h-0.5 bg-gradient-to-r from-transparent via-amber-400/70 to-transparent my-4 mx-auto"></div>
+                <!-- Decorative Divider -->
+                <div class="w-28 h-0.5 bg-gradient-to-r from-transparent via-amber-400/70 to-transparent my-4 mx-auto"></div>
 
-            <!-- Neat, Atmospheric Card Game Description -->
-            <p id="heroMainDesc" class="max-w-2xl mx-auto text-xs sm:text-base text-slate-300 leading-relaxed font-normal">
-                Saat malam tiba dan kabut menyelimuti desa, kepercayaan diuji di balik setiap kartu peran. Kenali kekuatan unik dari aliansi 
-                <span class="text-blue-400 font-semibold">Good Side</span>, ancaman tersembunyi 
-                <span class="text-rose-400 font-semibold">Bad Side</span>, hingga agenda rahasia 
-                <span class="text-purple-400 font-semibold">Neutral Side</span> dalam permainan deduksi, strategi, dan manipulasi <strong>AUK Werewolf</strong>.
-            </p>
+                <!-- Neat, Atmospheric Card Game Description -->
+                <p id="heroMainDesc" class="max-w-2xl mx-auto text-xs sm:text-base text-slate-300 leading-relaxed font-normal px-2">
+                    Saat malam tiba dan kabut menyelimuti desa, kepercayaan diuji di balik setiap kartu peran. Kenali kekuatan unik dari aliansi 
+                    <span class="text-blue-400 font-semibold">Good Side</span>, ancaman tersembunyi 
+                    <span class="text-rose-400 font-semibold">Bad Side</span>, hingga agenda rahasia 
+                    <span class="text-purple-400 font-semibold">Neutral Side</span> dalam permainan deduksi, strategi, dan manipulasi <strong>AUK Werewolf</strong>.
+                </p>
 
-            <!-- "Takdir Acak" Button Placed Directly Below Description in Header -->
-            <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-                <button id="randomRoleBtn" 
-                        type="button"
-                        onclick="triggerRandomFateCard()"
-                        class="px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-600 via-rose-700 to-purple-800 hover:from-amber-500 hover:via-rose-600 hover:to-purple-700 border border-amber-300/50 text-white text-xs sm:text-sm font-serif font-bold tracking-wider uppercase transition-all flex items-center gap-2.5 shadow-[0_10px_30px_rgba(225,29,72,0.35)] hover:shadow-[0_12px_35px_rgba(245,158,11,0.45)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
-                    <i class="fa-solid fa-dice-d20 text-amber-200 text-base"></i>
-                    <span>Takdir Acak</span>
-                </button>
+                <!-- "Takdir Acak" Button Placed Directly Below Description in Header -->
+                <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+                    <button id="randomRoleBtn" 
+                            type="button"
+                            onclick="triggerRandomFateCard()"
+                            class="px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-600 via-rose-700 to-purple-800 hover:from-amber-500 hover:via-rose-600 hover:to-purple-700 border border-amber-300/50 text-white text-xs sm:text-sm font-serif font-bold tracking-wider uppercase transition-all flex items-center gap-2.5 shadow-[0_10px_30px_rgba(225,29,72,0.35)] hover:shadow-[0_12px_35px_rgba(245,158,11,0.45)] cursor-pointer">
+                        <i class="fa-solid fa-dice-d20 text-amber-200 text-base"></i>
+                        <span>Takdir Acak</span>
+                    </button>
+                </div>
             </div>
+
         </div>
     </section>
 
-    <!-- Controls: Faction Filters & Search Bar -->
-    <section class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <!-- Controls: Faction Filters & Search Bar (With Safe Top Margin so Hero Never Overlaps) -->
+    <section class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 mb-9">
         <div class="theme-panel backdrop-blur-xl border rounded-2xl p-4 sm:p-5">
             <div class="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-4">
                 
@@ -608,13 +671,13 @@
     </main>
 
     <!-- =======================================================================
-         BE MODERATOR MODAL (ASSIGN RANDOM ROLES TO 4 - 100 USERNAMES)
+         BE MODERATOR MODAL (KEYWORD ROLE CUSTOMIZER + DUAL PUBLIC/MOD LOGS)
          ======================================================================= -->
-    <div id="moderatorModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300">
-        <div id="moderatorModalContent" class="relative w-full max-w-6xl bg-[#0b0e17] border-2 border-amber-500/40 rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.9)] overflow-hidden transform scale-95 transition-transform duration-300 max-h-[92vh] flex flex-col">
+    <div id="moderatorModal" class="fixed inset-0 z-50 hidden items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300">
+        <div id="moderatorModalContent" class="relative w-full max-w-7xl bg-[#0b0e17] border-2 border-amber-500/40 rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.95)] overflow-hidden transform scale-95 transition-transform duration-300 max-h-[94vh] flex flex-col">
             
-            <!-- Modal Header -->
-            <div class="px-5 sm:px-7 py-4 sm:py-5 bg-gradient-to-r from-slate-950 via-[#131829] to-slate-950 border-b border-slate-800 flex items-center justify-between gap-4">
+            <!-- Modal Header & Mode Tabs -->
+            <div class="px-5 sm:px-7 py-4 bg-gradient-to-r from-slate-950 via-[#131829] to-slate-950 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center gap-3.5">
                     <div class="w-11 h-11 rounded-2xl bg-amber-500/15 border border-amber-400/40 flex items-center justify-center text-amber-300 text-lg shadow-inner">
                         <i class="fa-solid fa-crown"></i>
@@ -622,74 +685,37 @@
                     <div>
                         <h2 class="font-display text-lg sm:text-2xl font-bold text-white tracking-wide flex items-center gap-2">
                             <span>BE MODERATOR</span>
-                            <span class="px-2.5 py-0.5 text-[10px] font-serif uppercase tracking-widest rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30">Role Generator</span>
+                            <span class="px-2.5 py-0.5 text-[10px] font-serif uppercase tracking-widest rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30">Custom Role & Dual Log</span>
                         </h2>
-                        <p class="text-xs text-slate-400 mt-0.5">Atur jumlah pemain (Min 4 – Max 100), masukkan username, lalu kocok dadu di samping nama atau bagikan semua role sekaligus.</p>
+                        <p class="text-xs text-slate-400 mt-0.5">Kustomisasi role dengan kata kunci (ww, ww alpha, ww seer, sk, fool, dll.), acak atau atur manual, dan kelola Log Publik (Sensor) & Log Moderator.</p>
                     </div>
                 </div>
-                <button id="closeModeratorBtn" type="button" onclick="closeModeratorModal()" class="w-10 h-10 rounded-full bg-slate-900 hover:bg-rose-600 text-slate-300 hover:text-white border border-slate-700 flex items-center justify-center transition-colors shrink-0 cursor-pointer">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
+
+                <!-- Navigation Sub-Tabs inside Be Moderator -->
+                <div class="flex items-center gap-2">
+                    <button type="button" id="modTabSetupBtn" onclick="switchModeratorTab('setup')" class="px-3.5 py-2 rounded-xl font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 bg-amber-500 text-slate-950 shadow-md cursor-pointer">
+                        <i class="fa-solid fa-users-gear"></i>
+                        <span>1. Pemain & Keyword Role</span>
+                    </button>
+                    <button type="button" id="modTabLogBtn" onclick="switchModeratorTab('notulen')" class="px-3.5 py-2 rounded-xl font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 cursor-pointer">
+                        <i class="fa-solid fa-book-journal-whills text-amber-400"></i>
+                        <span>2. Log Publik & Log Moderator</span>
+                        <span id="notulenBadgeCount" class="px-1.5 py-0.2 text-[10px] rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30">0</span>
+                    </button>
+                    <button id="closeModeratorBtn" type="button" onclick="closeModeratorModal()" class="ml-1 w-10 h-10 rounded-full bg-slate-900 hover:bg-rose-600 text-slate-300 hover:text-white border border-slate-700 flex items-center justify-center transition-colors shrink-0 cursor-pointer">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
             </div>
 
-            <!-- Moderator Top Control Bar -->
-            <div class="px-5 sm:px-7 py-4 bg-slate-950/90 border-b border-slate-800/90 flex flex-col gap-4">
-                
-                <!-- Row 1: Player Count Customizer (Min 4 Max 100) + Presets -->
-                <div class="flex flex-wrap items-center justify-between gap-3">
-                    <div class="flex flex-wrap items-center gap-3">
-                        <label for="playerCountInput" class="text-xs font-serif uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                            <i class="fa-solid fa-users text-amber-400"></i>
-                            <span>Jumlah Pemain (4–100):</span>
-                        </label>
-                        <div class="flex items-center bg-slate-900 border border-slate-700 rounded-xl p-1">
-                            <button type="button" id="decPlayerBtn" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center transition-colors" title="Kurangi 1 Pemain">
-                                <i class="fa-solid fa-minus text-xs"></i>
-                            </button>
-                            <input 
-                                type="number" 
-                                id="playerCountInput" 
-                                min="4" 
-                                max="100" 
-                                value="8" 
-                                class="w-14 text-center bg-transparent font-serif font-bold text-sm text-amber-300 focus:outline-none"
-                            />
-                            <button type="button" id="incPlayerBtn" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center transition-colors" title="Tambah 1 Pemain">
-                                <i class="fa-solid fa-plus text-xs"></i>
-                            </button>
-                        </div>
-
-                        <input 
-                            type="range" 
-                            id="playerCountSlider" 
-                            min="4" 
-                            max="100" 
-                            value="8" 
-                            class="w-28 sm:w-36 accent-amber-500 cursor-pointer"
-                        />
-                    </div>
-
-                    <!-- Quick Presets (4, 6, 8, 10, 12, 15, 20, 30, 50, 100) -->
-                    <div class="flex flex-wrap items-center gap-1.5 text-xs font-serif">
-                        <span class="text-slate-500 mr-1 text-[11px]">Preset:</span>
-                        <button type="button" data-preset="4" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">4</button>
-                        <button type="button" data-preset="6" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">6</button>
-                        <button type="button" data-preset="8" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">8</button>
-                        <button type="button" data-preset="10" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">10</button>
-                        <button type="button" data-preset="12" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">12</button>
-                        <button type="button" data-preset="15" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">15</button>
-                        <button type="button" data-preset="20" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">20</button>
-                        <button type="button" data-preset="30" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">30</button>
-                        <button type="button" data-preset="50" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">50</button>
-                        <button type="button" data-preset="100" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">100</button>
-                    </div>
-                </div>
-
-                <!-- Row 2: Faction Filters & Master Actions -->
-                <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 pt-2 border-t border-slate-800/80">
-                    <!-- Faction Checkboxes & Unique Role Toggle -->
+            <!-- ===============================================================
+                 TAB 1: ONE-PER-LINE USERNAME + KEYWORD ROLE + CUSTOM ROSTER
+                 =============================================================== -->
+            <div id="modPanelSetup" class="flex-1 overflow-y-auto flex flex-col">
+                <!-- Filter & Action Toolbar -->
+                <div class="px-5 sm:px-7 py-3.5 bg-slate-950/90 border-b border-slate-800/90 flex flex-wrap items-center justify-between gap-3">
                     <div class="flex flex-wrap items-center gap-2 text-xs">
-                        <span class="text-slate-400 font-serif uppercase tracking-wider text-[11px] mr-1">Filter Role:</span>
+                        <span class="text-slate-400 font-serif uppercase tracking-wider text-[11px] mr-1">Filter Deck Acak:</span>
                         <label class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-blue-950/50 border border-blue-500/30 text-blue-300 cursor-pointer select-none">
                             <input type="checkbox" id="modAllowGood" checked class="accent-blue-500 rounded cursor-pointer">
                             <span>Good Side</span>
@@ -702,54 +728,371 @@
                             <input type="checkbox" id="modAllowNeutral" checked class="accent-purple-500 rounded cursor-pointer">
                             <span>Neutral Side</span>
                         </label>
-                        <label class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-amber-200 cursor-pointer select-none">
-                            <input type="checkbox" id="uniqueRolesCheckbox" checked class="accent-amber-500 rounded cursor-pointer">
-                            <span>Role Unik</span>
-                        </label>
+                        <button type="button" id="loadSample14Btn" class="px-2.5 py-1.5 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-500/40 text-emerald-300 text-[11px] font-semibold flex items-center gap-1.5 transition-all cursor-pointer" title="Muat contoh 14 Username & 14 Keyword Role seperti pada instruksi">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>Muat Contoh 14 Pemain & Keyword</span>
+                        </button>
                     </div>
 
-                    <!-- Master Action Buttons -->
                     <div class="flex flex-wrap items-center gap-2">
-                        <button type="button" id="rollAllRolesBtn" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-rose-600 to-purple-700 hover:from-amber-400 hover:via-rose-500 hover:to-purple-600 text-white font-serif font-bold text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 shadow-lg border border-amber-300/40 transition-all cursor-pointer">
-                            <i class="fa-solid fa-dice text-base"></i>
-                            <span>🎲 Bagikan Semua Role Acak</span>
+                        <button type="button" id="rollAllRolesBtn" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-rose-600 to-purple-700 hover:from-amber-400 hover:via-rose-500 hover:to-purple-600 text-white font-serif font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg border border-amber-300/40 transition-all cursor-pointer" title="Jika kolom Keyword Role diisi, mengacak role dari daftar Keyword tersebut ke pemain. Jika kosong, mengacak dari seluruh deck.">
+                            <i class="fa-solid fa-shuffle text-sm"></i>
+                            <span>🎲 Acak Role (Dari Keyword / Deck)</span>
                         </button>
 
-                        <button type="button" id="copyModListBtn" class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-serif text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer" title="Salin Hasil Pembagian Role">
+                        <button type="button" id="assignSequentialKeywordBtn" class="px-3.5 py-2.5 rounded-xl bg-indigo-950/90 hover:bg-indigo-900 border border-indigo-400/50 text-indigo-200 font-serif font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer" title="Pasangkan langsung Baris 1 Username dengan Baris 1 Keyword Role tanpa diacak">
+                            <i class="fa-solid fa-arrows-left-right"></i>
+                            <span>Pasangkan Urut Baris</span>
+                        </button>
+
+                        <button type="button" id="copyModListBtn" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-serif text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer">
                             <i class="fa-solid fa-copy text-sky-400"></i>
-                            <span>Salin Hasil Pembagian Role</span>
+                            <span>Salin Role</span>
                         </button>
 
-                        <button type="button" id="clearModRolesBtn" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-rose-950/70 border border-slate-700 hover:border-rose-500/40 text-slate-300 hover:text-rose-200 font-serif text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer" title="Reset Semua Role">
+                        <button type="button" id="clearModRolesBtn" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-rose-950/70 border border-slate-700 hover:border-rose-500/40 text-slate-300 hover:text-rose-200 font-serif text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer">
                             <i class="fa-solid fa-rotate-left"></i>
                             <span>Reset</span>
                         </button>
                     </div>
                 </div>
+
+                <!-- Live Faction Summary Bar -->
+                <div class="px-5 sm:px-7 py-2.5 bg-[#070a12] border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <span class="text-slate-400">Distribusi Saat Ini:</span>
+                        <span class="flex items-center gap-1.5 text-blue-300 font-semibold">
+                            <i class="fa-solid fa-shield-heart text-blue-400"></i> Good Side: <strong id="modSumGood">0</strong>
+                        </span>
+                        <span class="flex items-center gap-1.5 text-rose-300 font-semibold">
+                            <i class="fa-solid fa-paw text-rose-500"></i> Bad Side: <strong id="modSumWolf">0</strong>
+                        </span>
+                        <span class="flex items-center gap-1.5 text-purple-300 font-semibold">
+                            <i class="fa-solid fa-masks-theater text-purple-400"></i> Neutral Side: <strong id="modSumNeutral">0</strong>
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-3 text-slate-400">
+                        <span>Total Pemain: <strong id="modTotalSlots" class="text-white">0</strong></span>
+                        <span>•</span>
+                        <span>Keyword Role: <strong id="modTotalKeywords" class="text-emerald-400">0</strong></span>
+                        <span>•</span>
+                        <span>Mendapat Role: <strong id="modAssignedCount" class="text-amber-300">0</strong></span>
+                    </div>
+                </div>
+
+                <!-- 3-Column Layout: Col 1 = Usernames, Col 2 = Keyword Roles, Col 3 = Interactive Custom Roster -->
+                <div class="p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1">
+                    
+                    <!-- Column 1 (3 cols): One-Per-Line Username Input -->
+                    <div class="lg:col-span-3 flex flex-col bg-slate-950/90 border border-slate-800 rounded-2xl p-4">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label for="bulkUsernamesInput" class="font-serif text-xs font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-list-ol"></i>
+                                <span>1. List Username</span>
+                            </label>
+                            <span id="detectedLinesBadge" class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-900 border border-slate-700 text-amber-300">
+                                0 Pemain
+                            </span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mb-2.5 leading-relaxed">
+                            Satu baris satu nama (nomor urut seperti <code class="text-slate-200">1. biu</code> otomatis dibersihkan).
+                        </p>
+                        <textarea 
+                            id="bulkUsernamesInput" 
+                            rows="12"
+                            placeholder="1. biu&#10;2. Cha Hae-in&#10;3. jude&#10;4. K A T H A R S I S&#10;5. kaluu&#10;..."
+                            class="w-full flex-1 min-h-[240px] bg-[#060911] border border-slate-700/80 focus:border-amber-400 rounded-xl p-3 text-xs sm:text-sm text-white placeholder-slate-600 focus:outline-none font-mono leading-relaxed resize-y"
+                        ></textarea>
+                    </div>
+
+                    <!-- Column 2 (3 cols): Keyword Role Input (Supports Abbreviations) -->
+                    <div class="lg:col-span-3 flex flex-col bg-slate-950/90 border border-slate-800 rounded-2xl p-4">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label for="bulkKeywordsInput" class="font-serif text-xs font-bold uppercase tracking-wider text-emerald-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-key"></i>
+                                <span>2. Keyword Role (Opsional)</span>
+                            </label>
+                            <span id="detectedKeywordsBadge" class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-900 border border-slate-700 text-emerald-300">
+                                0 Role
+                            </span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mb-2.5 leading-relaxed">
+                            Ketik daftar role/singkatan (<code class="text-amber-300">ww</code>, <code class="text-amber-300">ww alpha</code>, <code class="text-amber-300">ww seer</code>, <code class="text-amber-300">sk</code>, <code class="text-amber-300">fool</code>, dll.) untuk diacak atau dipasang urut.
+                        </p>
+                        <textarea 
+                            id="bulkKeywordsInput" 
+                            rows="10"
+                            placeholder="ww alpha&#10;ww seer&#10;ww&#10;seer&#10;fool&#10;sheriff&#10;detective&#10;guardian&#10;lycan&#10;witch&#10;tracker&#10;beauty&#10;sk&#10;harlot"
+                            class="w-full flex-1 min-h-[180px] bg-[#060911] border border-slate-700/80 focus:border-emerald-400 rounded-xl p-3 text-xs sm:text-sm text-white placeholder-slate-600 focus:outline-none font-mono leading-relaxed resize-y"
+                        ></textarea>
+
+                        <!-- Recognized Keyword Chips Preview -->
+                        <div class="mt-2.5 pt-2 border-t border-slate-800/80">
+                            <div class="text-[10px] font-serif uppercase tracking-wider text-slate-400 mb-1.5 flex items-center justify-between">
+                                <span>Terdeteksi dari Keyword:</span>
+                                <span class="text-[10px] text-slate-500">ww=Werewolf, sk=Serial Killer, fool=Clown</span>
+                            </div>
+                            <div id="keywordPreviewPills" class="flex flex-wrap gap-1 max-h-24 overflow-y-auto pr-1">
+                                <span class="text-[11px] text-slate-500 italic">Kosong (Menggunakan seluruh deck kartu)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 3 (6 cols): Interactive Player Roster (Manual Dropdown + Single Dice + Inspect) -->
+                    <div class="lg:col-span-6 flex flex-col bg-slate-950/60 border border-slate-800/90 rounded-2xl p-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2 border-b border-slate-800">
+                            <h3 class="font-serif text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+                                <i class="fa-solid fa-id-card-clip text-amber-400"></i>
+                                <span>3. Kustomisasi & Hasil Pembagian Role</span>
+                            </h3>
+                            <button type="button" onclick="switchModeratorTab('notulen')" class="px-3 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 text-xs font-serif text-amber-300 flex items-center gap-1.5 cursor-pointer">
+                                <span>Buka Log Publik & Moderator</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <div id="moderatorPlayersList" class="overflow-y-auto max-h-[430px] pr-1 space-y-2.5">
+                            <!-- Dynamically populated from bulkUsernamesInput -->
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Moderator Live Faction Summary Bar -->
-            <div class="px-5 sm:px-7 py-2.5 bg-[#070a12] border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
-                <div class="flex flex-wrap items-center gap-4">
-                    <span class="text-slate-400">Distribusi Saat Ini:</span>
-                    <span class="flex items-center gap-1.5 text-blue-300 font-semibold">
-                        <i class="fa-solid fa-shield-heart text-blue-400"></i> Good Side: <strong id="modSumGood">0</strong>
-                    </span>
-                    <span class="flex items-center gap-1.5 text-rose-300 font-semibold">
-                        <i class="fa-solid fa-paw text-rose-500"></i> Bad Side: <strong id="modSumWolf">0</strong>
-                    </span>
-                    <span class="flex items-center gap-1.5 text-purple-300 font-semibold">
-                        <i class="fa-solid fa-masks-theater text-purple-400"></i> Neutral Side: <strong id="modSumNeutral">0</strong>
-                    </span>
-                </div>
-                <div class="text-slate-400">
-                    Terisi: <strong id="modAssignedCount" class="text-amber-300">0</strong> / <strong id="modTotalSlots" class="text-white">8</strong> Pemain
-                </div>
-            </div>
+            <!-- ===============================================================
+                 TAB 2: DUAL LOG SYSTEM (PUBLIC CENSORED LOG vs MODERATOR FULL LOG)
+                 =============================================================== -->
+            <div id="modPanelNotulen" class="hidden flex-1 overflow-y-auto p-4 sm:p-6 flex-col gap-5">
+                
+                <!-- Top Status Bar: Current Round & Alive/Dead Counter -->
+                <div class="p-4 rounded-2xl bg-slate-950/90 border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="px-3.5 py-2 rounded-xl bg-amber-500/15 border border-amber-400/40 font-serif font-bold text-sm text-amber-300 flex items-center gap-2">
+                            <i class="fa-solid fa-moon"></i>
+                            <span>Malam / Hari Ke-</span>
+                            <input type="number" id="notulenRoundInput" min="1" value="1" class="w-14 bg-slate-900 border border-slate-700 rounded-lg px-2 py-0.5 text-center text-white focus:outline-none" />
+                        </div>
+                        <div class="text-xs text-slate-300 space-y-0.5">
+                            <div>Status Pemain: <strong id="notulenAliveCount" class="text-emerald-400">0 Hidup</strong> • <strong id="notulenDeadCount" class="text-rose-400">0 Mati</strong></div>
+                            <div class="text-[11px] text-slate-400">
+                                <strong>Log Publik</strong> otomatis menyensor semua nama & role. <strong>Log Moderator</strong> mencatat nama pemain, role asli, target, dan hasil detail.
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- Players & Role Assignment Grid -->
-            <div id="moderatorPlayersList" class="p-4 sm:p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-3.5 flex-1">
-                <!-- Dynamically populated player rows -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button type="button" id="clearNotulenBtn" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-rose-950/70 border border-slate-700 text-slate-300 hover:text-rose-200 font-serif text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span>Bersihkan Semua Log</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Grid: Left (4 cols) = Night/Day Action Simulator, Right (8 cols) = Two Side-by-Side Logs (Public vs Moderator) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+                    
+                    <!-- Left (5 cols): Night & Day Action Inputs -->
+                    <div class="lg:col-span-5 space-y-4">
+                        
+                        <!-- Card 1: Night Action Resolver -->
+                        <div class="p-4 sm:p-5 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-3.5">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                                <h3 class="font-serif text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-300 flex items-center gap-2">
+                                    <i class="fa-solid fa-cloud-moon"></i>
+                                    <span>Simulasi Aksi Malam Hari</span>
+                                </h3>
+                                <span class="text-[10px] text-slate-400">Otomatis mengisi 2 Log sekaligus</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                <!-- Guardian Target -->
+                                <div>
+                                    <label class="block text-blue-300 font-semibold mb-1">
+                                        <i class="fa-solid fa-shield-halved mr-1"></i> Guardian Melindungi:
+                                    </label>
+                                    <select id="actGuardianTarget" class="notulen-player-select w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-2 text-white focus:border-blue-400 focus:outline-none">
+                                        <option value="">— Tidak Ada / Lewati —</option>
+                                    </select>
+                                </div>
+
+                                <!-- Werewolf Kill Target -->
+                                <div>
+                                    <label class="block text-rose-400 font-semibold mb-1">
+                                        <i class="fa-solid fa-paw mr-1"></i> Werewolf Membunuh:
+                                    </label>
+                                    <select id="actWolfTarget" class="notulen-player-select w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-2 text-white focus:border-rose-400 focus:outline-none">
+                                        <option value="">— Tidak Ada / Lewati —</option>
+                                    </select>
+                                </div>
+
+                                <!-- Seer Target -->
+                                <div>
+                                    <label class="flex items-center justify-between text-sky-300 font-semibold mb-1">
+                                        <span><i class="fa-solid fa-eye mr-1"></i> Seer Menerawang:</span>
+                                        <select id="actSeerStatus" class="bg-slate-950 border border-slate-700 rounded px-1.5 py-0.5 text-[10px] text-amber-300">
+                                            <option value="auto">Otomatis Berhasil</option>
+                                            <option value="fail">Gagal Menerawang</option>
+                                        </select>
+                                    </label>
+                                    <select id="actSeerTarget" class="notulen-player-select w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-2 text-white focus:border-sky-400 focus:outline-none">
+                                        <option value="">— Tidak Ada / Lewati —</option>
+                                    </select>
+                                </div>
+
+                                <!-- Wolf Seer / Sorcerer Target -->
+                                <div>
+                                    <label class="block text-amber-300 font-semibold mb-1">
+                                        <i class="fa-solid fa-eye-low-vision mr-1"></i> WW Seer / Sorcerer Cek:
+                                    </label>
+                                    <select id="actWolfSeerTarget" class="notulen-player-select w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-2 text-white focus:border-amber-400 focus:outline-none">
+                                        <option value="">— Tidak Ada / Lewati —</option>
+                                    </select>
+                                </div>
+
+                                <!-- Serial Killer Target -->
+                                <div>
+                                    <label class="block text-purple-300 font-semibold mb-1">
+                                        <i class="fa-solid fa-kitchen-set mr-1"></i> Serial Killer (SK) Bunuh:
+                                    </label>
+                                    <select id="actSkTarget" class="notulen-player-select w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-2 text-white focus:border-purple-400 focus:outline-none">
+                                        <option value="">— Tidak Ada / Lewati —</option>
+                                    </select>
+                                </div>
+
+                                <!-- Harlot Visit Target -->
+                                <div>
+                                    <label class="block text-pink-300 font-semibold mb-1">
+                                        <i class="fa-solid fa-door-open mr-1"></i> Harlot Mengunjungi:
+                                    </label>
+                                    <select id="actHarlotTarget" class="notulen-player-select w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-2 text-white focus:border-pink-400 focus:outline-none">
+                                        <option value="">— Tidak Ada / Lewati —</option>
+                                    </select>
+                                </div>
+
+                                <!-- Tracker Target -->
+                                <div>
+                                    <label class="block text-teal-300 font-semibold mb-1">
+                                        <i class="fa-solid fa-shoe-prints mr-1"></i> Tracker Melacak:
+                                    </label>
+                                    <select id="actTrackerTarget" class="notulen-player-select w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-2 text-white focus:border-teal-400 focus:outline-none">
+                                        <option value="">— Tidak Ada / Lewati —</option>
+                                    </select>
+                                </div>
+
+                                <!-- Trapper Target -->
+                                <div>
+                                    <label class="block text-emerald-300 font-semibold mb-1">
+                                        <i class="fa-solid fa-land-mine-on mr-1"></i> Trapper Pasang Trap:
+                                    </label>
+                                    <select id="actTrapTarget" class="notulen-player-select w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-2 text-white focus:border-emerald-400 focus:outline-none">
+                                        <option value="">— Tidak Ada / Lewati —</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Public Log Censor Option for Victim Names -->
+                            <div class="pt-1 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-300 bg-slate-900/80 px-3 py-2 rounded-xl border border-slate-800">
+                                <label class="flex items-center gap-2 cursor-pointer select-none">
+                                    <input type="checkbox" id="censorVictimNameInPublic" checked class="accent-amber-500 rounded cursor-pointer">
+                                    <span>Sensor juga nama korban tewas di <strong>Log Publik</strong> (Hanya tulis "salah satu penduduk desa")</span>
+                                </label>
+                            </div>
+
+                            <!-- Custom Extra Night Note (Separate Public vs Moderator optional note) -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                                <div>
+                                    <label class="block text-[11px] text-emerald-300 mb-1">Tambahan Kalimat Log Publik (Sensor):</label>
+                                    <input type="text" id="actCustomPublicNote" placeholder="Misal: Witch gagal menggunakan ramuan tadi malam" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-emerald-400 focus:outline-none" />
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] text-amber-300 mb-1">Tambahan Kalimat Log Moderator (Detail):</label>
+                                    <input type="text" id="actCustomModNote" placeholder="Misal: Witch (Rara) menghidupkan kembali biu" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-amber-400 focus:outline-none" />
+                                </div>
+                            </div>
+
+                            <button type="button" id="resolveNightBtn" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 via-rose-600 to-amber-600 hover:from-indigo-500 hover:to-amber-500 text-white font-serif font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-pointer">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                <span>⚡ Proses Malam & Buat Log Publik + Moderator</span>
+                            </button>
+                        </div>
+
+                        <!-- Card 2: Day Voting / Execution & Quick Player Status Toggle -->
+                        <div class="p-4 sm:p-5 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-3">
+                            <h3 class="font-serif text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-300 flex items-center gap-2 border-b border-slate-800 pb-2">
+                                <i class="fa-solid fa-sun"></i>
+                                <span>Eksekusi Voting Siang & Status Pemain</span>
+                            </h3>
+
+                            <div class="flex flex-col sm:flex-row items-stretch sm:items-end gap-2.5 text-xs">
+                                <div class="flex-1">
+                                    <label class="block text-slate-300 font-semibold mb-1">Warga yang Digantung / Dieksekusi Siang Hari:</label>
+                                    <select id="actDayVoteTarget" class="notulen-player-select w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 focus:outline-none">
+                                        <option value="">— Pilih Warga (Atau Skip Vote) —</option>
+                                    </select>
+                                </div>
+                                <button type="button" id="resolveDayVoteBtn" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-serif font-bold uppercase tracking-wider shrink-0 cursor-pointer">
+                                    <i class="fa-solid fa-gavel mr-1"></i> Catat Hasil Siang
+                                </button>
+                            </div>
+
+                            <!-- Quick Alive/Dead Toggle Chips -->
+                            <div class="pt-2">
+                                <div class="text-[11px] text-slate-400 mb-2">Klik nama pemain untuk mengubah status <strong>Hidup / Mati</strong> secara manual:</div>
+                                <div id="notulenPlayerStatusChips" class="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right (7 cols): TWO DISTINCT LOG PANELS (1. LOG PUBLIK SENSOR vs 2. LOG MODERATOR DETAIL) -->
+                    <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        
+                        <!-- PANEL A: LOG PUBLIK (CENSORED FOR PLAYERS) -->
+                        <div class="flex flex-col bg-slate-950/95 border-2 border-emerald-500/35 rounded-2xl p-4 shadow-lg">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-2.5 mb-3 gap-2">
+                                <div>
+                                    <h3 class="font-serif text-xs sm:text-sm font-bold uppercase tracking-wider text-emerald-300 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-bullhorn"></i>
+                                        <span>1. Log Publik (Disensor)</span>
+                                    </h3>
+                                    <p class="text-[10px] text-slate-400 mt-0.5">Aman dibagikan ke pemain (Tanpa bocor role/nama)</p>
+                                </div>
+                                <button type="button" id="copyPublicLogBtn" class="px-2.5 py-1.5 rounded-xl bg-emerald-950/80 hover:bg-emerald-800 border border-emerald-500/40 text-emerald-200 font-serif text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 shrink-0 cursor-pointer">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span>Salin Publik</span>
+                                </button>
+                            </div>
+
+                            <div id="publicLogsContainer" class="flex-1 overflow-y-auto max-h-[500px] space-y-3 pr-1">
+                                <!-- Populated dynamically with censored public announcements -->
+                            </div>
+                        </div>
+
+                        <!-- PANEL B: LOG MODERATOR (FULL UNCENSORED DETAILS) -->
+                        <div class="flex flex-col bg-slate-950/95 border-2 border-amber-500/40 rounded-2xl p-4 shadow-lg">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-2.5 mb-3 gap-2">
+                                <div>
+                                    <h3 class="font-serif text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-user-secret"></i>
+                                        <span>2. Log Moderator (Detail)</span>
+                                    </h3>
+                                    <p class="text-[10px] text-slate-400 mt-0.5">Rahasia khusus Moderator (Nama, Role & Hasil)</p>
+                                </div>
+                                <button type="button" id="copyModLogBtn" class="px-2.5 py-1.5 rounded-xl bg-amber-950/80 hover:bg-amber-800 border border-amber-500/40 text-amber-200 font-serif text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 shrink-0 cursor-pointer">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span>Salin Detail</span>
+                                </button>
+                            </div>
+
+                            <div id="moderatorLogsContainer" class="flex-1 overflow-y-auto max-h-[500px] space-y-3 pr-1">
+                                <!-- Populated dynamically with full uncensored moderator logs -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
@@ -830,17 +1173,16 @@
     <footer class="relative z-10 border-t border-slate-800/50 bg-[#03050a]/90 py-8 text-center text-xs text-slate-400">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
-                <svg viewBox="0 0 100 100" class="w-7 h-7">
-                    <circle cx="50" cy="50" r="44" fill="#fde68a" />
-                    <path d="M50 18 L41 32 L26 20 L30 43 L19 52 L31 61 L26 74 L42 79 L50 90 L58 79 L74 74 L69 61 L81 52 L70 43 L74 20 L59 32 Z" fill="#04060c" />
-                    <polygon points="37,49 46,53 39,55" fill="#f59e0b" />
-                    <polygon points="63,49 54,53 61,55" fill="#f59e0b" />
+                <svg viewBox="0 0 120 120" class="w-7 h-7">
+                    <circle cx="60" cy="60" r="46" fill="#e2e8f0" />
+                    <path d="M 16 110 L 34 86 L 47 82 L 62 87 L 79 98 L 92 110 Z" fill="#020306" />
+                    <path d="M 45 84 L 46 71 C 44 63, 45 55, 48 48 L 46 45 L 49 42 L 48 38 L 53 33 L 52 27 L 55 28 L 57 31 C 61 36, 63 43, 64 50 L 73 61 C 77 65, 79 70, 79 75 L 85 83 L 89 82 C 86 86, 81 86, 78 81 L 75 76 L 73 94 L 70 93 L 71 79 L 66 76 L 65 91 L 62 90 L 62 75 L 55 71 L 52 85 L 49 85 L 51 73 L 48 73 L 47 84 Z" fill="#020306" />
                 </svg>
                 <span class="font-display text-slate-200 tracking-wider font-bold">AUK WEREWOLF</span>
                 <span>— Koleksi Kartu Peran</span>
             </div>
-            <div>
-                Arahkan Kursor untuk Efek 3D • Klik Kartu untuk Penjelasan Lengkap
+            <div class="font-serif tracking-wider uppercase text-slate-400">
+                copyright syndle 2026
             </div>
         </div>
     </footer>
@@ -848,15 +1190,15 @@
     <!-- Application Script -->
     <script>
         // =========================================================================
-        // 0. GENTLE 3D HOVER EFFECT ON HERO LOGO (MAX 5-6 DEGREES)
+        // 0. 3D MULTI-LAYER PARALLAX HOVER EFFECT ON HOWLING WOLF & FULL MOON LOGO
         // =========================================================================
         function initGentleLogoHover() {
             const stage = document.getElementById("heroLogoStage");
             const card = document.getElementById("heroLogoCard");
 
             if (stage && card) {
-                const maxTilt = 5.5;
-                const hoverScale = 1.03;
+                const maxTilt = 7.5;
+                const hoverScale = 1.04;
 
                 stage.addEventListener("mousemove", (e) => {
                     const rect = card.getBoundingClientRect();
@@ -886,27 +1228,27 @@
                 icon: "fa-shield-heart",
                 border: "border-blue-500/60",
                 badgeBg: "bg-blue-950/90 text-blue-300 border-blue-500/40",
-                cardGradient: "from-blue-950/90 via-slate-950 to-slate-950",
-                alignmentText: "Berpihak pada aliansi warga desa (Good Side)",
-                winText: "Menang apabila seluruh kawanan Werewolf (Bad Side) dan ancaman pembunuh berantai telah dieliminasi dari desa."
+                cardGradient: "from-blue-950/60 via-slate-950 to-slate-950",
+                alignmentText: "Berpihak pada Aliansi Desa (Good Side)",
+                winText: "Menang apabila seluruh ancaman Bad Side (Werewolf) dan pembunuh Neutral Side berhasil dieliminasi dari desa."
             },
             werewolf: {
                 label: "Bad Side",
                 icon: "fa-paw",
-                border: "border-rose-500/65",
+                border: "border-rose-500/60",
                 badgeBg: "bg-rose-950/90 text-rose-300 border-rose-500/40",
-                cardGradient: "from-rose-950/90 via-slate-950 to-slate-950",
-                alignmentText: "Berpihak pada kawanan serigala malam (Bad Side)",
-                winText: "Menang apabila jumlah kubu Werewolf menyamai atau melebihi jumlah warga desa yang masih hidup."
+                cardGradient: "from-rose-950/60 via-slate-950 to-slate-950",
+                alignmentText: "Berpihak pada Kawanan Serigala (Bad Side)",
+                winText: "Menang apabila jumlah anggota Bad Side setara atau melebihi jumlah warga yang masih bertahan hidup."
             },
             neutral: {
                 label: "Neutral Side",
                 icon: "fa-masks-theater",
                 border: "border-purple-500/60",
                 badgeBg: "bg-purple-950/90 text-purple-300 border-purple-500/40",
-                cardGradient: "from-purple-950/90 via-slate-950 to-slate-950",
-                alignmentText: "Berpihak pada agenda mandiri / independen (Neutral Side)",
-                winText: "Memiliki syarat kemenangan khusus tersendiri sesuai objektif unik dari kartu peran ini."
+                cardGradient: "from-purple-950/60 via-slate-950 to-slate-950",
+                alignmentText: "Berpihak pada Diri Sendiri / Independen (Neutral Side)",
+                winText: "Memiliki syarat kemenangan khusus dan independen sesuai mekanik unik dari masing-masing kartu peran."
             }
         };
 
@@ -928,7 +1270,7 @@
                 imgEl.setAttribute("data-attempt", String(attempt));
                 imgEl.src = urls[attempt];
             } else {
-                imgEl.classList.add("hidden");
+                imgEl.style.display = "none";
                 const fallback = imgEl.parentElement ? imgEl.parentElement.querySelector(".gothic-svg-fallback") : null;
                 if (fallback) {
                     fallback.classList.remove("hidden");
@@ -938,10 +1280,10 @@
         };
 
         // =========================================================================
-        // 2. COMPLETE AUK WEREWOLF CARDS DATA (ALL ROLES FROM GOOGLE DRIVE)
+        // 2. COMPLETE AUK WEREWOLF CARDS DATA (57 UNIQUE ROLES FROM GOOGLE DRIVE)
         // =========================================================================
-        const werewolfCards = [
-            // ================= KATEGORI: GOOD SIDE =================
+        const rawWerewolfCards = [
+            // ================= KATEGORI: GOOD SIDE (28 KARTU UNIK) =================
             {
                 id: "ancient-keeper",
                 name: "Ancient Keeper",
@@ -1088,31 +1430,6 @@
                 strategy: "Beri kode halus kepada warga tepercaya mengenai rumah siapa yang akan kamu kunjungi malam ini, sehingga jika kamu mati di malam hari, warga langsung tahu siapa pembunuhmu."
             },
             {
-                id: "hex",
-                name: "Hex",
-                title: "Kutukan Suara Hewan & Kebangkitan",
-                faction: "good",
-                driveId: "1oFw90AxzBiQJZjB555jaN6NbYcDcziH5",
-                hasWhiteBg: true,
-                icon: "fa-paw",
-                actionType: "Aktif • Wajib Suara Hewan & Bangkitkan Mayat",
-                desc: "Jika kamu mendapatkan role ini, maka bersiaplah anda harus bersuara seperti hewan ditentukan oleh moderator selama permainan. Jika melanggar maka akan langsung mati. Kekuatan lainnya yaitu mampu menghidupkan orang mati secara berturut-turut.",
-                explanation: "Peran penuh kutukan sekaligus keajaiban. Sepanjang permainan, pemilik kartu Hex wajib bersuara seperti hewan yang ditetapkan moderator—sekali saja berbicara normal tanpa suara hewan, ia langsung mati. Sebagai imbalannya, ia punya kekuatan luar biasa untuk menghidupkan kembali orang mati secara berturut-turut.",
-                strategy: "Tetap fokus dan jangan sampai terpancing berbicara normal saat kaget atau berdebat, sambil terus menghidupkan warga yang mati untuk menjaga keunggulan jumlah."
-            },
-            {
-                id: "hidden-villager",
-                name: "Hidden Villager",
-                title: "Warga Rahasia Kunci Takdir",
-                faction: "good",
-                driveId: "1U3DvyQFMl23WpJC3dhE41LuxmAgBFk6G",
-                icon: "fa-user-secret",
-                actionType: "Pasif • Kunci Incaran Dewa",
-                desc: "Every night he wakes up to visit one of the villagers' houses. If he visits a Werewolf's house, he is killed. If he visits a house that is also visited by a Werewolf or Serial Killer, he is killed (unless a Guardian is protecting that house). If he visits a Werewolf's house that is protected by a Guardian, the Harlot still dies.",
-                explanation: "Harlot bertamu ke rumah pemain lain setiap malam. Jika ia selamat kembali di pagi hari sementara tuan rumah tidak diserang, itu memberi petunjuk bahwa tuan rumah bukanlah Werewolf. Namun risikonya tinggi: berkunjung ke rumah Werewolf (meski dilindungi Guardian) atau rumah yang sedang diserang Werewolf/Serial Killer akan menewaskan Harlot.",
-                strategy: "Beri kode halus kepada warga tepercaya mengenai rumah siapa yang akan kamu kunjungi malam ini, sehingga jika kamu mati di malam hari, warga langsung tahu siapa pembunuhmu."
-            },
-            {
                 id: "hidden-villager",
                 name: "Hidden Villager",
                 title: "Warga Rahasia Kunci Takdir",
@@ -1137,6 +1454,18 @@
                 strategy: "Amati dengan jeli perilaku setiap pemain sepanjang permainan, supaya ketika kamu tiba-tiba terbunuh di malam hari, tembakan terakhir milikmu tepat mengenai Werewolf."
             },
             {
+                id: "lord",
+                name: "Lord",
+                title: "Bangsawan Bertameng Warga",
+                faction: "good",
+                driveId: "1KlVPEgwpTxUqVbIx114WWa7GCo5qcj31",
+                icon: "fa-chess-king",
+                actionType: "Aktif • Tameng Hidup",
+                desc: "Role aktif yg dapat mengacak atau memilih satu villager untuk menjadi tameng dia. Apabila Lord ingin dicabik Werewolf, maka yg akan mati terlebih dahulu adalah villager yg menjadi tameng Lord.",
+                explanation: "Bangsawan desa yang menggunakan pemain lain sebagai perisai hidup. Setiap malam Lord dapat memilih (atau mengacak) satu pemain sebagai tameng. Jika Werewolf menyerang Lord, sang tamenglah yang akan tewas menggantikannya sementara Lord tetap selamat.",
+                strategy: "Pilihlah pemain yang paling mencurigakan sebagai tamengmu agar kamu tetap bertahan hidup melewati serangan malam."
+            },
+            {
                 id: "lycan",
                 name: "Lycan",
                 title: "Warga Berdarah Serigala",
@@ -1154,8 +1483,9 @@
                 title: "Persaudaraan Rahasia Desa",
                 faction: "good",
                 driveId: "17lrvkx_0sprq5KtytF6V8Ma5KZKyWTT6",
+                allowMultiple: true,
                 icon: "fa-trowel-bricks",
-                actionType: "Pasif • Saling Mengenal Sejak Awal",
+                actionType: "Pasif • Saling Mengenal Sejak Awal (Bisa >1 Pemain)",
                 desc: "Anggota persaudaraan rahasia desa yang saling mengenal identitas sesama Mason sejak malam pertama permainan dimulai.",
                 explanation: "Para anggota Mason membuka mata bersama di awal permainan untuk saling mengetahui siapa rekan sesama Mason mereka, sehingga mereka memiliki sekutu warga baik yang 100% dapat dipercaya sejak hari pertama.",
                 strategy: "Gunakan kepercayaan mutlak antar sesama Mason untuk mengawal alur diskusi siang tanpa harus buru-buru membocorkan semua anggota Mason ke para Werewolf."
@@ -1203,8 +1533,9 @@
                 title: "Warga Berfisik Baja",
                 faction: "good",
                 driveId: "1QiZk6kghNBWxHtGljOAZ_JlKz8MP62Wp",
+                allowMultiple: true,
                 icon: "fa-dumbbell",
-                actionType: "Pasif • Ketahanan Serangan Malam",
+                actionType: "Pasif • Ketahanan Serangan Malam (Bisa >1 Pemain)",
                 desc: "Warga desa berfisik sangat kuat dan tangguh yang mampu bertahan dari serangan mematikan pertama pada malam hari.",
                 explanation: "Berbeda dengan warga biasa yang langsung tewas saat diserang, fisik ekstra kuat dari Strong Villager membuatnya memiliki ketahanan lebih terhadap serangan malam sehingga menjadi benteng alami bagi desa.",
                 strategy: "Kamu bisa tampil sedikit lebih berani dalam memimpin argumen siang hari untuk memancing Werewolf membuang serangan malam mereka ke arahmu."
@@ -1251,8 +1582,9 @@
                 title: "Warga Desa",
                 faction: "good",
                 driveId: "1Yh8ewtzXvD7PIY3c-cerQVPZxnNlMH8z",
+                allowMultiple: true,
                 icon: "fa-person-rays",
-                actionType: "Diskusi & Suara Voting Siang",
+                actionType: "Diskusi & Suara Voting Siang (Bisa >1 Pemain)",
                 desc: "Warga desa biasa tanpa kekuatan khusus di malam hari. Mengandalkan ketajaman analisis, diskusi, dan hak suara di siang hari untuk menemukan serta menggantung para Werewolf.",
                 explanation: "Tulang punggung suara mayoritas desa. Meski tidak bangun di malam hari, kejelian Villager dalam membaca gelagat, berargumen, dan memberikan vote di siang hari adalah penentu kemenangan Good Side.",
                 strategy: "Perhatikan siapa yang selalu berusaha mengalihkan topik saat seorang tersangka mulai terpojok di diskusi siang."
@@ -1294,7 +1626,7 @@
                 strategy: "Kumpulkan informasi dari diskusi siang untuk memastikan nama role spesifik musuh (misal: Werewolf, Alpha Werewolf, atau Serial Killer) sebelum merapalkan tebakanmu."
             },
 
-            // ================= KATEGORI: BAD SIDE (WEREWOLF) =================
+            // ================= KATEGORI: BAD SIDE (10 KARTU UNIK) =================
             {
                 id: "alpha-werewolf",
                 name: "Alpha Werewolf",
@@ -1385,8 +1717,9 @@
                 title: "Pemangsa Utama Malam",
                 faction: "werewolf",
                 driveId: "1cc81t3zmtPRJ4V6T0ZLv6F6ikWS8JgcF",
+                allowMultiple: true,
                 icon: "fa-paw",
-                actionType: "Aktif Malam • Mangsa Warga Desa",
+                actionType: "Aktif Malam • Mangsa Warga Desa (Bisa >1 Pemain)",
                 desc: "Predator malam pemangsa warga desa. Bangun setiap malam bersama kawanan Werewolf lainnya untuk berdiskusi secara senyap dan memilih satu warga desa untuk dimangsa hingga tewas.",
                 explanation: "Inti dari Bad Side. Pada malam hari mereka saling mengenal dan kompak menunjuk satu korban. Pada siang hari mereka harus menyamar sebagai warga baik, memfitnah warga lain, dan menghindari tiang gantungan.",
                 strategy: "Jangan selalu membela rekan sesama Werewolf secara mencolok di siang hari; sesekali berbeda pendapatlah agar warga tidak dapat menebak jaringan kawananmu."
@@ -1416,7 +1749,7 @@
                 strategy: "Jika kawananmu butuh mempercepat jumlah pembunuhan di malam berikutnya, kamu bisa sengaja memancing warga untuk menggantungmu di siang hari."
             },
 
-            // ================= KATEGORI: NEUTRAL SIDE =================
+            // ================= KATEGORI: NEUTRAL SIDE (19 KARTU UNIK) =================
             {
                 id: "arsonist",
                 name: "Arsonist",
@@ -1539,18 +1872,6 @@
                 strategy: "Tularkan kicauanmu ke pemain yang kamu curigai sebagai Werewolf agar ia kesulitan berkoordinasi secara senyap di malam hari!"
             },
             {
-                id: "lord",
-                name: "Lord",
-                title: "Bangsawan Bertameng Warga",
-                faction: "neutral",
-                driveId: "1KlVPEgwpTxUqVbIx114WWa7GCo5qcj31",
-                icon: "fa-chess-king",
-                actionType: "Aktif • Tameng Hidup",
-                desc: "Role aktif yg dapat mengacak atau memilih satu villager untuk menjadi tameng dia. Apabila Lord ingin dicabik Werewolf, maka yg akan mati terlebih dahulu adalah villager yg menjadi tameng Lord.",
-                explanation: "Bangsawan yang menggunakan pemain lain sebagai perisai hidup. Setiap malam Lord dapat memilih (atau mengacak) satu pemain sebagai tameng. Jika Werewolf menyerang Lord, sang tamenglah yang akan tewas menggantikannya sementara Lord tetap selamat.",
-                strategy: "Pilihlah pemain yang paling mencurigakan sebagai tamengmu agar kamu tetap bertahan hidup melewati serangan malam."
-            },
-            {
                 id: "mad-man",
                 name: "Mad Man",
                 title: "Pengamuk Tiga Puluh Panggilan",
@@ -1660,189 +1981,437 @@
             }
         ];
 
+        // Programmatic Deduplication by ID & Name (Guarantees zero duplicate cards)
+        const werewolfCards = Array.from(
+            rawWerewolfCards.reduce((map, card) => {
+                const key = card.id.toLowerCase().trim();
+                if (!map.has(key)) {
+                    map.set(key, card);
+                }
+                return map;
+            }, new Map()).values()
+        );
+
+        // Multi-instance allowed roles according to game rules:
+        // Good Side: only Mason, Strong Villager, Villager can be owned by >1 player
+        // Bad Side: only Werewolf can be owned by >1 player
+        // Neutral Side: none (all strictly 1 player max)
+        const MULTI_INSTANCE_ROLE_IDS = new Set([
+            "mason",
+            "strong-villager",
+            "villager",
+            "werewolf"
+        ]);
+
+        function isMultiInstanceRole(roleId) {
+            return MULTI_INSTANCE_ROLE_IDS.has(roleId);
+        }
+
         // =========================================================================
         // 4. RENDER CARDS (FULL IMAGE, 3D HOVER, CLICK FOR FULL EXPLANATION)
         // =========================================================================
-        const cardsGrid = document.getElementById("cardsGrid");
-        const emptyState = document.getElementById("emptyState");
-        const visibleCardCount = document.getElementById("visibleCardCount");
-        const totalCardCount = document.getElementById("totalCardCount");
-
         let currentFilter = "all";
         let currentSearch = "";
 
-        function updateCounters() {
+        const cardsGrid = document.getElementById("cardsGrid");
+        const emptyState = document.getElementById("emptyState");
+
+        function updateCounters(visibleLength) {
+            const total = werewolfCards.length;
             const goodCount = werewolfCards.filter(c => c.faction === "good").length;
             const wolfCount = werewolfCards.filter(c => c.faction === "werewolf").length;
             const neutralCount = werewolfCards.filter(c => c.faction === "neutral").length;
-            const allCount = werewolfCards.length;
 
-            document.getElementById("navCountGood").textContent = goodCount;
-            document.getElementById("navCountWolf").textContent = wolfCount;
-            document.getElementById("navCountNeutral").textContent = neutralCount;
+            const setTxt = (id, val) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = val;
+            };
 
-            document.getElementById("tabCountAll").textContent = allCount;
-            document.getElementById("tabCountGood").textContent = goodCount;
-            document.getElementById("tabCountWolf").textContent = wolfCount;
-            document.getElementById("tabCountNeutral").textContent = neutralCount;
-            totalCardCount.textContent = allCount;
+            setTxt("navCountGood", goodCount);
+            setTxt("navCountWolf", wolfCount);
+            setTxt("navCountNeutral", neutralCount);
+
+            setTxt("tabCountAll", total);
+            setTxt("tabCountGood", goodCount);
+            setTxt("tabCountWolf", wolfCount);
+            setTxt("tabCountNeutral", neutralCount);
+
+            setTxt("visibleCardCount", visibleLength);
+            setTxt("totalCardCount", total);
+        }
+
+        function attachCard3DTilt(wrapper, cardBox) {
+            const glare = cardBox.querySelector(".card-dynamic-glare");
+
+            wrapper.addEventListener("mousemove", (e) => {
+                const rect = cardBox.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -9;
+                const rotateY = ((x - centerX) / centerX) * 9;
+
+                cardBox.style.transform = `scale3d(1.035, 1.035, 1.035) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+
+                if (glare) {
+                    const percentX = (x / rect.width) * 100;
+                    const percentY = (y / rect.height) * 100;
+                    glare.style.background = `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.06) 40%, transparent 70%)`;
+                }
+            });
+
+            wrapper.addEventListener("mouseleave", () => {
+                cardBox.style.transform = "";
+            });
         }
 
         function renderCards() {
-            updateCounters();
+            if (!cardsGrid) return;
+            const query = currentSearch.trim().toLowerCase();
 
             const filtered = werewolfCards.filter(card => {
                 const matchesFaction = currentFilter === "all" || card.faction === currentFilter;
-                const query = currentSearch.toLowerCase().trim();
                 const matchesSearch = !query ||
                     card.name.toLowerCase().includes(query) ||
                     card.title.toLowerCase().includes(query) ||
                     card.desc.toLowerCase().includes(query) ||
-                    card.explanation.toLowerCase().includes(query) ||
-                    card.actionType.toLowerCase().includes(query) ||
-                    factionConfig[card.faction].label.toLowerCase().includes(query);
+                    card.actionType.toLowerCase().includes(query);
                 return matchesFaction && matchesSearch;
             });
 
-            visibleCardCount.textContent = filtered.length;
+            updateCounters(filtered.length);
             cardsGrid.innerHTML = "";
 
             if (filtered.length === 0) {
-                emptyState.classList.remove("hidden");
+                cardsGrid.classList.add("hidden");
+                if (emptyState) emptyState.classList.remove("hidden");
                 return;
-            } else {
-                emptyState.classList.add("hidden");
             }
 
-            filtered.forEach((card, idx) => {
+            cardsGrid.classList.remove("hidden");
+            if (emptyState) emptyState.classList.add("hidden");
+
+            filtered.forEach((card) => {
                 const cfg = factionConfig[card.faction];
                 const primaryUrl = getDriveImageUrls(card.driveId)[0];
-                const cardNumber = String(idx + 1).padStart(2, "0");
                 const maskClass = card.hasWhiteBg ? "white-corner-mask" : "";
 
-                const cardWrapper = document.createElement("div");
-                cardWrapper.className = "card-perspective flex flex-col items-center group cursor-pointer select-none";
-                cardWrapper.setAttribute("data-faction", card.faction);
-                cardWrapper.setAttribute("data-id", card.id);
+                const wrapper = document.createElement("div");
+                wrapper.className = "card-perspective cursor-pointer select-none group";
+                wrapper.setAttribute("data-faction", card.faction);
 
-                cardWrapper.innerHTML = `
-                    <article class="werewolf-card theme-card-shell relative w-full aspect-[2.5/3.6] border-2 ${cfg.border} overflow-hidden shadow-xl flex items-center justify-center p-0.5">
+                wrapper.innerHTML = `
+                    <div class="werewolf-card theme-card-shell w-full aspect-[2.5/3.6] border-2 ${cfg.border} overflow-hidden relative shadow-xl">
                         <div class="card-dynamic-glare absolute inset-0 pointer-events-none z-20"></div>
-
                         <div class="card-art-frame ${maskClass}">
                             <img 
                                 src="${primaryUrl}" 
                                 alt="${card.name}" 
-                                data-attempt="0"
                                 loading="lazy"
+                                data-attempt="0"
                                 onerror="handleCardImageError(this, '${card.id}')"
                                 class="card-art-img"
                             />
-
-                            <!-- Rich Illustrated SVG Card Fallback if Google Drive thumbnail is blocked -->
-                            <div class="gothic-svg-fallback hidden w-full h-full flex-col items-center justify-between p-5 text-center bg-gradient-to-b ${cfg.cardGradient}">
-                                <div class="w-full flex items-center justify-between text-[10px] font-serif text-amber-300/80 border-b border-white/10 pb-2">
-                                    <span>#${cardNumber}</span>
-                                    <span>${cfg.label}</span>
+                            <div class="gothic-svg-fallback hidden w-full h-full flex-col items-center justify-center p-6 text-center bg-gradient-to-b ${cfg.cardGradient}">
+                                <div class="w-16 h-16 rounded-2xl bg-slate-900/80 border ${cfg.border} flex items-center justify-center mb-4 shadow-inner">
+                                    <i class="fa-solid ${card.icon} text-3xl text-amber-300"></i>
                                 </div>
-                                <div class="my-auto flex flex-col items-center">
-                                    <div class="w-20 h-20 rounded-full bg-black/55 border-2 border-amber-400/50 flex items-center justify-center mb-3 shadow-[0_0_25px_rgba(245,158,11,0.25)]">
-                                        <i class="fa-solid ${card.icon} text-3xl text-amber-300"></i>
-                                    </div>
-                                    <h3 class="font-display text-lg font-bold text-white tracking-wide">${card.name}</h3>
-                                    <p class="font-serif text-[11px] text-amber-300/90 mt-1">${card.title}</p>
-                                </div>
-                                <div class="text-[11px] text-slate-300 line-clamp-3 italic bg-black/40 p-2.5 rounded-xl border border-white/10">${card.desc}</div>
+                                <div class="font-display text-lg font-bold text-white tracking-wide">${card.name}</div>
+                                <div class="font-serif text-[11px] text-amber-400 uppercase tracking-widest mt-1">${card.title}</div>
+                                <span class="mt-3 px-3 py-1 rounded-full text-[10px] font-serif uppercase tracking-wider border ${cfg.badgeBg}">
+                                    ${cfg.label}
+                                </span>
                             </div>
                         </div>
-                    </article>
-
-                    <div class="w-full mt-2.5 px-1 flex items-center justify-between gap-1.5">
-                        <div class="truncate">
-                            <h3 class="font-display text-sm sm:text-base font-bold text-white group-hover:text-amber-300 transition-colors truncate">
-                                ${card.name}
-                            </h3>
-                            <p class="font-serif text-[11px] text-slate-400 truncate">${card.title}</p>
-                        </div>
-                        <span class="shrink-0 px-2.5 py-1 text-[10px] rounded-full font-serif font-bold tracking-wider uppercase border ${cfg.badgeBg} flex items-center gap-1">
-                            <i class="fa-solid ${cfg.icon}"></i>
-                            <span>${cfg.label}</span>
-                        </span>
                     </div>
                 `;
 
-                // 3D Hover Tilt on Cards
-                const cardElement = cardWrapper.querySelector(".werewolf-card");
-                const glareElement = cardWrapper.querySelector(".card-dynamic-glare");
+                const cardBox = wrapper.querySelector(".werewolf-card");
+                attachCard3DTilt(wrapper, cardBox);
+                wrapper.addEventListener("click", () => openCardModal(card.id));
 
-                cardWrapper.addEventListener("mousemove", (e) => {
-                    if (window.matchMedia("(hover: hover)").matches) {
-                        const rect = cardElement.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        const centerX = rect.width / 2;
-                        const centerY = rect.height / 2;
-
-                        const rotateX = ((y - centerY) / centerY) * -10;
-                        const rotateY = ((x - centerX) / centerX) * 10;
-
-                        cardElement.style.transform = `scale(1.05) translateY(-6px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-                        const percentX = (x / rect.width) * 100;
-                        const percentY = (y / rect.height) * 100;
-                        glareElement.style.background = `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.06) 38%, transparent 70%)`;
-                    }
-                });
-
-                cardWrapper.addEventListener("mouseleave", () => {
-                    cardElement.style.transform = "";
-                });
-
-                cardWrapper.addEventListener("click", () => {
-                    openCardModal(card.id);
-                });
-
-                cardsGrid.appendChild(cardWrapper);
+                cardsGrid.appendChild(wrapper);
             });
         }
 
         // =========================================================================
-        // 5. "BE MODERATOR" FEATURE (MIN 4 MAX 100 PLAYERS, INDIVIDUAL & BULK DICE)
+        // 5. "BE MODERATOR" — KEYWORD ROLE PARSER, CUSTOMIZER & DUAL LOG ENGINE
         // =========================================================================
         const moderatorModal = document.getElementById("moderatorModal");
         const moderatorModalContent = document.getElementById("moderatorModalContent");
-        const playerCountInput = document.getElementById("playerCountInput");
-        const playerCountSlider = document.getElementById("playerCountSlider");
-        const decPlayerBtn = document.getElementById("decPlayerBtn");
-        const incPlayerBtn = document.getElementById("incPlayerBtn");
-        const presetCountBtns = document.querySelectorAll(".preset-count-btn");
+        const bulkUsernamesInput = document.getElementById("bulkUsernamesInput");
+        const bulkKeywordsInput = document.getElementById("bulkKeywordsInput");
+        const detectedLinesBadge = document.getElementById("detectedLinesBadge");
+        const detectedKeywordsBadge = document.getElementById("detectedKeywordsBadge");
+        const keywordPreviewPills = document.getElementById("keywordPreviewPills");
         const rollAllRolesBtn = document.getElementById("rollAllRolesBtn");
+        const assignSequentialKeywordBtn = document.getElementById("assignSequentialKeywordBtn");
+        const loadSample14Btn = document.getElementById("loadSample14Btn");
         const copyModListBtn = document.getElementById("copyModListBtn");
         const clearModRolesBtn = document.getElementById("clearModRolesBtn");
-        const uniqueRolesCheckbox = document.getElementById("uniqueRolesCheckbox");
         const modAllowGood = document.getElementById("modAllowGood");
         const modAllowWolf = document.getElementById("modAllowWolf");
         const modAllowNeutral = document.getElementById("modAllowNeutral");
         const moderatorPlayersList = document.getElementById("moderatorPlayersList");
 
+        // State for ordered players: { index, username, roleId, alive }
         let moderatorPlayers = [];
-        let activePlayerCount = 8;
+        // State for Dual Notulen Logs: each entry has { round, phase, publicTitle, modTitle, publicEvents: [], modEvents: [] }
+        let moderatorLogs = [];
 
-        function ensureModeratorPlayersPool(count) {
-            while (moderatorPlayers.length < count) {
-                const idx = moderatorPlayers.length + 1;
-                moderatorPlayers.push({
-                    index: idx,
-                    username: `Pemain ${idx}`,
-                    roleId: null
-                });
-            }
+        // Comprehensive Keyword & Abbreviation Dictionary (Case-insensitive)
+        const ROLE_KEYWORD_ALIASES = {
+            "ww": "werewolf",
+            "werewolf": "werewolf",
+            "wolf": "werewolf",
+            "serigala": "werewolf",
+            "ww alpha": "alpha-werewolf",
+            "alpha ww": "alpha-werewolf",
+            "werewolf alpha": "alpha-werewolf",
+            "alpha werewolf": "alpha-werewolf",
+            "alphawolf": "alpha-werewolf",
+            "alpha": "alpha-werewolf",
+            "ww seer": "wolf-seer",
+            "seer ww": "wolf-seer",
+            "werewolf seer": "wolf-seer",
+            "wolf seer": "wolf-seer",
+            "wolfseer": "wolf-seer",
+            "ww cub": "wolfcub",
+            "wolf cub": "wolfcub",
+            "wolfcub": "wolfcub",
+            "cub": "wolfcub",
+            "nightmare ww": "nightmare-werewolf",
+            "ww nightmare": "nightmare-werewolf",
+            "nightmare werewolf": "nightmare-werewolf",
+            "nightmare": "nightmare-werewolf",
+            "nw": "nightmare-werewolf",
+            "sk": "serial-killer",
+            "serial killer": "serial-killer",
+            "serialkiller": "serial-killer",
+            "fool": "clown",
+            "clown": "clown",
+            "jester": "clown",
+            "badut": "clown",
+            "seer": "seer",
+            "penerawang": "seer",
+            "sheriff": "sheriff",
+            "sherif": "sheriff",
+            "detective": "detective",
+            "detektif": "detective",
+            "guardian": "guardian",
+            "guard": "guardian",
+            "bodyguard": "guardian",
+            "lycan": "lycan",
+            "witch": "witch",
+            "tracker": "tracker",
+            "beauty": "beauty",
+            "harlot": "harlot",
+            "trapper": "trapper",
+            "hunter": "hunter",
+            "gunner": "gunner",
+            "mayor": "president",
+            "president": "president",
+            "presiden": "president",
+            "dictator": "dictator",
+            "diktator": "dictator",
+            "diseased": "diseased",
+            "drunker": "drunker",
+            "drunk": "drunker",
+            "food giver": "food-giver",
+            "foodgiver": "food-giver",
+            "koki": "food-giver",
+            "hidden villager": "hidden-villager",
+            "hv": "hidden-villager",
+            "strong villager": "strong-villager",
+            "sv": "strong-villager",
+            "villager": "villager",
+            "warga": "villager",
+            "mason": "mason",
+            "lord": "lord",
+            "time caster": "time-caster",
+            "timecaster": "time-caster",
+            "tc": "time-caster",
+            "wise elder": "wise-elder",
+            "elder": "wise-elder",
+            "wizard": "wizard",
+            "ancient keeper": "ancient-keeper",
+            "ak": "ancient-keeper",
+            "bard": "bard",
+            "circadian": "circadian-manipulation",
+            "circadian manipulation": "circadian-manipulation",
+            "cm": "circadian-manipulation",
+            "cursed": "cursed",
+            "prawler": "prawler",
+            "prowler": "prawler",
+            "sorcerer": "sorcerer",
+            "sorc": "sorcerer",
+            "spell caster": "spell-caster",
+            "spellcaster": "spell-caster",
+            "sc": "spell-caster",
+            "traitor": "traitor",
+            "arsonist": "arsonist",
+            "arso": "arsonist",
+            "cupid": "cupid",
+            "dewa": "dewa",
+            "doppleganger": "doppleganger",
+            "doppelganger": "doppleganger",
+            "dg": "doppleganger",
+            "gluttony": "gluttony",
+            "gravedigger": "gravedigger",
+            "gd": "gravedigger",
+            "hex": "hex",
+            "juggernaut": "juggernaut",
+            "jugg": "juggernaut",
+            "kicau mania": "kicau-mania",
+            "kicau": "kicau-mania",
+            "km": "kicau-mania",
+            "mad man": "mad-man",
+            "madman": "mad-man",
+            "mind control": "mind-control",
+            "mc": "mind-control",
+            "pandir": "pandir",
+            "prophet": "prophet",
+            "swapper": "swapper",
+            "therianthropy": "therianthropy",
+            "therian": "therianthropy",
+            "thief": "thief",
+            "troublemaker": "troublemaker",
+            "tm": "troublemaker"
+        };
+
+        // Clean optional leading numbering such as "1. biu", "14) ucup", "- jude"
+        function stripLineNumbering(rawLine) {
+            return rawLine.replace(/^\s*(?:\d+[\.\)\-\:]|\-|\•)\s*/, "").trim();
         }
 
-        function clampPlayerCount(val) {
-            let num = parseInt(val, 10);
-            if (isNaN(num)) num = 4;
-            return Math.max(4, Math.min(100, num));
+        // Resolve a single keyword string to a valid card ID from werewolfCards
+        function resolveKeywordToRoleId(rawKeyword) {
+            const cleaned = stripLineNumbering(rawKeyword).toLowerCase().replace(/\s+/g, " ").trim();
+            if (!cleaned) return null;
+
+            if (ROLE_KEYWORD_ALIASES[cleaned]) {
+                return ROLE_KEYWORD_ALIASES[cleaned];
+            }
+
+            // Direct ID or exact Name match
+            const directMatch = werewolfCards.find(
+                c => c.id.toLowerCase() === cleaned || c.name.toLowerCase() === cleaned
+            );
+            if (directMatch) return directMatch.id;
+
+            // Partial / Fuzzy match
+            const partialMatch = werewolfCards.find(
+                c => c.name.toLowerCase().includes(cleaned) || cleaned.includes(c.name.toLowerCase())
+            );
+            return partialMatch ? partialMatch.id : null;
+        }
+
+        // Parse all lines in the Keyword Role textarea
+        function parseKeywordRoleList() {
+            if (!bulkKeywordsInput) return [];
+            const rawLines = (bulkKeywordsInput.value || "")
+                .split(/\r?\n/)
+                .map(l => stripLineNumbering(l))
+                .filter(l => l.length > 0);
+
+            const results = [];
+            rawLines.forEach((line) => {
+                const roleId = resolveKeywordToRoleId(line);
+                if (roleId) {
+                    const card = werewolfCards.find(c => c.id === roleId);
+                    if (card) results.push({ raw: line, roleId: card.id, card });
+                } else {
+                    results.push({ raw: line, roleId: null, card: null });
+                }
+            });
+            return results;
+        }
+
+        function updateKeywordPreviewUI() {
+            const parsed = parseKeywordRoleList();
+            const validCount = parsed.filter(p => p.roleId !== null).length;
+
+            if (detectedKeywordsBadge) {
+                detectedKeywordsBadge.textContent = `${validCount} Role`;
+            }
+            const totalKwEl = document.getElementById("modTotalKeywords");
+            if (totalKwEl) totalKwEl.textContent = validCount;
+
+            if (!keywordPreviewPills) return;
+            if (parsed.length === 0) {
+                keywordPreviewPills.innerHTML = `<span class="text-[11px] text-slate-500 italic">Kosong (Acak menggunakan seluruh deck kartu)</span>`;
+                return;
+            }
+
+            keywordPreviewPills.innerHTML = parsed.map((item, idx) => {
+                if (item.card) {
+                    const cfg = factionConfig[item.card.faction];
+                    return `<span class="px-2 py-0.5 rounded-md text-[10px] font-medium border ${cfg.badgeBg} flex items-center gap-1">
+                        <span class="opacity-60">${idx + 1}.</span>
+                        <span>${item.card.name}</span>
+                    </span>`;
+                } else {
+                    return `<span class="px-2 py-0.5 rounded-md text-[10px] font-medium bg-rose-950/80 border border-rose-500/50 text-rose-300" title="Kata kunci tidak dikenali">
+                        ${idx + 1}. ? "${item.raw}"
+                    </span>`;
+                }
+            }).join("");
+        }
+
+        // Switch between "1. Pemain & Keyword Role" and "2. Log Publik & Log Moderator"
+        window.switchModeratorTab = function(tabName) {
+            const setupPanel = document.getElementById("modPanelSetup");
+            const notulenPanel = document.getElementById("modPanelNotulen");
+            const setupBtn = document.getElementById("modTabSetupBtn");
+            const logBtn = document.getElementById("modTabLogBtn");
+
+            if (tabName === "notulen") {
+                setupPanel.classList.add("hidden");
+                notulenPanel.classList.remove("hidden");
+                notulenPanel.classList.add("flex");
+
+                setupBtn.className = "px-3.5 py-2 rounded-xl font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 cursor-pointer";
+                logBtn.className = "px-3.5 py-2 rounded-xl font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 bg-amber-500 text-slate-950 shadow-md cursor-pointer";
+                refreshNotulenUI();
+            } else {
+                notulenPanel.classList.add("hidden");
+                notulenPanel.classList.remove("flex");
+                setupPanel.classList.remove("hidden");
+
+                setupBtn.className = "px-3.5 py-2 rounded-xl font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 bg-amber-500 text-slate-950 shadow-md cursor-pointer";
+                logBtn.className = "px-3.5 py-2 rounded-xl font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 cursor-pointer";
+            }
+        };
+
+        // Parse One-Per-Line textarea (top to bottom) while stripping numbering like "1. biu"
+        function syncPlayersFromTextarea() {
+            const rawLines = (bulkUsernamesInput.value || "")
+                .split(/\r?\n/)
+                .map(line => stripLineNumbering(line))
+                .filter(line => line.length > 0);
+
+            const updatedPlayers = rawLines.map((uname, idx) => {
+                const prev = moderatorPlayers[idx];
+                const matchedPrev = (prev && prev.username.toLowerCase() === uname.toLowerCase())
+                    ? prev
+                    : moderatorPlayers.find(p => p.username.toLowerCase() === uname.toLowerCase());
+
+                return {
+                    index: idx + 1,
+                    username: uname,
+                    roleId: matchedPrev ? matchedPrev.roleId : (prev ? prev.roleId : null),
+                    alive: matchedPrev && typeof matchedPrev.alive === "boolean" ? matchedPrev.alive : true
+                };
+            });
+
+            moderatorPlayers = updatedPlayers;
+            if (detectedLinesBadge) {
+                detectedLinesBadge.textContent = `${moderatorPlayers.length} Pemain`;
+            }
+            updateKeywordPreviewUI();
+            renderModeratorRows();
         }
 
         function getModeratorFilteredPool() {
@@ -1860,11 +2429,19 @@
             return filtered.length > 0 ? filtered : [...werewolfCards];
         }
 
+        function shuffleArray(arr) {
+            const copy = [...arr];
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy;
+        }
+
         function updateModeratorSummary() {
-            const activeSlice = moderatorPlayers.slice(0, activePlayerCount);
             let good = 0, wolf = 0, neutral = 0, assigned = 0;
 
-            activeSlice.forEach(p => {
+            moderatorPlayers.forEach(p => {
                 if (p.roleId) {
                     const card = werewolfCards.find(c => c.id === p.roleId);
                     if (card) {
@@ -1880,83 +2457,124 @@
             document.getElementById("modSumWolf").textContent = wolf;
             document.getElementById("modSumNeutral").textContent = neutral;
             document.getElementById("modAssignedCount").textContent = assigned;
-            document.getElementById("modTotalSlots").textContent = activePlayerCount;
+            document.getElementById("modTotalSlots").textContent = moderatorPlayers.length;
+        }
+
+        // Build grouped options for manual role customization dropdown
+        function buildRoleSelectOptionsHTML(selectedRoleId) {
+            const groups = [
+                { label: "GOOD SIDE", faction: "good" },
+                { label: "BAD SIDE (WEREWOLF)", faction: "werewolf" },
+                { label: "NEUTRAL SIDE", faction: "neutral" }
+            ];
+
+            let html = `<option value="">— Pilih / Custom Role —</option>`;
+            groups.forEach(g => {
+                html += `<optgroup label="${g.label}">`;
+                werewolfCards
+                    .filter(c => c.faction === g.faction)
+                    .forEach(c => {
+                        const sel = c.id === selectedRoleId ? "selected" : "";
+                        const aliasNote = c.id === "clown" ? " (Clown / Fool)" : "";
+                        html += `<option value="${c.id}" ${sel}>${c.name}${aliasNote}</option>`;
+                    });
+                html += `</optgroup>`;
+            });
+            return html;
         }
 
         function renderModeratorRows() {
-            ensureModeratorPlayersPool(activePlayerCount);
             moderatorPlayersList.innerHTML = "";
 
-            for (let i = 0; i < activePlayerCount; i++) {
-                const player = moderatorPlayers[i];
+            if (moderatorPlayers.length === 0) {
+                moderatorPlayersList.innerHTML = `
+                    <div class="py-14 text-center text-slate-500 text-xs sm:text-sm">
+                        <i class="fa-solid fa-user-pen text-2xl text-slate-600 mb-2 block"></i>
+                        Belum ada username yang dimasukkan.<br>
+                        Ketik daftar username di kolom <strong>1. List Username</strong> atau klik tombol <strong>Muat Contoh 14 Pemain & Keyword</strong> di atas.
+                    </div>
+                `;
+                updateModeratorSummary();
+                return;
+            }
+
+            moderatorPlayers.forEach((player, i) => {
                 const assignedCard = player.roleId ? werewolfCards.find(c => c.id === player.roleId) : null;
                 const cfg = assignedCard ? factionConfig[assignedCard.faction] : null;
                 const thumbUrl = assignedCard ? getDriveImageUrls(assignedCard.driveId)[0] : "";
 
                 const row = document.createElement("div");
-                row.className = `p-3 rounded-2xl bg-slate-900/90 border ${assignedCard ? cfg.border : 'border-slate-800'} flex items-center justify-between gap-2.5 transition-all hover:border-slate-600`;
+                row.className = `p-2.5 sm:p-3 rounded-2xl bg-slate-900/90 border ${assignedCard ? cfg.border : 'border-slate-800'} flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5 transition-all hover:border-slate-600 ${!player.alive ? 'opacity-60' : ''}`;
 
                 row.innerHTML = `
-                    <!-- Left: Number + Username Input + Dice Button -->
-                    <div class="flex items-center gap-2 flex-1 min-w-0">
+                    <!-- Left: Order Number + Username + Alive Toggle -->
+                    <div class="flex items-center gap-2.5 min-w-0 flex-1">
                         <span class="w-7 h-7 rounded-lg bg-slate-950 border border-slate-800 text-[11px] font-serif font-bold text-amber-400 flex items-center justify-center shrink-0">
                             ${i + 1}
                         </span>
-                        <input 
-                            type="text" 
-                            data-player-idx="${i}"
-                            value="${player.username.replace(/"/g, '&quot;')}" 
-                            placeholder="Username ${i + 1}..."
-                            class="mod-username-input w-full min-w-[95px] bg-slate-950/90 border border-slate-700/80 focus:border-amber-400 rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none transition-colors"
-                        />
+                        <div class="min-w-0 flex-1">
+                            <div class="font-semibold text-xs sm:text-sm text-white truncate">${player.username}</div>
+                            <button type="button" data-toggle-alive="${i}" class="text-[10px] ${player.alive ? 'text-emerald-400' : 'text-rose-400 line-through'} hover:underline cursor-pointer">
+                                ${player.alive ? '● Hidup (Klik ubah)' : '☠ Mati (Klik ubah)'}
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Center: Manual Role Customizer Dropdown + Single Dice Reroll -->
+                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                        <select 
+                            data-custom-role-idx="${i}" 
+                            class="mod-role-select bg-slate-950 border ${assignedCard ? cfg.border : 'border-slate-700'} rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-amber-400 focus:outline-none max-w-[165px]"
+                            title="Pilih atau ganti role secara manual untuk ${player.username}"
+                        >
+                            ${buildRoleSelectOptionsHTML(player.roleId)}
+                        </select>
+
                         <button 
                             type="button" 
                             data-roll-idx="${i}"
-                            title="Acak Role untuk ${player.username}"
-                            class="mod-single-dice-btn w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-rose-600 hover:from-amber-400 hover:to-rose-500 text-white shadow-md flex items-center justify-center shrink-0 transition-transform active:scale-95 cursor-pointer"
+                            title="Acak 1 role untuk ${player.username}"
+                            class="mod-single-dice-btn w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500 to-rose-600 hover:from-amber-400 hover:to-rose-500 text-white shadow-md flex items-center justify-center shrink-0 transition-transform active:scale-95 cursor-pointer"
                         >
-                            <i class="fa-solid fa-dice text-base"></i>
+                            <i class="fa-solid fa-dice text-xs"></i>
                         </button>
-                    </div>
 
-                    <!-- Right: Assigned Role Display -->
-                    <div class="shrink-0">
                         ${assignedCard ? `
                             <button 
                                 type="button" 
                                 data-inspect-role="${assignedCard.id}"
-                                title="Klik untuk melihat penjelasan kartu ${assignedCard.name}"
-                                class="mod-inspect-role-btn flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-xl bg-slate-950/90 hover:bg-slate-800 border ${cfg.border} text-left transition-all group cursor-pointer"
+                                title="Lihat detail kartu ${assignedCard.name}"
+                                class="mod-inspect-role-btn w-8 h-9 rounded-lg overflow-hidden border ${cfg.border} shrink-0 bg-slate-950 flex items-center justify-center hover:scale-105 transition-transform cursor-pointer"
                             >
-                                <div class="w-8 h-11 rounded-lg overflow-hidden border ${cfg.border} shrink-0 bg-slate-900 flex items-center justify-center">
-                                    <img src="${thumbUrl}" alt="${assignedCard.name}" class="w-full h-full object-cover" onerror="this.style.display='none'" />
-                                </div>
-                                <div class="max-w-[125px] sm:max-w-[150px]">
-                                    <div class="font-display text-xs font-bold text-white group-hover:text-amber-300 truncate">${assignedCard.name}</div>
-                                    <span class="inline-flex items-center gap-1 text-[9px] font-serif uppercase tracking-wider px-1.5 py-0.5 rounded-md border ${cfg.badgeBg} mt-0.5">
-                                        <i class="fa-solid ${cfg.icon}"></i>
-                                        <span>${cfg.label}</span>
-                                    </span>
-                                </div>
+                                <img src="${thumbUrl}" alt="${assignedCard.name}" class="w-full h-full object-cover" onerror="this.style.display='none'" />
                             </button>
-                        ` : `
-                            <div class="px-3 py-2 rounded-xl bg-slate-950/60 border border-dashed border-slate-800 text-[11px] text-slate-500 font-serif italic">
-                                Belum ada role
-                            </div>
-                        `}
+                        ` : ""}
                     </div>
                 `;
 
                 moderatorPlayersList.appendChild(row);
-            }
+            });
 
-            moderatorPlayersList.querySelectorAll(".mod-username-input").forEach(input => {
-                input.addEventListener("input", (e) => {
-                    const idx = parseInt(e.target.getAttribute("data-player-idx"), 10);
-                    moderatorPlayers[idx].username = e.target.value;
+            // Attach manual role dropdown change listener
+            moderatorPlayersList.querySelectorAll(".mod-role-select").forEach(sel => {
+                sel.addEventListener("change", (e) => {
+                    const idx = parseInt(sel.getAttribute("data-custom-role-idx"), 10);
+                    const newRoleId = e.target.value || null;
+                    moderatorPlayers[idx].roleId = newRoleId;
+                    renderModeratorRows();
                 });
             });
 
+            // Attach alive/dead quick toggle
+            moderatorPlayersList.querySelectorAll("[data-toggle-alive]").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const idx = parseInt(btn.getAttribute("data-toggle-alive"), 10);
+                    moderatorPlayers[idx].alive = !moderatorPlayers[idx].alive;
+                    renderModeratorRows();
+                });
+            });
+
+            // Attach single player dice roll
             moderatorPlayersList.querySelectorAll(".mod-single-dice-btn").forEach(btn => {
                 btn.addEventListener("click", () => {
                     const idx = parseInt(btn.getAttribute("data-roll-idx"), 10);
@@ -1972,6 +2590,7 @@
                 });
             });
 
+            // Attach card inspection click
             moderatorPlayersList.querySelectorAll(".mod-inspect-role-btn").forEach(btn => {
                 btn.addEventListener("click", () => {
                     const roleId = btn.getAttribute("data-inspect-role");
@@ -1980,59 +2599,662 @@
             });
 
             updateModeratorSummary();
+            refreshNotulenUI();
         }
 
+        // Single Player Dice Roll
         function rollSinglePlayerRole(playerIdx) {
-            const preferUnique = uniqueRolesCheckbox.checked;
+            if (!moderatorPlayers[playerIdx]) return;
             const basePool = getModeratorFilteredPool();
-            let pool = [...basePool];
 
-            if (preferUnique) {
-                const usedIds = new Set(
-                    moderatorPlayers
-                        .slice(0, activePlayerCount)
-                        .filter((_, idx) => idx !== playerIdx)
-                        .map(p => p.roleId)
-                        .filter(Boolean)
-                );
-                const unusedCards = basePool.filter(c => !usedIds.has(c.id));
-                if (unusedCards.length > 0) {
-                    pool = unusedCards;
-                }
+            const assignedOtherRoleIds = new Set(
+                moderatorPlayers
+                    .filter((_, idx) => idx !== playerIdx)
+                    .map(p => p.roleId)
+                    .filter(Boolean)
+            );
+
+            let availableCandidates = basePool.filter(card => {
+                if (isMultiInstanceRole(card.id)) return true;
+                return !assignedOtherRoleIds.has(card.id);
+            });
+
+            if (availableCandidates.length === 0) {
+                const fallbackMulti = werewolfCards.filter(c => isMultiInstanceRole(c.id));
+                availableCandidates = fallbackMulti.length > 0 ? fallbackMulti : basePool;
             }
 
-            const chosen = pool[Math.floor(Math.random() * pool.length)];
+            const chosen = availableCandidates[Math.floor(Math.random() * availableCandidates.length)];
             moderatorPlayers[playerIdx].roleId = chosen.id;
             renderModeratorRows();
-            showToast(`${moderatorPlayers[playerIdx].username || 'Pemain ' + (playerIdx + 1)} mendapatkan role: ${chosen.name}`, "fa-dice text-amber-300");
+
+            showToast(`${moderatorPlayers[playerIdx].username} mendapat role: ${chosen.name}`, "fa-dice text-amber-300");
         }
 
+        // Distribute Roles Randomly (Prioritizes Keyword Role List if provided; otherwise uses Deck)
         function rollAllPlayersRoles() {
-            const preferUnique = uniqueRolesCheckbox.checked;
-            const basePool = getModeratorFilteredPool();
-            ensureModeratorPlayersPool(activePlayerCount);
+            syncPlayersFromTextarea();
 
-            if (preferUnique) {
-                let shuffledDeck = [];
-                for (let i = 0; i < activePlayerCount; i++) {
-                    if (shuffledDeck.length === 0) {
-                        shuffledDeck = [...basePool].sort(() => Math.random() - 0.5);
+            if (moderatorPlayers.length < 1) {
+                showToast("Masukkan daftar username terlebih dahulu di kolom 1!", "fa-triangle-exclamation text-amber-400");
+                bulkUsernamesInput.focus();
+                return;
+            }
+
+            const parsedKeywords = parseKeywordRoleList().filter(k => k.roleId !== null);
+
+            let finalAssignedRoleIds = [];
+
+            if (parsedKeywords.length > 0) {
+                // Use the custom Keyword Role pool first!
+                const keywordRoleIds = parsedKeywords.map(k => k.roleId);
+                const shuffledKeywords = shuffleArray(keywordRoleIds);
+
+                for (let i = 0; i < moderatorPlayers.length; i++) {
+                    if (i < shuffledKeywords.length) {
+                        finalAssignedRoleIds.push(shuffledKeywords[i]);
+                    } else {
+                        // If more players than keywords, fill remainder from filtered deck
+                        const basePool = getModeratorFilteredPool();
+                        const usedSet = new Set(finalAssignedRoleIds);
+                        let candidates = basePool.filter(c => isMultiInstanceRole(c.id) || !usedSet.has(c.id));
+                        if (candidates.length === 0) candidates = werewolfCards.filter(c => isMultiInstanceRole(c.id));
+                        const pick = candidates[Math.floor(Math.random() * candidates.length)];
+                        finalAssignedRoleIds.push(pick.id);
                     }
-                    moderatorPlayers[i].roleId = shuffledDeck.pop().id;
                 }
+                finalAssignedRoleIds = shuffleArray(finalAssignedRoleIds);
+                showToast(`Mengacak ${parsedKeywords.length} Keyword Role ke ${moderatorPlayers.length} pemain!`, "fa-wand-magic-sparkles text-emerald-300");
             } else {
-                for (let i = 0; i < activePlayerCount; i++) {
-                    const rand = basePool[Math.floor(Math.random() * basePool.length)];
-                    moderatorPlayers[i].roleId = rand.id;
+                // Standard full-deck randomizer respecting unique vs multi-instance rules
+                const basePool = getModeratorFilteredPool();
+                const uniqueDeck = shuffleArray(basePool);
+                let repeatablePool = basePool.filter(c => isMultiInstanceRole(c.id));
+                if (repeatablePool.length === 0) {
+                    repeatablePool = werewolfCards.filter(c => isMultiInstanceRole(c.id));
                 }
+
+                for (let i = 0; i < moderatorPlayers.length; i++) {
+                    if (i < uniqueDeck.length) {
+                        finalAssignedRoleIds.push(uniqueDeck[i].id);
+                    } else {
+                        const multiChoice = repeatablePool[Math.floor(Math.random() * repeatablePool.length)];
+                        finalAssignedRoleIds.push(multiChoice.id);
+                    }
+                }
+                finalAssignedRoleIds = shuffleArray(finalAssignedRoleIds);
+                showToast(`Berhasil mengacak role dari deck untuk ${moderatorPlayers.length} pemain!`, "fa-dice text-amber-300");
+            }
+
+            for (let i = 0; i < moderatorPlayers.length; i++) {
+                moderatorPlayers[i].roleId = finalAssignedRoleIds[i];
+                moderatorPlayers[i].alive = true;
             }
 
             renderModeratorRows();
-            showToast(`Berhasil membagikan role acak kepada ${activePlayerCount} pemain!`, "fa-wand-magic-sparkles text-amber-300");
         }
 
-        window.openModeratorModal = function() {
+        // Sequential 1-to-1 Keyword Role Mapping (Line 1 Username gets Line 1 Keyword Role)
+        if (assignSequentialKeywordBtn) {
+            assignSequentialKeywordBtn.addEventListener("click", () => {
+                syncPlayersFromTextarea();
+                const parsedKeywords = parseKeywordRoleList();
+
+                if (moderatorPlayers.length === 0) {
+                    showToast("Masukkan daftar username terlebih dahulu!", "fa-triangle-exclamation text-amber-400");
+                    return;
+                }
+                if (parsedKeywords.length === 0) {
+                    showToast("Masukkan daftar Keyword Role di kolom 2 terlebih dahulu!", "fa-key text-amber-400");
+                    bulkKeywordsInput.focus();
+                    return;
+                }
+
+                moderatorPlayers.forEach((player, idx) => {
+                    const kw = parsedKeywords[idx];
+                    if (kw && kw.roleId) {
+                        player.roleId = kw.roleId;
+                    }
+                });
+
+                renderModeratorRows();
+                showToast("Role berhasil dipasangkan sesuai urutan baris Keyword!", "fa-arrows-left-right text-indigo-300");
+            });
+        }
+
+        // One-Click Sample Loader for the User's 14 Usernames & 14 Keyword Roles
+        if (loadSample14Btn) {
+            loadSample14Btn.addEventListener("click", () => {
+                bulkUsernamesInput.value = [
+                    "1. biu",
+                    "2. Cha Hae-in",
+                    "3. jude",
+                    "4. K A T H A R S I S",
+                    "5. kaluu",
+                    "6. KETUA GENK",
+                    "7. Kuro",
+                    "8. l1pyy~!",
+                    "9. lana blackhair baik",
+                    "10. PLAXZ",
+                    "11. Rara",
+                    "12. syndle",
+                    "13. toro toro",
+                    "14. ucup"
+                ].join("\n");
+
+                bulkKeywordsInput.value = [
+                    "ww alpha",
+                    "ww seer",
+                    "ww",
+                    "seer",
+                    "fool",
+                    "sheriff",
+                    "detective",
+                    "guardian",
+                    "lycan",
+                    "witch",
+                    "tracker",
+                    "beauty",
+                    "sk",
+                    "harlot"
+                ].join("\n");
+
+                syncPlayersFromTextarea();
+                rollAllPlayersRoles();
+            });
+        }
+
+        bulkUsernamesInput.addEventListener("input", () => {
+            syncPlayersFromTextarea();
+        });
+
+        if (bulkKeywordsInput) {
+            bulkKeywordsInput.addEventListener("input", () => {
+                updateKeywordPreviewUI();
+            });
+        }
+
+        // =========================================================================
+        // 5B. DUAL LOG ENGINE: LOG PUBLIK (CENSORED) vs LOG MODERATOR (DETAILED)
+        // =========================================================================
+        function evaluateSeerVision(targetCard) {
+            if (!targetCard) return "Villager";
+            if (targetCard.id === "lycan") return "Werewolf";
+            if (targetCard.faction === "werewolf") {
+                if (targetCard.id === "sorcerer") return "Villager";
+                return "Werewolf";
+            }
+            return "Villager";
+        }
+
+        // Find player(s) currently holding a specific roleId
+        function getHoldersLabel(roleIdsArray, defaultRoleLabel) {
+            const holders = moderatorPlayers.filter(p => p.alive && roleIdsArray.includes(p.roleId));
+            if (holders.length === 0) return defaultRoleLabel;
+            return `${defaultRoleLabel} (${holders.map(h => h.username).join(", ")})`;
+        }
+
+        function formatPlayerWithRole(playerObj) {
+            if (!playerObj) return "-";
+            const card = playerObj.roleId ? werewolfCards.find(c => c.id === playerObj.roleId) : null;
+            return `${playerObj.username} [${card ? card.name : "Tanpa Role"}]`;
+        }
+
+        function refreshNotulenUI() {
+            const alivePlayers = moderatorPlayers.filter(p => p.alive);
+            const deadPlayers = moderatorPlayers.filter(p => !p.alive);
+
+            const aliveEl = document.getElementById("notulenAliveCount");
+            const deadEl = document.getElementById("notulenDeadCount");
+            const badgeEl = document.getElementById("notulenBadgeCount");
+
+            if (aliveEl) aliveEl.textContent = `${alivePlayers.length} Hidup`;
+            if (deadEl) deadEl.textContent = `${deadPlayers.length} Mati`;
+            if (badgeEl) badgeEl.textContent = String(moderatorLogs.length);
+
+            // Populate all player dropdown selects with alive players and their roles
+            const selects = document.querySelectorAll(".notulen-player-select");
+            selects.forEach(sel => {
+                const prevVal = sel.value;
+                const firstOptText = sel.options[0] ? sel.options[0].textContent : "— Tidak Ada / Lewati —";
+                sel.innerHTML = `<option value="">${firstOptText}</option>`;
+
+                alivePlayers.forEach((p) => {
+                    const realIdx = moderatorPlayers.findIndex(mp => mp.index === p.index);
+                    const roleCard = p.roleId ? werewolfCards.find(c => c.id === p.roleId) : null;
+                    const roleName = roleCard ? roleCard.name : "Tanpa Role";
+                    const opt = document.createElement("option");
+                    opt.value = String(realIdx);
+                    opt.textContent = `${p.index}. ${p.username} (${roleName})`;
+                    sel.appendChild(opt);
+                });
+
+                if (prevVal !== "" && Array.from(sel.options).some(o => o.value === prevVal)) {
+                    sel.value = prevVal;
+                }
+            });
+
+            // Render quick status toggle chips
+            const chipsContainer = document.getElementById("notulenPlayerStatusChips");
+            if (chipsContainer) {
+                chipsContainer.innerHTML = "";
+                if (moderatorPlayers.length === 0) {
+                    chipsContainer.innerHTML = `<span class="text-xs text-slate-500 italic">Belum ada pemain di daftar.</span>`;
+                } else {
+                    moderatorPlayers.forEach((p, idx) => {
+                        const roleCard = p.roleId ? werewolfCards.find(c => c.id === p.roleId) : null;
+                        const chip = document.createElement("button");
+                        chip.type = "button";
+                        chip.className = `px-2.5 py-1 rounded-lg text-[11px] font-medium border transition-all flex items-center gap-1.5 cursor-pointer ${
+                            p.alive
+                                ? "bg-emerald-950/50 border-emerald-500/40 text-emerald-200 hover:bg-emerald-900/60"
+                                : "bg-rose-950/40 border-rose-500/30 text-rose-300 line-through opacity-70 hover:opacity-100"
+                        }`;
+                        chip.innerHTML = `
+                            <span>${p.alive ? "●" : "☠"}</span>
+                            <span>${p.username}</span>
+                            <span class="text-[10px] opacity-75">(${roleCard ? roleCard.name : "-"})</span>
+                        `;
+                        chip.addEventListener("click", () => {
+                            moderatorPlayers[idx].alive = !moderatorPlayers[idx].alive;
+                            renderModeratorRows();
+                        });
+                        chipsContainer.appendChild(chip);
+                    });
+                }
+            }
+
+            renderDualNotulenLogs();
+        }
+
+        function renderDualNotulenLogs() {
+            const pubContainer = document.getElementById("publicLogsContainer");
+            const modContainer = document.getElementById("moderatorLogsContainer");
+            if (!pubContainer || !modContainer) return;
+
+            if (moderatorLogs.length === 0) {
+                const emptyHTML = (label) => `
+                    <div class="py-16 text-center text-slate-500 text-xs leading-relaxed">
+                        <i class="fa-solid fa-scroll text-2xl text-slate-600 mb-2 block"></i>
+                        Belum ada catatan di <strong>${label}</strong>.<br>
+                        Pilih aksi malam di panel kiri lalu klik <strong>Proses Malam</strong>.
+                    </div>
+                `;
+                pubContainer.innerHTML = emptyHTML("Log Publik (Sensor)");
+                modContainer.innerHTML = emptyHTML("Log Moderator (Detail)");
+                return;
+            }
+
+            pubContainer.innerHTML = "";
+            modContainer.innerHTML = "";
+
+            moderatorLogs.forEach((logItem, idx) => {
+                // 1. Render Public Censored Card
+                const pubBox = document.createElement("div");
+                pubBox.className = "p-3.5 rounded-xl bg-slate-900/90 border border-emerald-500/25 space-y-2";
+                pubBox.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-1.5">
+                        <span class="font-serif text-xs font-bold uppercase tracking-wider text-emerald-300">
+                            ${logItem.publicTitle}
+                        </span>
+                        <button type="button" data-del-log="${idx}" class="text-slate-500 hover:text-rose-400 text-xs cursor-pointer" title="Hapus ronde ini">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <ul class="space-y-1.5 text-xs text-slate-200 leading-relaxed">
+                        ${logItem.publicEvents.map(ev => `<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">•</span><span>${ev}</span></li>`).join("")}
+                    </ul>
+                `;
+                pubContainer.appendChild(pubBox);
+
+                // 2. Render Moderator Uncensored Card
+                const modBox = document.createElement("div");
+                modBox.className = "p-3.5 rounded-xl bg-slate-900/90 border border-amber-500/30 space-y-2";
+                modBox.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-1.5">
+                        <span class="font-serif text-xs font-bold uppercase tracking-wider text-amber-300">
+                            ${logItem.modTitle}
+                        </span>
+                        <button type="button" data-del-log="${idx}" class="text-slate-500 hover:text-rose-400 text-xs cursor-pointer" title="Hapus ronde ini">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <ul class="space-y-1.5 text-xs text-slate-200 leading-relaxed">
+                        ${logItem.modEvents.map(ev => `<li class="flex items-start gap-2"><span class="text-amber-400 mt-0.5">•</span><span>${ev}</span></li>`).join("")}
+                    </ul>
+                `;
+                modContainer.appendChild(modBox);
+            });
+
+            document.querySelectorAll("[data-del-log]").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const delIdx = parseInt(btn.getAttribute("data-del-log"), 10);
+                    moderatorLogs.splice(delIdx, 1);
+                    refreshNotulenUI();
+                });
+            });
+        }
+
+        // Resolve Night Actions & Simultaneously Generate PUBLIC CENSORED LOG + MODERATOR DETAILED LOG
+        document.getElementById("resolveNightBtn").addEventListener("click", () => {
+            if (moderatorPlayers.length === 0) {
+                showToast("Masukkan daftar username pemain terlebih dahulu di Tab 1!", "fa-triangle-exclamation text-amber-400");
+                return;
+            }
+
+            const roundInput = document.getElementById("notulenRoundInput");
+            const roundNum = parseInt(roundInput.value || "1", 10);
+            const censorVictimName = document.getElementById("censorVictimNameInPublic").checked;
+
+            const gVal = document.getElementById("actGuardianTarget").value;
+            const wVal = document.getElementById("actWolfTarget").value;
+            const sVal = document.getElementById("actSeerTarget").value;
+            const seerStatus = document.getElementById("actSeerStatus").value;
+            const wsVal = document.getElementById("actWolfSeerTarget").value;
+            const skVal = document.getElementById("actSkTarget").value;
+            const harlotVal = document.getElementById("actHarlotTarget").value;
+            const trackerVal = document.getElementById("actTrackerTarget").value;
+            const trapVal = document.getElementById("actTrapTarget").value;
+
+            const customPublicNote = (document.getElementById("actCustomPublicNote").value || "").trim();
+            const customModNote = (document.getElementById("actCustomModNote").value || "").trim();
+
+            const guardianTarget = gVal !== "" ? moderatorPlayers[parseInt(gVal, 10)] : null;
+            const wolfTarget = wVal !== "" ? moderatorPlayers[parseInt(wVal, 10)] : null;
+            const seerTarget = sVal !== "" ? moderatorPlayers[parseInt(sVal, 10)] : null;
+            const wolfSeerTarget = wsVal !== "" ? moderatorPlayers[parseInt(wsVal, 10)] : null;
+            const skTarget = skVal !== "" ? moderatorPlayers[parseInt(skVal, 10)] : null;
+            const harlotTarget = harlotVal !== "" ? moderatorPlayers[parseInt(harlotVal, 10)] : null;
+            const trackerTarget = trackerVal !== "" ? moderatorPlayers[parseInt(trackerVal, 10)] : null;
+            const trapTarget = trapVal !== "" ? moderatorPlayers[parseInt(trapVal, 10)] : null;
+
+            const publicEvents = [];
+            const modEvents = [];
+
+            const guardianActor = getHoldersLabel(["guardian"], "Guardian");
+            const wolfActor = getHoldersLabel(["alpha-werewolf", "werewolf", "wolf-seer", "wolfcub", "nightmare-werewolf"], "Kawanan Werewolf");
+            const seerActor = getHoldersLabel(["seer"], "Seer");
+            const wolfSeerActor = getHoldersLabel(["wolf-seer", "sorcerer"], "Wolf Seer / Sorcerer");
+            const skActor = getHoldersLabel(["serial-killer"], "Serial Killer");
+            const harlotActor = getHoldersLabel(["harlot"], "Harlot");
+            const trackerActor = getHoldersLabel(["tracker"], "Tracker");
+            const trapperActor = getHoldersLabel(["trapper"], "Trapper");
+
+            // 1. Guardian Protection Resolution
+            if (guardianTarget) {
+                const blockedAttack = (wolfTarget && wolfTarget.index === guardianTarget.index) || (skTarget && skTarget.index === guardianTarget.index);
+                if (blockedAttack) {
+                    publicEvents.push(`Guardian berhasil melindungi warga pada malam hari tadi.`);
+                    modEvents.push(`🛡️ <strong>${guardianActor}</strong> melindungi <strong>${formatPlayerWithRole(guardianTarget)}</strong> → <span class="text-emerald-400 font-bold">BERHASIL</span> menahan serangan malam!`);
+                } else {
+                    publicEvents.push(`Guardian gagal melindungi warga pada malam hari tadi.`);
+                    modEvents.push(`🛡️ <strong>${guardianActor}</strong> menjaga rumah <strong>${formatPlayerWithRole(guardianTarget)}</strong> → Tidak ada serangan ke rumah tersebut.`);
+                }
+            }
+
+            // 2. Trapper Resolution
+            if (trapTarget) {
+                const trapTriggered = (wolfTarget && wolfTarget.index === trapTarget.index) || (skTarget && skTarget.index === trapTarget.index) || (harlotTarget && harlotTarget.index === trapTarget.index);
+                if (trapTriggered) {
+                    publicEvents.push(`Perangkap Trapper berhasil memakan korban pada malam hari tadi.`);
+                } else {
+                    publicEvents.push(`Trapper memasang perangkap pada malam hari tadi.`);
+                }
+                modEvents.push(`🪤 <strong>${trapperActor}</strong> memasang perangkap di rumah <strong>${formatPlayerWithRole(trapTarget)}</strong>.`);
+            }
+
+            // 3. Werewolf Attack Resolution
+            if (wolfTarget) {
+                const targetCard = wolfTarget.roleId ? werewolfCards.find(c => c.id === wolfTarget.roleId) : null;
+                const isProtectedByGuardian = guardianTarget && guardianTarget.index === wolfTarget.index;
+                const isTrappedHouse = trapTarget && trapTarget.index === wolfTarget.index;
+
+                if (isProtectedByGuardian) {
+                    publicEvents.push(`Werewolf gagal membunuh salah satu penduduk desa pada malam hari tadi.`);
+                    modEvents.push(`🐺 <strong>${wolfActor}</strong> menyerang <strong>${formatPlayerWithRole(wolfTarget)}</strong> → <span class="text-rose-400 font-bold">GAGAL</span> karena dilindungi oleh Guardian.`);
+                } else if (isTrappedHouse) {
+                    publicEvents.push(`Werewolf gagal membunuh warga karena terkena jebakan pada malam hari tadi.`);
+                    modEvents.push(`💥 <strong>${wolfActor}</strong> menyerang rumah <strong>${formatPlayerWithRole(wolfTarget)}</strong> → <span class="text-rose-400 font-bold">GAGAL</span> karena terkena jebakan Trapper!`);
+                } else if (targetCard && targetCard.id === "cursed") {
+                    wolfTarget.roleId = "werewolf";
+                    publicEvents.push(`Werewolf gagal membunuh salah satu penduduk desa pada malam hari tadi.`);
+                    modEvents.push(`🩸 <strong>${wolfActor}</strong> menyerang <strong>${wolfTarget.username} [Cursed]</strong> → Kutukan bangkit! <strong>${wolfTarget.username}</strong> berubah menjadi <strong>Werewolf</strong>.`);
+                } else if (targetCard && targetCard.id === "therianthropy") {
+                    publicEvents.push(`Werewolf gagal membunuh salah satu penduduk desa pada malam hari tadi.`);
+                    modEvents.push(`🐺 <strong>${wolfActor}</strong> menyerang <strong>${formatPlayerWithRole(wolfTarget)}</strong> → <span class="text-rose-400 font-bold">GAGAL</span> (Kebal bunuh Therianthropy).`);
+                } else {
+                    wolfTarget.alive = false;
+                    if (censorVictimName) {
+                        publicEvents.push(`Werewolf berhasil membunuh salah satu penduduk desa pada malam hari tadi.`);
+                    } else {
+                        publicEvents.push(`Werewolf berhasil membunuh warga ${wolfTarget.username} pada malam hari tadi.`);
+                    }
+                    modEvents.push(`🐺 <strong>${wolfActor}</strong> berhasil membunuh <strong>${formatPlayerWithRole(wolfTarget)}</strong> → Status <strong>MATI</strong>.`);
+                    if (targetCard && targetCard.id === "diseased") {
+                        modEvents.push(`☣️ Karena korban adalah <strong>Diseased</strong>, kawanan Werewolf tidak bisa memangsa pada malam berikutnya!`);
+                    }
+                }
+            }
+
+            // 4. Serial Killer Attack Resolution
+            if (skTarget) {
+                const skTargetCard = skTarget.roleId ? werewolfCards.find(c => c.id === skTarget.roleId) : null;
+                const isProtectedByGuardian = guardianTarget && guardianTarget.index === skTarget.index;
+
+                if (isProtectedByGuardian) {
+                    publicEvents.push(`Serial Killer gagal membunuh warga pada malam hari tadi.`);
+                    modEvents.push(`🔪 <strong>${skActor}</strong> menyerang <strong>${formatPlayerWithRole(skTarget)}</strong> → <span class="text-rose-400 font-bold">GAGAL</span> karena dilindungi Guardian (SK stres!).`);
+                } else if (skTargetCard && skTargetCard.id === "prophet") {
+                    publicEvents.push(`Serial Killer gagal membunuh warga pada malam hari tadi.`);
+                    modEvents.push(`⚡ <strong>${skActor}</strong> menyerang <strong>${formatPlayerWithRole(skTarget)}</strong> → Serangan memantul membunuh SK dan Prophet tetap hidup!`);
+                } else {
+                    skTarget.alive = false;
+                    if (censorVictimName) {
+                        publicEvents.push(`Serial Killer berhasil membunuh salah satu penduduk desa pada malam hari tadi.`);
+                    } else {
+                        publicEvents.push(`Serial Killer berhasil membunuh warga ${skTarget.username} pada malam hari tadi.`);
+                    }
+                    modEvents.push(`🔪 <strong>${skActor}</strong> berhasil membunuh <strong>${formatPlayerWithRole(skTarget)}</strong> → Status <strong>MATI</strong>.`);
+                }
+            }
+
+            // 5. Seer Vision Resolution
+            if (seerTarget || seerStatus === "fail") {
+                if (seerStatus === "fail" || !seerTarget) {
+                    publicEvents.push(`Seer gagal menerawang pada malam hari tadi.`);
+                    modEvents.push(`🔮 <strong>${seerActor}</strong> gagal menerawang pada malam hari tadi${seerTarget ? ` (Target: ${formatPlayerWithRole(seerTarget)})` : ""}.`);
+                } else {
+                    const targetCard = seerTarget.roleId ? werewolfCards.find(c => c.id === seerTarget.roleId) : null;
+                    const seerResult = evaluateSeerVision(targetCard);
+                    const badgeColor = seerResult === "Werewolf" ? "text-rose-400" : "text-sky-300";
+                    publicEvents.push(`Seer berhasil menerawang salah satu warga pada malam hari tadi.`);
+                    modEvents.push(`🔮 <strong>${seerActor}</strong> menerawang <strong>${formatPlayerWithRole(seerTarget)}</strong> → Hasil Terawangan: <strong class="${badgeColor}">${seerResult}</strong>.`);
+                }
+            }
+
+            // 6. Wolf Seer / Sorcerer Vision Resolution
+            if (wolfSeerTarget) {
+                const targetCard = wolfSeerTarget.roleId ? werewolfCards.find(c => c.id === wolfSeerTarget.roleId) : null;
+                const exactRole = targetCard ? targetCard.name : "Villager";
+                publicEvents.push(`Wolf Seer berhasil menerawang salah satu warga pada malam hari tadi.`);
+                modEvents.push(`👁️ <strong>${wolfSeerActor}</strong> menerawang <strong>${formatPlayerWithRole(wolfSeerTarget)}</strong> → Role asli terdeteksi: <strong class="text-amber-300">${exactRole}</strong>.`);
+            }
+
+            // 7. Harlot Visit Resolution
+            if (harlotTarget) {
+                const targetCard = harlotTarget.roleId ? werewolfCards.find(c => c.id === harlotTarget.roleId) : null;
+                const visitedWolf = targetCard && targetCard.faction === "werewolf";
+                const houseAttacked = (wolfTarget && wolfTarget.index === harlotTarget.index) || (skTarget && skTarget.index === harlotTarget.index);
+
+                if (visitedWolf || houseAttacked) {
+                    publicEvents.push(`Harlot tewas saat berkunjung ke salah satu rumah warga pada malam hari tadi.`);
+                    modEvents.push(`🚪 <strong>${harlotActor}</strong> mengunjungi rumah <strong>${formatPlayerWithRole(harlotTarget)}</strong> → <span class="text-rose-400 font-bold">HARLOT MATI</span> karena mengunjungi rumah berbahaya!`);
+                } else {
+                    publicEvents.push(`Harlot berkunjung ke salah satu rumah warga pada malam hari tadi.`);
+                    modEvents.push(`🚪 <strong>${harlotActor}</strong> mengunjungi rumah <strong>${formatPlayerWithRole(harlotTarget)}</strong> → Aman kembali ke rumah.`);
+                }
+            }
+
+            // 8. Tracker Resolution
+            if (trackerTarget) {
+                publicEvents.push(`Tracker berhasil melacak jejak salah satu warga pada malam hari tadi.`);
+                modEvents.push(`👣 <strong>${trackerActor}</strong> melacak jejak kaki <strong>${formatPlayerWithRole(trackerTarget)}</strong> pada malam hari tadi.`);
+            }
+
+            // 9. Custom Notes
+            if (customPublicNote) {
+                publicEvents.push(customPublicNote);
+            }
+            if (customModNote) {
+                modEvents.push(`📝 ${customModNote}`);
+            }
+
+            if (publicEvents.length === 0) {
+                publicEvents.push(`Malam hari tadi berlalu dengan tenang tanpa kejadian mencolok.`);
+            }
+            if (modEvents.length === 0) {
+                modEvents.push(`🌙 Malam ke-${roundNum} berlalu tanpa aksi yang dicatat.`);
+            }
+
+            moderatorLogs.unshift({
+                round: roundNum,
+                phase: "Malam",
+                publicTitle: `📢 Pengumuman Pagi (Hasil Malam Ke-${roundNum})`,
+                modTitle: `👁️ Detail Moderator — Malam Ke-${roundNum}`,
+                publicEvents,
+                modEvents
+            });
+
+            // Reset night inputs for next round
+            document.getElementById("actGuardianTarget").value = "";
+            document.getElementById("actWolfTarget").value = "";
+            document.getElementById("actSeerTarget").value = "";
+            document.getElementById("actSeerStatus").value = "auto";
+            document.getElementById("actWolfSeerTarget").value = "";
+            document.getElementById("actSkTarget").value = "";
+            document.getElementById("actHarlotTarget").value = "";
+            document.getElementById("actTrackerTarget").value = "";
+            document.getElementById("actTrapTarget").value = "";
+            document.getElementById("actCustomPublicNote").value = "";
+            document.getElementById("actCustomModNote").value = "";
+
             renderModeratorRows();
+            showToast(`Log Publik & Log Moderator Malam ke-${roundNum} berhasil dibuat!`, "fa-scroll text-amber-300");
+        });
+
+        // Resolve Day Voting Execution (Updates Both Public & Moderator Logs)
+        document.getElementById("resolveDayVoteBtn").addEventListener("click", () => {
+            if (moderatorPlayers.length === 0) {
+                showToast("Masukkan daftar username pemain terlebih dahulu!", "fa-triangle-exclamation text-amber-400");
+                return;
+            }
+
+            const roundInput = document.getElementById("notulenRoundInput");
+            const roundNum = parseInt(roundInput.value || "1", 10);
+            const voteVal = document.getElementById("actDayVoteTarget").value;
+
+            const publicEvents = [];
+            const modEvents = [];
+
+            if (voteVal === "") {
+                publicEvents.push(`Warga desa memutuskan untuk tidak menggantung siapa pun pada siang hari ini (Skip Vote).`);
+                modEvents.push(`☀️ Sidang Siang ke-${roundNum}: Warga memilih <strong>Skip Vote</strong>.`);
+            } else {
+                const votedPlayer = moderatorPlayers[parseInt(voteVal, 10)];
+                if (votedPlayer) {
+                    const roleCard = votedPlayer.roleId ? werewolfCards.find(c => c.id === votedPlayer.roleId) : null;
+                    if (roleCard && roleCard.id === "therianthropy") {
+                        publicEvents.push(`Warga desa mencoba menggantung ${votedPlayer.username}, namun ia kebal terhadap eksekusi vote!`);
+                        modEvents.push(`⚖️ Voting Siang: <strong>${formatPlayerWithRole(votedPlayer)}</strong> divote warga namun <strong>Kebal Vote (Therianthropy)</strong>.`);
+                    } else {
+                        votedPlayer.alive = false;
+                        publicEvents.push(`Warga desa sepakat menggantung ${votedPlayer.username} di tiang gantungan.`);
+                        modEvents.push(`⚖️ Voting Siang: <strong>${formatPlayerWithRole(votedPlayer)}</strong> tewas digantung warga.`);
+                        if (roleCard && roleCard.id === "clown") {
+                            publicEvents.push(`🤡 Sang Badut (Clown / Fool) tertawa di tiang gantungan dan memenangkan permainan!`);
+                            modEvents.push(`🤡 <strong>PERINGATAN: ${votedPlayer.username} adalah CLOWN / FOOL!</strong> Ia langsung menang karena digantung warga!`);
+                        } else if (roleCard && roleCard.id === "wolfcub") {
+                            modEvents.push(`🐾 <strong>${votedPlayer.username} adalah WOLFCUB!</strong> Malam berikutnya kawanan Werewolf dapat memangsa 2 warga sekaligus!`);
+                        }
+                    }
+                }
+            }
+
+            moderatorLogs.unshift({
+                round: roundNum,
+                phase: "Siang",
+                publicTitle: `☀️ Pengumuman Sidang Siang Ke-${roundNum}`,
+                modTitle: `☀️ Detail Moderator — Siang Ke-${roundNum}`,
+                publicEvents,
+                modEvents
+            });
+
+            roundInput.value = String(roundNum + 1);
+            document.getElementById("actDayVoteTarget").value = "";
+
+            renderModeratorRows();
+            showToast(`Hasil Siang ke-${roundNum} tercatat di Log Publik & Moderator!`, "fa-gavel text-amber-300");
+        });
+
+        // Copy Public Censored Log to Clipboard
+        document.getElementById("copyPublicLogBtn").addEventListener("click", () => {
+            if (moderatorLogs.length === 0) {
+                showToast("Belum ada Log Publik untuk disalin.", "fa-circle-info text-emerald-300");
+                return;
+            }
+
+            const lines = ["📢 === PENGUMUMAN DESA (LOG PUBLIK AUK WEREWOLF) ==="];
+            [...moderatorLogs].reverse().forEach(item => {
+                lines.push(`\n[${item.publicTitle}]`);
+                item.publicEvents.forEach(ev => {
+                    const cleanText = ev.replace(/<[^>]+>/g, "");
+                    lines.push(`• ${cleanText}`);
+                });
+            });
+
+            const textArea = document.createElement("textarea");
+            textArea.value = lines.join("\n");
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            showToast("Log Publik (Disensor) berhasil disalin! Aman ditempel ke ruang chat pemain.", "fa-check text-emerald-400");
+        });
+
+        // Copy Moderator Detailed Log to Clipboard
+        document.getElementById("copyModLogBtn").addEventListener("click", () => {
+            if (moderatorLogs.length === 0) {
+                showToast("Belum ada Log Moderator untuk disalin.", "fa-circle-info text-amber-300");
+                return;
+            }
+
+            const lines = ["👁️ === NOTULEN RAHASIA MODERATOR (FULL DETAIL) ==="];
+            [...moderatorLogs].reverse().forEach(item => {
+                lines.push(`\n[${item.modTitle}]`);
+                item.modEvents.forEach(ev => {
+                    const cleanText = ev.replace(/<[^>]+>/g, "");
+                    lines.push(`- ${cleanText}`);
+                });
+            });
+
+            const textArea = document.createElement("textarea");
+            textArea.value = lines.join("\n");
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            showToast("Log Detail Moderator berhasil disalin ke Clipboard!", "fa-check text-amber-400");
+        });
+
+        document.getElementById("clearNotulenBtn").addEventListener("click", () => {
+            moderatorLogs = [];
+            document.getElementById("notulenRoundInput").value = "1";
+            refreshNotulenUI();
+            showToast("Semua riwayat Log Publik & Moderator telah dibersihkan.", "fa-trash-can text-rose-400");
+        });
+
+        window.openModeratorModal = function() {
+            syncPlayersFromTextarea();
             moderatorModal.classList.remove("hidden");
             moderatorModal.classList.add("flex");
             requestAnimationFrame(() => {
@@ -2056,43 +3278,28 @@
             if (e.target === moderatorModal) closeModeratorModal();
         });
 
-        function syncPlayerCountUI(newCount) {
-            activePlayerCount = clampPlayerCount(newCount);
-            playerCountInput.value = activePlayerCount;
-            if (playerCountSlider) playerCountSlider.value = activePlayerCount;
-            renderModeratorRows();
-        }
-
-        playerCountInput.addEventListener("change", (e) => syncPlayerCountUI(e.target.value));
-        if (playerCountSlider) {
-            playerCountSlider.addEventListener("input", (e) => syncPlayerCountUI(e.target.value));
-        }
-
-        decPlayerBtn.addEventListener("click", () => syncPlayerCountUI(activePlayerCount - 1));
-        incPlayerBtn.addEventListener("click", () => syncPlayerCountUI(activePlayerCount + 1));
-
-        presetCountBtns.forEach(btn => {
-            btn.addEventListener("click", () => syncPlayerCountUI(btn.getAttribute("data-preset")));
-        });
-
         rollAllRolesBtn.addEventListener("click", rollAllPlayersRoles);
 
         clearModRolesBtn.addEventListener("click", () => {
-            for (let i = 0; i < activePlayerCount; i++) {
-                if (moderatorPlayers[i]) moderatorPlayers[i].roleId = null;
-            }
+            moderatorPlayers.forEach(p => {
+                p.roleId = null;
+                p.alive = true;
+            });
             renderModeratorRows();
-            showToast("Semua role pemain telah di-reset.", "fa-rotate-left text-rose-400");
+            showToast("Semua role dan status pemain telah di-reset.", "fa-rotate-left text-rose-400");
         });
 
         copyModListBtn.addEventListener("click", () => {
-            const lines = [`=== DAFTAR PEMAIN & ROLE AUK WEREWOLF (${activePlayerCount} PEMAIN) ===`];
-            for (let i = 0; i < activePlayerCount; i++) {
-                const p = moderatorPlayers[i];
+            if (moderatorPlayers.length === 0) {
+                showToast("Daftar pemain masih kosong!", "fa-triangle-exclamation text-amber-400");
+                return;
+            }
+            const lines = [`=== DAFTAR PEMAIN & ROLE AUK WEREWOLF (${moderatorPlayers.length} PEMAIN) ===`];
+            moderatorPlayers.forEach((p, i) => {
                 const card = p.roleId ? werewolfCards.find(c => c.id === p.roleId) : null;
                 const roleLabel = card ? `${card.name} [${factionConfig[card.faction].label}]` : "Belum ditentukan";
-                lines.push(`${i + 1}. ${p.username || 'Pemain ' + (i + 1)} — ${roleLabel}`);
-            }
+                lines.push(`${i + 1}. ${p.username} — ${roleLabel}`);
+            });
 
             const textArea = document.createElement("textarea");
             textArea.value = lines.join("\n");
