@@ -36,37 +36,24 @@
         }
 
         /* =============================================================
-           NIGHT MODE (WEREWOLF) & DAY MODE (VILLAGER) THEME TRANSITIONS
+           PERMANENT DARK NIGHT ATMOSPHERE
            ============================================================= */
         body {
-            transition: background-color 0.7s ease, color 0.5s ease, background-image 0.7s ease;
-            overflow-x: hidden;
-        }
-
-        body.night-mode {
             background-color: #03050a;
             color: #e2e8f0;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(148, 163, 184, 0.10) 0%, rgba(30, 41, 59, 0.04) 40%, transparent 70%),
+                radial-gradient(circle at 50% 0%, rgba(148, 163, 184, 0.11) 0%, rgba(30, 41, 59, 0.04) 42%, transparent 72%),
                 linear-gradient(180deg, #03050a 0%, #060913 55%, #020307 100%);
+            overflow-x: hidden;
         }
 
-        body.day-mode {
-            background-color: #f8fafc;
-            color: #0f172a;
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(253, 224, 71, 0.32) 0%, rgba(186, 230, 253, 0.35) 45%, transparent 75%),
-                linear-gradient(180deg, #fef9c3 0%, #e0f2fe 42%, #f8fafc 100%);
-        }
-
-        /* Subtle Ambient Light Beams (Softened & Simplified) */
+        /* Subtle Ambient Light Beams */
         .ambient-beams {
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 1;
             overflow: hidden;
-            transition: opacity 0.7s ease;
         }
 
         .top-light-halo {
@@ -74,24 +61,15 @@
             top: -150px;
             left: 50%;
             transform: translateX(-50%);
-            width: 520px;
-            height: 320px;
+            width: 560px;
+            height: 340px;
             border-radius: 50%;
-            filter: blur(36px);
-            transition: background 0.7s ease, opacity 0.7s ease;
+            filter: blur(40px);
+            background: radial-gradient(circle, rgba(226, 232, 240, 0.12) 0%, rgba(148, 163, 184, 0.04) 48%, transparent 72%);
+            opacity: 0.8;
         }
 
-        body.night-mode .top-light-halo {
-            background: radial-gradient(circle, rgba(226, 232, 240, 0.10) 0%, rgba(148, 163, 184, 0.04) 45%, transparent 70%);
-            opacity: 0.75;
-        }
-
-        body.day-mode .top-light-halo {
-            background: radial-gradient(circle, rgba(250, 204, 21, 0.32) 0%, rgba(253, 224, 71, 0.14) 50%, transparent 75%);
-            opacity: 0.95;
-        }
-
-        /* Thin Drifting Mist / Morning Cloud Layers */
+        /* Thin Drifting Mist */
         .mist-container {
             position: fixed;
             inset: 0;
@@ -107,7 +85,6 @@
             height: 42vh;
             filter: blur(42px);
             will-change: transform;
-            transition: opacity 0.7s ease;
         }
 
         .mist-layer-1 {
@@ -119,20 +96,13 @@
             animation: mistDriftRight 55s linear infinite alternate;
         }
 
-        body.day-mode .mist-layer-1 {
-            opacity: 0.45;
-            background: 
-                radial-gradient(ellipse 40% 50% at 25% 60%, rgba(255, 255, 255, 0.65) 0%, transparent 75%),
-                radial-gradient(ellipse 45% 50% at 75% 65%, rgba(254, 243, 199, 0.5) 0%, transparent 75%);
-        }
-
         @keyframes mistDriftRight {
             0% { transform: translate3d(-8%, 0, 0); }
             100% { transform: translate3d(8%, -2%, 0); }
         }
 
         /* =============================================================
-           CENTERED SIMPLE 3D LOGO WITH GENTLE HOVER & DAY/NIGHT MORPH
+           TRANSPARENT WEREWOLF EMBLEM & SHIMMERING LIGHT PARTICLES
            ============================================================= */
         .logo-3d-stage {
             perspective: 1000px;
@@ -145,36 +115,67 @@
 
         .logo-3d-card {
             transform-style: preserve-3d;
-            transition: transform 0.25s ease-out, box-shadow 0.4s ease, border-color 0.4s ease, background 0.5s ease;
+            transition: transform 0.25s ease-out, filter 0.4s ease;
             will-change: transform;
         }
 
         .logo-3d-stage:not(:hover) .logo-3d-card {
-            transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease, background 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
         }
 
-        .logo-emblem-svg {
-            transform: translateZ(14px);
-            transition: transform 0.35s ease, opacity 0.45s ease;
+        /* Floating Light Sparkles ("Taburan Sinar Cahaya") around Logo */
+        .sparkle-mote {
+            position: absolute;
+            border-radius: 9999px;
+            pointer-events: none;
+            background: radial-gradient(circle, #ffffff 0%, #fde68a 45%, transparent 75%);
+            box-shadow: 0 0 10px 2px rgba(251, 191, 36, 0.65);
+            animation: sparkleFloat 3.6s ease-in-out infinite;
         }
 
-        .logo-3d-stage:hover .logo-emblem-svg {
-            transform: translateZ(20px) scale(1.02);
-        }
-
-        /* Click Ripple Pulse */
-        @keyframes emblemPulse {
-            0% {
-                transform: scale(0.95);
-                opacity: 0.8;
+        @keyframes sparkleFloat {
+            0%, 100% {
+                transform: translateY(0px) scale(0.75);
+                opacity: 0.25;
             }
-            100% {
-                transform: scale(1.45);
-                opacity: 0;
+            50% {
+                transform: translateY(-9px) scale(1.25);
+                opacity: 0.95;
             }
         }
-        .pulse-ring-active {
-            animation: emblemPulse 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+        @keyframes lightRaySpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.05); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .logo-light-rays {
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                rgba(251, 191, 36, 0.14) 20deg,
+                transparent 45deg,
+                rgba(226, 232, 240, 0.18) 95deg,
+                transparent 130deg,
+                rgba(251, 191, 36, 0.12) 185deg,
+                transparent 220deg,
+                rgba(226, 232, 240, 0.16) 285deg,
+                transparent 325deg,
+                transparent 360deg
+            );
+            filter: blur(14px);
+            animation: lightRaySpin 28s linear infinite;
+        }
+
+        /* Dice spin animation for Be Moderator */
+        @keyframes diceSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        .dice-rolling {
+            animation: diceSpin 0.45s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         /* =============================================================
@@ -224,7 +225,6 @@
             opacity: 1;
         }
 
-        /* Seamless Transparent Card Artwork Container (Removes white corners/borders cleanly) */
         .card-art-frame {
             width: 100%;
             height: 100%;
@@ -240,37 +240,34 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 0.95rem;
+            border-radius: 18px;
             display: block;
             transition: transform 0.3s ease;
         }
 
-        /* Adaptive Theme Surfaces */
-        body.night-mode .theme-header {
+        /* Clean Rounded Masking & Inner Vignette for Cards with White Outer Edges */
+        .white-corner-mask {
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 2px #090d18, inset 0 0 18px 4px rgba(3, 5, 10, 0.9);
+        }
+        .white-corner-mask .card-art-img {
+            transform: scale(1.045);
+        }
+
+        .theme-header {
             background-color: rgba(4, 6, 12, 0.85);
             border-color: rgba(51, 65, 85, 0.45);
         }
-        body.day-mode .theme-header {
-            background-color: rgba(255, 255, 255, 0.88);
-            border-color: rgba(203, 213, 225, 0.8);
-        }
 
-        body.night-mode .theme-panel {
+        .theme-panel {
             background-color: rgba(15, 17, 28, 0.92);
             border-color: rgba(148, 163, 184, 0.2);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
         }
-        body.day-mode .theme-panel {
-            background-color: rgba(255, 255, 255, 0.92);
-            border-color: rgba(203, 213, 225, 0.9);
-            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
-        }
 
-        body.night-mode .theme-card-shell {
+        .theme-card-shell {
             background: radial-gradient(circle at 50% 35%, rgba(30, 41, 59, 0.45), rgba(7, 9, 15, 0.95));
-        }
-        body.day-mode .theme-card-shell {
-            background: radial-gradient(circle at 50% 35%, rgba(241, 245, 249, 0.9), rgba(226, 232, 240, 0.95));
         }
 
         /* Custom Scrollbar */
@@ -287,12 +284,12 @@
         }
     </style>
 </head>
-<body class="night-mode min-h-screen font-sans selection:bg-amber-500/30 selection:text-amber-200 relative">
+<body class="min-h-screen font-sans selection:bg-amber-500/30 selection:text-amber-200 relative">
 
-    <!-- Sky Canvas (Twinkling Stars in Night Mode / Warm Floating Sun-Motes in Day Mode) -->
+    <!-- Dynamic Moving Starry Sky Canvas -->
     <canvas id="skyCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
 
-    <!-- Soft Top Halo (Reduced Moonlight in Night Mode / Warm Sunlight in Day Mode) -->
+    <!-- Soft Top Moonlight Halo -->
     <div class="ambient-beams">
         <div class="top-light-halo"></div>
     </div>
@@ -303,47 +300,46 @@
     </div>
 
     <!-- Sticky Navigation Bar -->
-    <header class="theme-header sticky top-0 z-50 backdrop-blur-md border-b transition-colors duration-500">
+    <header class="theme-header sticky top-0 z-50 backdrop-blur-md border-b">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
             
-            <!-- Brand Identity & Day/Night Quick Toggle -->
-            <button id="navLogoBtn" type="button" class="flex items-center gap-3.5 group shrink-0 select-none focus:outline-none text-left" title="Klik untuk mengganti Mode Malam (Werewolf) / Siang (Villager)">
-                <div id="navEmblemBox" class="relative w-12 h-12 rounded-2xl bg-[#0b0f19] border border-slate-500/40 flex items-center justify-center shadow-md transition-all duration-300 group-hover:border-amber-400/70">
-                    <!-- Night Werewolf Mini Icon -->
-                    <svg id="navWolfSvg" class="w-9 h-9 transition-all duration-500" viewBox="0 0 120 120" fill="none">
-                        <circle cx="60" cy="60" r="42" fill="#e2e8f0" opacity="0.9" />
-                        <!-- Classic Standard Werewolf Head Silhouette -->
-                        <path d="M60 22 C54 29 49 33 45 33 L34 17 L37 42 C31 47 27 54 25 62 L18 66 L26 73 C28 82 34 89 42 94 L39 103 L51 98 C54 100 57 101 60 101 C63 101 66 100 69 98 L81 103 L78 94 C86 89 92 82 94 73 L102 66 L95 62 C93 54 89 47 83 42 L86 17 L75 33 C71 33 66 29 60 22 Z" fill="#07090e" />
-                        <path d="M44 56 L54 60 L46 63 Z M76 56 L66 60 L74 63 Z" fill="#f8fafc" />
-                        <path d="M55 76 L60 73 L65 76 L60 82 Z" fill="#cbd5e1" />
-                    </svg>
-                    <!-- Day Villager Mini Icon (Hidden in Night Mode) -->
-                    <svg id="navVillagerSvg" class="w-9 h-9 hidden transition-all duration-500" viewBox="0 0 120 120" fill="none">
-                        <circle cx="60" cy="60" r="42" fill="#fde047" />
-                        <!-- Classic Villager / Townsperson Head Silhouette -->
-                        <path d="M60 24 C45 24 35 35 35 50 C35 59 39 67 45 72 C32 77 24 88 22 101 L98 101 C96 88 88 77 75 72 C81 67 85 59 85 50 C85 35 75 24 60 24 Z" fill="#1e293b" />
-                        <!-- Villager Hat / Rustic Cap Contour -->
-                        <path d="M28 45 Q60 32 92 45 Q78 22 60 22 Q42 22 28 45 Z" fill="#0f172a" />
+            <!-- Brand Identity -->
+            <a href="#" id="navLogoLink" class="flex items-center gap-3.5 group shrink-0 select-none focus:outline-none text-left">
+                <div class="relative w-12 h-12 rounded-2xl bg-[#070a12] border border-slate-600/50 flex items-center justify-center shadow-md overflow-hidden group-hover:border-amber-400/70 transition-all">
+                    <!-- Mini Full Moon & Werewolf Silhouette SVG -->
+                    <svg viewBox="0 0 100 100" class="w-10 h-10">
+                        <defs>
+                            <radialGradient id="navMoonGrad" cx="45%" cy="40%" r="55%">
+                                <stop offset="0%" stop-color="#fffbeb" />
+                                <stop offset="55%" stop-color="#fde68a" />
+                                <stop offset="85%" stop-color="#cbd5e1" />
+                                <stop offset="100%" stop-color="#64748b" />
+                            </radialGradient>
+                        </defs>
+                        <!-- Full Moon -->
+                        <circle cx="50" cy="50" r="42" fill="url(#navMoonGrad)" />
+                        <circle cx="34" cy="34" r="6" fill="#94a3b8" opacity="0.28" />
+                        <circle cx="65" cy="28" r="4.5" fill="#94a3b8" opacity="0.22" />
+                        <!-- Sharp Black Werewolf Head Silhouette -->
+                        <path d="M50 18 L41 32 L26 20 L30 43 L19 52 L31 61 L26 74 L42 79 L50 90 L58 79 L74 74 L69 61 L81 52 L70 43 L74 20 L59 32 Z" fill="#04060c" stroke="#1e293b" stroke-width="1.2" stroke-linejoin="round"/>
+                        <!-- Glowing Eyes -->
+                        <polygon points="37,49 46,53 39,55" fill="#f59e0b" />
+                        <polygon points="63,49 54,53 61,55" fill="#f59e0b" />
                     </svg>
                 </div>
 
                 <div>
-                    <div class="flex items-center gap-2">
-                        <span id="navBrandTitle" class="font-display text-lg sm:text-2xl font-bold tracking-wider bg-gradient-to-r from-white via-slate-200 to-amber-300 bg-clip-text text-transparent block leading-none">
-                            AUK WEREWOLF
-                        </span>
-                        <span id="modeStatusPill" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-serif uppercase tracking-widest bg-slate-900 text-amber-300 border border-amber-400/30">
-                            <i class="fa-solid fa-moon text-[9px]"></i> Malam
-                        </span>
-                    </div>
-                    <span id="navBrandSub" class="font-serif text-[10px] sm:text-xs tracking-[0.16em] text-slate-400 uppercase block mt-1">
-                        Klik Logo untuk Mode Siang / Malam
+                    <span class="font-display text-lg sm:text-2xl font-bold tracking-wider bg-gradient-to-r from-white via-slate-200 to-amber-300 bg-clip-text text-transparent block leading-none">
+                        AUK WEREWOLF
+                    </span>
+                    <span class="font-serif text-[10px] sm:text-xs tracking-[0.2em] text-slate-400 uppercase block mt-1">
+                        Card Game Role Collection
                     </span>
                 </div>
-            </button>
+            </a>
 
             <!-- Live Faction Counters -->
-            <div id="navStatsPill" class="hidden lg:flex items-center gap-3 bg-slate-950/80 border border-slate-800 px-4 py-1.5 rounded-full text-xs text-slate-300 transition-colors">
+            <div id="navStatsPill" class="hidden lg:flex items-center gap-3 bg-slate-950/80 border border-slate-800 px-4 py-1.5 rounded-full text-xs text-slate-300">
                 <span class="flex items-center gap-1.5">
                     <span class="w-2 h-2 rounded-full bg-blue-500"></span>
                     Good Side: <strong id="navCountGood" class="text-blue-400">0</strong>
@@ -360,17 +356,14 @@
                 </span>
             </div>
 
-            <!-- Action Buttons: Overview Modal & Random Role -->
-            <div class="flex items-center gap-2">
-                <button id="openOverviewModalBtn" 
-                        class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-600/50 text-slate-100 text-xs sm:text-sm font-serif font-semibold tracking-wide transition-all flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-table-cells text-sky-400"></i>
-                    <span class="hidden sm:inline">Grid Overview</span>
-                </button>
-                <button id="randomRoleBtn" 
-                        class="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-rose-700 hover:from-amber-500 hover:to-rose-600 border border-amber-300/40 text-white text-xs sm:text-sm font-serif font-semibold tracking-wide transition-all flex items-center gap-2 shadow-md">
-                    <i class="fa-solid fa-dice-d20"></i>
-                    <span class="hidden sm:inline">Takdir Acak</span>
+            <!-- Action Button: Be Moderator -->
+            <div class="flex items-center gap-2.5">
+                <button id="openModeratorBtn" 
+                        type="button"
+                        onclick="openModeratorModal()"
+                        class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-rose-700 hover:from-amber-400 hover:to-rose-600 border border-amber-300/50 text-white text-xs sm:text-sm font-serif font-bold tracking-wider uppercase transition-all flex items-center gap-2.5 shadow-[0_0_20px_rgba(245,158,11,0.3)] hover:shadow-[0_0_28px_rgba(245,158,11,0.5)] cursor-pointer">
+                    <i class="fa-solid fa-crown text-amber-200"></i>
+                    <span>Be Moderator</span>
                 </button>
             </div>
         </div>
@@ -378,128 +371,137 @@
 
     <!-- Notification Toast -->
     <div id="toastBanner" class="fixed bottom-5 right-5 z-50 hidden max-w-sm bg-slate-950/95 border border-amber-400/40 text-slate-100 px-4 py-3 rounded-2xl shadow-2xl backdrop-blur-md items-center gap-3 text-xs sm:text-sm">
-        <i id="toastIcon" class="fa-solid fa-moon text-amber-300 text-base"></i>
-        <span id="toastMessage">Mode Malam Aktif</span>
+        <i id="toastIcon" class="fa-solid fa-wand-magic-sparkles text-amber-300 text-base"></i>
+        <span id="toastMessage">Berhasil</span>
     </div>
 
-    <!-- Hero Section (Strictly Centered Logo, Clean Title, Polished Description) -->
+    <!-- Hero Section (Centered Full Moon & Werewolf Silhouette Emblem, Title, Description, & Takdir Acak Button) -->
     <section class="relative pt-8 pb-7 sm:pt-12 sm:pb-10 overflow-hidden z-10">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center">
             
-            <!-- Strictly Centered Interactive Logo (Werewolf in Night Mode <-> Villager in Day Mode) -->
-            <div class="w-full flex justify-center items-center mb-6">
-                <div id="heroLogoStage" class="logo-3d-stage relative cursor-pointer select-none group" title="Klik logo untuk beralih antara Malam (Werewolf) & Siang (Villager)">
+            <!-- Strictly Centered Full Moon & Werewolf Silhouette Emblem -->
+            <div class="w-full flex justify-center items-center mb-5">
+                <div id="heroLogoStage" class="logo-3d-stage relative select-none group">
                     
-                    <!-- Soft Understated Glow Behind Emblem -->
-                    <div id="heroLogoGlow" class="absolute -inset-4 rounded-full bg-slate-300/10 blur-xl transition-all duration-500 pointer-events-none"></div>
+                    <!-- Rotating Soft Light Rays Halo -->
+                    <div class="logo-light-rays absolute -inset-6 rounded-full opacity-75 pointer-events-none"></div>
 
-                    <!-- Subtle 3D Emblem Container -->
-                    <div id="heroLogoCard" class="logo-3d-card relative w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-b from-[#111622] to-[#05070c] border-2 border-slate-400/40 shadow-[0_10px_35px_rgba(0,0,0,0.65)] flex items-center justify-center mx-auto">
-                        
-                        <!-- Click Pulse Ring -->
-                        <div id="heroPulseRing" class=" absolute inset-0 rounded-full border-2 border-amber-300/60 opacity-0 pointer-events-none"></div>
+                    <!-- Ambient Moonlight Aura Behind Emblem -->
+                    <div class="absolute -inset-4 rounded-full bg-gradient-to-b from-amber-200/20 via-slate-200/10 to-transparent blur-2xl pointer-events-none"></div>
 
-                        <!-- NIGHT MODE LOGO: Classic Standard Werewolf Head Silhouette -->
-                        <svg id="heroWolfLogo" class="logo-emblem-svg w-32 h-32 sm:w-40 sm:h-40 block" viewBox="0 0 200 200" fill="none">
-                            <!-- Simple Minimalist Outer Ring -->
-                            <circle cx="100" cy="100" r="90" stroke="#94a3b8" stroke-width="1" stroke-opacity="0.35" />
-                            
-                            <!-- Soft Understated Full Moon Disc -->
-                            <circle cx="100" cy="100" r="66" fill="url(#simpleMoonGrad)" />
+                    <!-- Sprinkles of Light Particles ("Taburan Sinar Cahaya") -->
+                    <span class="sparkle-mote w-2 h-2 -top-2 left-10" style="animation-delay: 0s;"></span>
+                    <span class="sparkle-mote w-1.5 h-1.5 top-4 -right-2" style="animation-delay: 0.7s;"></span>
+                    <span class="sparkle-mote w-2.5 h-2.5 bottom-6 -left-3" style="animation-delay: 1.3s;"></span>
+                    <span class="sparkle-mote w-1.5 h-1.5 -bottom-1 right-8" style="animation-delay: 1.9s;"></span>
+                    <span class="sparkle-mote w-2 h-2 top-1/2 -right-4" style="animation-delay: 2.4s;"></span>
+                    <span class="sparkle-mote w-1.5 h-1.5 top-3 left-2" style="animation-delay: 2.9s;"></span>
+
+                    <!-- 3D Emblem Container: Full Moon & Sharp Black Werewolf Silhouette -->
+                    <div id="heroLogoCard" class="logo-3d-card relative w-44 h-44 sm:w-52 sm:h-52 rounded-full flex items-center justify-center mx-auto">
+                        <svg viewBox="0 0 240 240" class="w-full h-full drop-shadow-[0_0_32px_rgba(253,230,138,0.28)]">
                             <defs>
-                                <radialGradient id="simpleMoonGrad" cx="50%" cy="42%" r="52%">
-                                    <stop offset="0%" stop-color="#f8fafc" />
-                                    <stop offset="70%" stop-color="#cbd5e1" />
-                                    <stop offset="100%" stop-color="#94a3b8" />
+                                <!-- Silvery-Gold Full Moon Gradient -->
+                                <radialGradient id="fullMoonSurface" cx="42%" cy="36%" r="58%">
+                                    <stop offset="0%" stop-color="#ffffff" />
+                                    <stop offset="35%" stop-color="#fef3c7" />
+                                    <stop offset="72%" stop-color="#e2e8f0" />
+                                    <stop offset="92%" stop-color="#94a3b8" />
+                                    <stop offset="100%" stop-color="#475569" />
                                 </radialGradient>
+                                <!-- Outer Lunar Corona -->
+                                <radialGradient id="lunarHalo" cx="50%" cy="50%" r="50%">
+                                    <stop offset="70%" stop-color="#fde68a" stop-opacity="0.28" />
+                                    <stop offset="100%" stop-color="#f8fafc" stop-opacity="0" />
+                                </radialGradient>
+                                <!-- Wolf Inner Rim Highlight -->
+                                <linearGradient id="wolfRimLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#f8fafc" stop-opacity="0.7" />
+                                    <stop offset="50%" stop-color="#334155" stop-opacity="0.5" />
+                                    <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.6" />
+                                </linearGradient>
                             </defs>
 
-                            <!-- Classic Organic Werewolf Head Silhouette (Centered, Clean, Realistic Wolf Proportions) -->
-                            <path d="M100 32
-                                     C91 44, 83 50, 76 52
-                                     L56 24
-                                     C53 38, 53 53, 58 66
-                                     C47 74, 39 85, 34 98
-                                     L24 103
-                                     L37 113
-                                     C36 122, 41 131, 50 137
-                                     L42 149
-                                     L64 146
-                                     C71 154, 80 161, 88 166
-                                     L100 174
-                                     L112 166
-                                     C120 161, 129 154, 136 146
-                                     L158 149
-                                     L150 137
-                                     C159 131, 164 122, 163 113
-                                     L176 103
-                                     L166 98
-                                     C161 85, 153 74, 142 66
-                                     C147 53, 147 38, 144 24
-                                     L124 52
-                                     C117 50, 109 44, 100 32 Z"
-                                  fill="#06080e"
-                                  stroke="#1e293b"
-                                  stroke-width="1.5"
-                                  stroke-linejoin="round" />
+                            <!-- Soft Outer Moon Halo -->
+                            <circle cx="120" cy="120" r="116" fill="url(#lunarHalo)" />
 
-                            <!-- Inner Ear Contours -->
-                            <path d="M60 36 L59 59 L72 54 Z" fill="#111827" />
-                            <path d="M140 36 L141 59 L128 54 Z" fill="#111827" />
+                            <!-- Decorative Celestial Ring -->
+                            <circle cx="120" cy="120" r="102" fill="none" stroke="#fef3c7" stroke-width="0.75" stroke-opacity="0.35" stroke-dasharray="5 5" />
 
-                            <!-- Classic Wolf Eyes -->
-                            <path d="M69 92 Q79 89 87 96 Q77 99 69 92 Z" fill="#f8fafc" />
-                            <path d="M131 92 Q121 89 113 96 Q123 99 131 92 Z" fill="#f8fafc" />
+                            <!-- Main Glowing Full Moon (Bulan Purnama) -->
+                            <circle cx="120" cy="120" r="92" fill="url(#fullMoonSurface)" stroke="#fef3c7" stroke-width="1.5" stroke-opacity="0.7" />
 
-                            <!-- Classic Wolf Snout Bridge & Nose Silhouette -->
-                            <path d="M100 68 L95 114 L100 119 L105 114 Z" fill="#111827" opacity="0.65" />
-                            <path d="M90 124 Q100 119 110 124 L105 134 Q100 137 95 134 Z" fill="#e2e8f0" />
-                            <!-- Subtle Lower Jaw Fur Contour -->
-                            <path d="M78 143 Q100 154 122 143" stroke="#cbd5e1" stroke-width="1.6" stroke-linecap="round" opacity="0.7" />
-                        </svg>
+                            <!-- Realistic Lunar Craters -->
+                            <g fill="#64748b" opacity="0.22">
+                                <circle cx="76" cy="72" r="15" />
+                                <circle cx="164" cy="68" r="11" />
+                                <circle cx="62" cy="134" r="18" />
+                                <circle cx="174" cy="138" r="14" />
+                                <circle cx="105" cy="52" r="7" />
+                                <circle cx="145" cy="96" r="9" />
+                                <ellipse cx="88" cy="176" rx="14" ry="8" />
+                            </g>
 
-                        <!-- DAY MODE LOGO: Classic Villager (Warga Desa) Head Silhouette -->
-                        <svg id="heroVillagerLogo" class="logo-emblem-svg w-32 h-32 sm:w-40 sm:h-40 hidden" viewBox="0 0 200 200" fill="none">
-                            <!-- Warm Sun Rays Ring -->
-                            <circle cx="100" cy="100" r="90" stroke="#f59e0b" stroke-width="1.2" stroke-dasharray="6 6" stroke-opacity="0.55" />
-                            
-                            <!-- Bright Golden Morning Sun Disc -->
-                            <circle cx="100" cy="100" r="68" fill="url(#daySunGrad)" />
-                            <defs>
-                                <radialGradient id="daySunGrad" cx="50%" cy="40%" r="55%">
-                                    <stop offset="0%" stop-color="#fef08a" />
-                                    <stop offset="65%" stop-color="#facc15" />
-                                    <stop offset="100%" stop-color="#f59e0b" />
-                                </radialGradient>
-                            </defs>
+                            <!-- Majestic Sharp Black Werewolf Head & Neck Silhouette (Siluet Werewolf) -->
+                            <g>
+                                <!-- Outer Fur & Ears Silhouette -->
+                                <path d="M 120 30
+                                         L 103 58
+                                         L 70 28
+                                         L 76 78
+                                         L 50 92
+                                         L 68 108
+                                         L 46 128
+                                         L 72 142
+                                         L 58 164
+                                         L 86 172
+                                         L 78 192
+                                         L 104 196
+                                         L 120 212
+                                         L 136 196
+                                         L 162 192
+                                         L 154 172
+                                         L 182 164
+                                         L 168 142
+                                         L 194 128
+                                         L 172 108
+                                         L 190 92
+                                         L 164 78
+                                         L 170 28
+                                         L 137 58
+                                         Z"
+                                      fill="#04060d"
+                                      stroke="url(#wolfRimLight)"
+                                      stroke-width="2"
+                                      stroke-linejoin="round" />
 
-                            <!-- Classic Medieval Villager Head & Hood/Hat Silhouette (Centered) -->
-                            <!-- Shoulders / Rustic Tunic Collar -->
-                            <path d="M46 154 C52 130, 72 120, 100 120 C128 120, 148 130, 154 154 C138 164, 120 168, 100 168 C80 168, 62 164, 46 154 Z"
-                                  fill="#1e293b" />
-                            <!-- V-Neck Tunic Detail -->
-                            <path d="M88 122 L100 142 L112 122" stroke="#fef08a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <!-- Inner Ear Details -->
+                                <polygon points="77,42 96,64 82,76" fill="#111827" />
+                                <polygon points="163,42 144,64 158,76" fill="#111827" />
 
-                            <!-- Head & Clean Face Silhouette -->
-                            <path d="M100 54 C81 54, 69 68, 69 87 C69 105, 82 118, 100 118 C118 118, 131 105, 131 87 C131 68, 119 54, 100 54 Z"
-                                  fill="#0f172a" />
+                                <!-- Subtle Facial Brow & Snout Bridge Lines -->
+                                <path d="M 96 76 L 120 96 L 144 76" fill="none" stroke="#334155" stroke-width="1.6" stroke-linecap="round" />
+                                <path d="M 120 96 L 111 142 L 120 154 L 129 142 Z" fill="#0b1120" stroke="#334155" stroke-width="1.2" />
 
-                            <!-- Classic Villager Peasant Cap / Fedora-Hood Brim -->
-                            <path d="M52 72 Q100 52 148 72 C142 50, 124 36, 100 36 C76 36, 58 50, 52 72 Z"
-                                  fill="#1e293b" stroke="#fef08a" stroke-width="1.5" />
-                            <path d="M46 73 Q100 57 154 73" stroke="#fef08a" stroke-width="2.5" stroke-linecap="round" />
+                                <!-- Snout & Fangs Detail -->
+                                <polygon points="113,152 120,161 127,152 120,147" fill="#cbd5e1" />
+                                <path d="M 98 166 L 120 178 L 142 166" fill="none" stroke="#475569" stroke-width="1.5" stroke-linecap="round" />
+                                <polygon points="103,168 107,179 111,171" fill="#f8fafc" />
+                                <polygon points="137,168 133,179 129,171" fill="#f8fafc" />
 
-                            <!-- Gentle Friendly Eyes & Villager Features -->
-                            <circle cx="88" cy="86" r="3" fill="#fef08a" />
-                            <circle cx="112" cy="86" r="3" fill="#fef08a" />
-                            <path d="M92 101 Q100 106 108 101" stroke="#fef08a" stroke-width="2" stroke-linecap="round" />
+                                <!-- Glowing Fierce Eyes -->
+                                <polygon points="86,108 109,117 92,122" fill="#f59e0b" />
+                                <polygon points="89,110 105,116 93,119" fill="#fef3c7" />
+                                <polygon points="154,108 131,117 148,122" fill="#f59e0b" />
+                                <polygon points="151,110 135,116 147,119" fill="#fef3c7" />
+                            </g>
                         </svg>
                     </div>
                 </div>
             </div>
 
             <!-- Main Centered Title -->
-            <h1 id="heroMainTitle" class="font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-3xl mx-auto leading-tight transition-colors duration-500">
+            <h1 id="heroMainTitle" class="font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-3xl mx-auto leading-tight">
                 AUK <span class="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent">WEREWOLF</span>
             </h1>
 
@@ -507,18 +509,29 @@
             <div class="w-28 h-0.5 bg-gradient-to-r from-transparent via-amber-400/70 to-transparent my-4 mx-auto"></div>
 
             <!-- Neat, Atmospheric Card Game Description -->
-            <p id="heroMainDesc" class="max-w-2xl mx-auto text-xs sm:text-base text-slate-300 leading-relaxed font-normal transition-colors duration-500">
+            <p id="heroMainDesc" class="max-w-2xl mx-auto text-xs sm:text-base text-slate-300 leading-relaxed font-normal">
                 Saat malam tiba dan kabut menyelimuti desa, kepercayaan diuji di balik setiap kartu peran. Kenali kekuatan unik dari aliansi 
                 <span class="text-blue-400 font-semibold">Good Side</span>, ancaman tersembunyi 
                 <span class="text-rose-400 font-semibold">Bad Side</span>, hingga agenda rahasia 
                 <span class="text-purple-400 font-semibold">Neutral Side</span> dalam permainan deduksi, strategi, dan manipulasi <strong>AUK Werewolf</strong>.
             </p>
+
+            <!-- "Takdir Acak" Button Placed Directly Below Description in Header -->
+            <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+                <button id="randomRoleBtn" 
+                        type="button"
+                        onclick="triggerRandomFateCard()"
+                        class="px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-600 via-rose-700 to-purple-800 hover:from-amber-500 hover:via-rose-600 hover:to-purple-700 border border-amber-300/50 text-white text-xs sm:text-sm font-serif font-bold tracking-wider uppercase transition-all flex items-center gap-2.5 shadow-[0_10px_30px_rgba(225,29,72,0.35)] hover:shadow-[0_12px_35px_rgba(245,158,11,0.45)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+                    <i class="fa-solid fa-dice-d20 text-amber-200 text-base"></i>
+                    <span>Takdir Acak</span>
+                </button>
+            </div>
         </div>
     </section>
 
-    <!-- Controls: Faction Filters, Search Bar & Grid Overview Switcher -->
+    <!-- Controls: Faction Filters & Search Bar -->
     <section class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-        <div class="theme-panel backdrop-blur-xl border rounded-2xl p-4 sm:p-5 transition-colors duration-500">
+        <div class="theme-panel backdrop-blur-xl border rounded-2xl p-4 sm:p-5">
             <div class="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-4">
                 
                 <!-- Faction Filter Tabs -->
@@ -548,10 +561,10 @@
                     </button>
                 </div>
 
-                <!-- Right Controls: Search Input + Grid Overview Layout Switcher + Counter -->
+                <!-- Right Controls: Search Input + Counter -->
                 <div class="flex flex-wrap sm:flex-nowrap items-center justify-between xl:justify-end gap-3">
                     <!-- Search Input -->
-                    <div class="relative flex-1 sm:w-64">
+                    <div class="relative flex-1 sm:w-72">
                         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                         <input 
                             type="text" 
@@ -564,25 +577,9 @@
                         </button>
                     </div>
 
-                    <!-- Grid Density / Overview Mode Switcher -->
-                    <div class="flex items-center bg-slate-950/90 p-1 rounded-xl border border-slate-700/80 shrink-0" role="group" aria-label="Pilih Tampilan Grid">
-                        <button type="button" data-grid="standard" class="grid-mode-btn px-2.5 py-1.5 rounded-lg text-xs font-serif font-semibold transition-all bg-amber-500 text-slate-950 flex items-center gap-1.5" title="Tampilan Kartu Standar (4 Kolom)">
-                            <i class="fa-solid fa-grip"></i>
-                            <span class="hidden md:inline">Standar</span>
-                        </button>
-                        <button type="button" data-grid="overview" class="grid-mode-btn px-2.5 py-1.5 rounded-lg text-xs font-serif font-semibold transition-all text-slate-300 hover:text-white flex items-center gap-1.5" title="Grid Overview Padat (7 Kolom)">
-                            <i class="fa-solid fa-table-cells"></i>
-                            <span class="hidden md:inline">Overview</span>
-                        </button>
-                        <button type="button" data-grid="list" class="grid-mode-btn px-2.5 py-1.5 rounded-lg text-xs font-serif font-semibold transition-all text-slate-300 hover:text-white flex items-center gap-1.5" title="Daftar Ringkas & Deskripsi">
-                            <i class="fa-solid fa-list-ul"></i>
-                            <span class="hidden md:inline">Ringkas</span>
-                        </button>
-                    </div>
-
                     <!-- Card Count Badge -->
                     <div class="font-serif text-xs uppercase tracking-wider text-amber-400 font-bold shrink-0 px-2">
-                        <span id="visibleCardCount">0</span> / <span id="totalCardCount">0</span> Kartu
+                        MENAMPILKAN <span id="visibleCardCount">0</span> DARI <span id="totalCardCount">0</span> KARTU
                     </div>
                 </div>
             </div>
@@ -610,25 +607,149 @@
         </div>
     </main>
 
-    <!-- Full All-Faction Grid Overview Modal (Quick Reference Matrix) -->
-    <div id="overviewModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300">
-        <div id="overviewModalContent" class="relative w-full max-w-6xl bg-[#0e111a] border border-slate-700 rounded-3xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col">
-            <!-- Header -->
-            <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
-                <div>
-                    <h2 class="font-display text-lg sm:text-2xl font-bold text-white flex items-center gap-2.5">
-                        <i class="fa-solid fa-table-cells text-amber-400"></i>
-                        <span>Grid Overview — Seluruh Peran AUK Werewolf</span>
-                    </h2>
-                    <p class="text-xs text-slate-400 mt-0.5">Ringkasan cepat seluruh kartu berdasarkan faksi. Klik kartu mana saja untuk melihat detail lengkapnya.</p>
+    <!-- =======================================================================
+         BE MODERATOR MODAL (ASSIGN RANDOM ROLES TO 4 - 100 USERNAMES)
+         ======================================================================= -->
+    <div id="moderatorModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300">
+        <div id="moderatorModalContent" class="relative w-full max-w-6xl bg-[#0b0e17] border-2 border-amber-500/40 rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.9)] overflow-hidden transform scale-95 transition-transform duration-300 max-h-[92vh] flex flex-col">
+            
+            <!-- Modal Header -->
+            <div class="px-5 sm:px-7 py-4 sm:py-5 bg-gradient-to-r from-slate-950 via-[#131829] to-slate-950 border-b border-slate-800 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-2xl bg-amber-500/15 border border-amber-400/40 flex items-center justify-center text-amber-300 text-lg shadow-inner">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-display text-lg sm:text-2xl font-bold text-white tracking-wide flex items-center gap-2">
+                            <span>BE MODERATOR</span>
+                            <span class="px-2.5 py-0.5 text-[10px] font-serif uppercase tracking-widest rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30">Role Generator</span>
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Atur jumlah pemain (Min 4 – Max 100), masukkan username, lalu kocok dadu di samping nama atau bagikan semua role sekaligus.</p>
+                    </div>
                 </div>
-                <button id="closeOverviewModalBtn" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-rose-600 text-slate-200 hover:text-white flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-xmark"></i>
+                <button id="closeModeratorBtn" type="button" onclick="closeModeratorModal()" class="w-10 h-10 rounded-full bg-slate-900 hover:bg-rose-600 text-slate-300 hover:text-white border border-slate-700 flex items-center justify-center transition-colors shrink-0 cursor-pointer">
+                    <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
-            <!-- Matrix Content -->
-            <div id="overviewMatrixBody" class="p-5 sm:p-6 overflow-y-auto space-y-8">
-                <!-- Populated dynamically by faction -->
+
+            <!-- Moderator Top Control Bar -->
+            <div class="px-5 sm:px-7 py-4 bg-slate-950/90 border-b border-slate-800/90 flex flex-col gap-4">
+                
+                <!-- Row 1: Player Count Customizer (Min 4 Max 100) + Presets -->
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <label for="playerCountInput" class="text-xs font-serif uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                            <i class="fa-solid fa-users text-amber-400"></i>
+                            <span>Jumlah Pemain (4–100):</span>
+                        </label>
+                        <div class="flex items-center bg-slate-900 border border-slate-700 rounded-xl p-1">
+                            <button type="button" id="decPlayerBtn" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center transition-colors" title="Kurangi 1 Pemain">
+                                <i class="fa-solid fa-minus text-xs"></i>
+                            </button>
+                            <input 
+                                type="number" 
+                                id="playerCountInput" 
+                                min="4" 
+                                max="100" 
+                                value="8" 
+                                class="w-14 text-center bg-transparent font-serif font-bold text-sm text-amber-300 focus:outline-none"
+                            />
+                            <button type="button" id="incPlayerBtn" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center transition-colors" title="Tambah 1 Pemain">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                        </div>
+
+                        <input 
+                            type="range" 
+                            id="playerCountSlider" 
+                            min="4" 
+                            max="100" 
+                            value="8" 
+                            class="w-28 sm:w-36 accent-amber-500 cursor-pointer"
+                        />
+                    </div>
+
+                    <!-- Quick Presets (4, 6, 8, 10, 12, 15, 20, 30, 50, 100) -->
+                    <div class="flex flex-wrap items-center gap-1.5 text-xs font-serif">
+                        <span class="text-slate-500 mr-1 text-[11px]">Preset:</span>
+                        <button type="button" data-preset="4" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">4</button>
+                        <button type="button" data-preset="6" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">6</button>
+                        <button type="button" data-preset="8" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">8</button>
+                        <button type="button" data-preset="10" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">10</button>
+                        <button type="button" data-preset="12" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">12</button>
+                        <button type="button" data-preset="15" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">15</button>
+                        <button type="button" data-preset="20" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">20</button>
+                        <button type="button" data-preset="30" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">30</button>
+                        <button type="button" data-preset="50" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">50</button>
+                        <button type="button" data-preset="100" class="preset-count-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors">100</button>
+                    </div>
+                </div>
+
+                <!-- Row 2: Faction Filters & Master Actions -->
+                <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 pt-2 border-t border-slate-800/80">
+                    <!-- Faction Checkboxes & Unique Role Toggle -->
+                    <div class="flex flex-wrap items-center gap-2 text-xs">
+                        <span class="text-slate-400 font-serif uppercase tracking-wider text-[11px] mr-1">Filter Role:</span>
+                        <label class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-blue-950/50 border border-blue-500/30 text-blue-300 cursor-pointer select-none">
+                            <input type="checkbox" id="modAllowGood" checked class="accent-blue-500 rounded cursor-pointer">
+                            <span>Good Side</span>
+                        </label>
+                        <label class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-rose-950/50 border border-rose-500/30 text-rose-300 cursor-pointer select-none">
+                            <input type="checkbox" id="modAllowWolf" checked class="accent-rose-500 rounded cursor-pointer">
+                            <span>Bad Side</span>
+                        </label>
+                        <label class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-purple-950/50 border border-purple-500/30 text-purple-300 cursor-pointer select-none">
+                            <input type="checkbox" id="modAllowNeutral" checked class="accent-purple-500 rounded cursor-pointer">
+                            <span>Neutral Side</span>
+                        </label>
+                        <label class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-amber-200 cursor-pointer select-none">
+                            <input type="checkbox" id="uniqueRolesCheckbox" checked class="accent-amber-500 rounded cursor-pointer">
+                            <span>Role Unik</span>
+                        </label>
+                    </div>
+
+                    <!-- Master Action Buttons -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button type="button" id="rollAllRolesBtn" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-rose-600 to-purple-700 hover:from-amber-400 hover:via-rose-500 hover:to-purple-600 text-white font-serif font-bold text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2 shadow-lg border border-amber-300/40 transition-all cursor-pointer">
+                            <i class="fa-solid fa-dice text-base"></i>
+                            <span>🎲 Bagikan Semua Role Acak</span>
+                        </button>
+
+                        <button type="button" id="copyModListBtn" class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-serif text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer" title="Salin Hasil Pembagian Role">
+                            <i class="fa-solid fa-copy text-sky-400"></i>
+                            <span>Salin Hasil Pembagian Role</span>
+                        </button>
+
+                        <button type="button" id="clearModRolesBtn" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-rose-950/70 border border-slate-700 hover:border-rose-500/40 text-slate-300 hover:text-rose-200 font-serif text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer" title="Reset Semua Role">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            <span>Reset</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Moderator Live Faction Summary Bar -->
+            <div class="px-5 sm:px-7 py-2.5 bg-[#070a12] border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+                <div class="flex flex-wrap items-center gap-4">
+                    <span class="text-slate-400">Distribusi Saat Ini:</span>
+                    <span class="flex items-center gap-1.5 text-blue-300 font-semibold">
+                        <i class="fa-solid fa-shield-heart text-blue-400"></i> Good Side: <strong id="modSumGood">0</strong>
+                    </span>
+                    <span class="flex items-center gap-1.5 text-rose-300 font-semibold">
+                        <i class="fa-solid fa-paw text-rose-500"></i> Bad Side: <strong id="modSumWolf">0</strong>
+                    </span>
+                    <span class="flex items-center gap-1.5 text-purple-300 font-semibold">
+                        <i class="fa-solid fa-masks-theater text-purple-400"></i> Neutral Side: <strong id="modSumNeutral">0</strong>
+                    </span>
+                </div>
+                <div class="text-slate-400">
+                    Terisi: <strong id="modAssignedCount" class="text-amber-300">0</strong> / <strong id="modTotalSlots" class="text-white">8</strong> Pemain
+                </div>
+            </div>
+
+            <!-- Players & Role Assignment Grid -->
+            <div id="moderatorPlayersList" class="p-4 sm:p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-3.5 flex-1">
+                <!-- Dynamically populated player rows -->
             </div>
         </div>
     </div>
@@ -709,11 +830,17 @@
     <footer class="relative z-10 border-t border-slate-800/50 bg-[#03050a]/90 py-8 text-center text-xs text-slate-400">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
+                <svg viewBox="0 0 100 100" class="w-7 h-7">
+                    <circle cx="50" cy="50" r="44" fill="#fde68a" />
+                    <path d="M50 18 L41 32 L26 20 L30 43 L19 52 L31 61 L26 74 L42 79 L50 90 L58 79 L74 74 L69 61 L81 52 L70 43 L74 20 L59 32 Z" fill="#04060c" />
+                    <polygon points="37,49 46,53 39,55" fill="#f59e0b" />
+                    <polygon points="63,49 54,53 61,55" fill="#f59e0b" />
+                </svg>
                 <span class="font-display text-slate-200 tracking-wider font-bold">AUK WEREWOLF</span>
                 <span>— Koleksi Kartu Peran</span>
             </div>
             <div>
-                Klik Logo untuk Mode Siang / Malam • Klik Kartu untuk Penjelasan Lengkap
+                Arahkan Kursor untuk Efek 3D • Klik Kartu untuk Penjelasan Lengkap
             </div>
         </div>
     </footer>
@@ -721,96 +848,14 @@
     <!-- Application Script -->
     <script>
         // =========================================================================
-        // 0. DAY / NIGHT THEME & GENTLE 3D LOGO CONTROLLER (WEREWOLF <-> VILLAGER)
+        // 0. GENTLE 3D HOVER EFFECT ON HERO LOGO (MAX 5-6 DEGREES)
         // =========================================================================
-        let isDayMode = false;
-
-        function toggleDayNightMode() {
-            isDayMode = !isDayMode;
-            const body = document.body;
-
-            const heroWolfLogo = document.getElementById("heroWolfLogo");
-            const heroVillagerLogo = document.getElementById("heroVillagerLogo");
-            const heroLogoCard = document.getElementById("heroLogoCard");
-            const heroLogoGlow = document.getElementById("heroLogoGlow");
-            const heroPulseRing = document.getElementById("heroPulseRing");
-            const heroMainTitle = document.getElementById("heroMainTitle");
-            const heroMainDesc = document.getElementById("heroMainDesc");
-
-            const navWolfSvg = document.getElementById("navWolfSvg");
-            const navVillagerSvg = document.getElementById("navVillagerSvg");
-            const navEmblemBox = document.getElementById("navEmblemBox");
-            const navBrandTitle = document.getElementById("navBrandTitle");
-            const navBrandSub = document.getElementById("navBrandSub");
-            const modeStatusPill = document.getElementById("modeStatusPill");
-
-            // Trigger subtle click ripple
-            if (heroPulseRing) {
-                heroPulseRing.classList.remove("pulse-ring-active");
-                void heroPulseRing.offsetWidth;
-                heroPulseRing.classList.add("pulse-ring-active");
-            }
-
-            if (isDayMode) {
-                // Switch to Bright Daylight Villager Theme
-                body.classList.remove("night-mode");
-                body.classList.add("day-mode");
-
-                heroWolfLogo.classList.add("hidden");
-                heroVillagerLogo.classList.remove("hidden");
-                heroLogoCard.className = "logo-3d-card relative w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-b from-amber-100 via-sky-100 to-white border-2 border-amber-400/80 shadow-[0_12px_35px_rgba(245,158,11,0.28)] flex items-center justify-center mx-auto";
-                heroLogoGlow.className = "absolute -inset-4 rounded-full bg-amber-300/30 blur-xl transition-all duration-500 pointer-events-none";
-
-                heroMainTitle.className = "font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 max-w-3xl mx-auto leading-tight transition-colors duration-500";
-                heroMainTitle.innerHTML = `AUK <span class="bg-gradient-to-r from-amber-600 via-orange-500 to-amber-600 bg-clip-text text-transparent">WEREWOLF</span>`;
-                heroMainDesc.className = "max-w-2xl mx-auto text-xs sm:text-base text-slate-700 leading-relaxed font-normal transition-colors duration-500";
-
-                navWolfSvg.classList.add("hidden");
-                navVillagerSvg.classList.remove("hidden");
-                navEmblemBox.className = "relative w-12 h-12 rounded-2xl bg-amber-50 border border-amber-400/80 flex items-center justify-center shadow-sm transition-all duration-300";
-                navBrandTitle.className = "font-display text-lg sm:text-2xl font-bold tracking-wider bg-gradient-to-r from-slate-900 via-slate-800 to-amber-600 bg-clip-text text-transparent block leading-none";
-                navBrandSub.className = "font-serif text-[10px] sm:text-xs tracking-[0.16em] text-slate-600 uppercase block mt-1";
-                modeStatusPill.className = "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-serif uppercase tracking-widest bg-amber-100 text-amber-800 border border-amber-400/60";
-                modeStatusPill.innerHTML = `<i class="fa-solid fa-sun text-amber-500 text-[9px]"></i> Siang (Villager)`;
-
-                showToast("Mode Siang (Villager) Aktif — Desa terang benderang untuk diskusi warga!", "fa-sun text-amber-400");
-            } else {
-                // Switch to Dark Night Werewolf Theme
-                body.classList.remove("day-mode");
-                body.classList.add("night-mode");
-
-                heroVillagerLogo.classList.add("hidden");
-                heroWolfLogo.classList.remove("hidden");
-                heroLogoCard.className = "logo-3d-card relative w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-b from-[#111622] to-[#05070c] border-2 border-slate-400/40 shadow-[0_10px_35px_rgba(0,0,0,0.65)] flex items-center justify-center mx-auto";
-                heroLogoGlow.className = "absolute -inset-4 rounded-full bg-slate-300/10 blur-xl transition-all duration-500 pointer-events-none";
-
-                heroMainTitle.className = "font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-3xl mx-auto leading-tight transition-colors duration-500";
-                heroMainTitle.innerHTML = `AUK <span class="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent">WEREWOLF</span>`;
-                heroMainDesc.className = "max-w-2xl mx-auto text-xs sm:text-base text-slate-300 leading-relaxed font-normal transition-colors duration-500";
-
-                navVillagerSvg.classList.add("hidden");
-                navWolfSvg.classList.remove("hidden");
-                navEmblemBox.className = "relative w-12 h-12 rounded-2xl bg-[#0b0f19] border border-slate-500/40 flex items-center justify-center shadow-md transition-all duration-300";
-                navBrandTitle.className = "font-display text-lg sm:text-2xl font-bold tracking-wider bg-gradient-to-r from-white via-slate-200 to-amber-300 bg-clip-text text-transparent block leading-none";
-                navBrandSub.className = "font-serif text-[10px] sm:text-xs tracking-[0.16em] text-slate-400 uppercase block mt-1";
-                modeStatusPill.className = "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-serif uppercase tracking-widest bg-slate-900 text-amber-300 border border-amber-400/30";
-                modeStatusPill.innerHTML = `<i class="fa-solid fa-moon text-[9px]"></i> Malam`;
-
-                showToast("Mode Malam (Werewolf) Aktif — Sinar rembulan menyinari perburuan malam.", "fa-moon text-amber-300");
-            }
-
-            initSkyParticles();
-            renderCards();
-        }
-
         function initGentleLogoHover() {
             const stage = document.getElementById("heroLogoStage");
             const card = document.getElementById("heroLogoCard");
-            const navLogoBtn = document.getElementById("navLogoBtn");
 
             if (stage && card) {
-                // Reduced, subtle 3D tilt (max 6 degrees)
-                const maxTilt = 6;
+                const maxTilt = 5.5;
                 const hoverScale = 1.03;
 
                 stage.addEventListener("mousemove", (e) => {
@@ -829,23 +874,71 @@
                 stage.addEventListener("mouseleave", () => {
                     card.style.transform = "";
                 });
-
-                stage.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    toggleDayNightMode();
-                });
-            }
-
-            if (navLogoBtn) {
-                navLogoBtn.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    toggleDayNightMode();
-                });
             }
         }
 
         // =========================================================================
-        // 1. COMPLETE AUK WEREWOLF CARDS DATA (ALL 47 ROLES FROM USER'S COLLECTION)
+        // 1. FACTION CONFIGURATION & GOOGLE DRIVE IMAGE HELPER
+        // =========================================================================
+        const factionConfig = {
+            good: {
+                label: "Good Side",
+                icon: "fa-shield-heart",
+                border: "border-blue-500/60",
+                badgeBg: "bg-blue-950/90 text-blue-300 border-blue-500/40",
+                cardGradient: "from-blue-950/90 via-slate-950 to-slate-950",
+                alignmentText: "Berpihak pada aliansi warga desa (Good Side)",
+                winText: "Menang apabila seluruh kawanan Werewolf (Bad Side) dan ancaman pembunuh berantai telah dieliminasi dari desa."
+            },
+            werewolf: {
+                label: "Bad Side",
+                icon: "fa-paw",
+                border: "border-rose-500/65",
+                badgeBg: "bg-rose-950/90 text-rose-300 border-rose-500/40",
+                cardGradient: "from-rose-950/90 via-slate-950 to-slate-950",
+                alignmentText: "Berpihak pada kawanan serigala malam (Bad Side)",
+                winText: "Menang apabila jumlah kubu Werewolf menyamai atau melebihi jumlah warga desa yang masih hidup."
+            },
+            neutral: {
+                label: "Neutral Side",
+                icon: "fa-masks-theater",
+                border: "border-purple-500/60",
+                badgeBg: "bg-purple-950/90 text-purple-300 border-purple-500/40",
+                cardGradient: "from-purple-950/90 via-slate-950 to-slate-950",
+                alignmentText: "Berpihak pada agenda mandiri / independen (Neutral Side)",
+                winText: "Memiliki syarat kemenangan khusus tersendiri sesuai objektif unik dari kartu peran ini."
+            }
+        };
+
+        function getDriveImageUrls(driveId) {
+            return [
+                `https://drive.google.com/thumbnail?id=${driveId}&sz=w1000`,
+                `https://lh3.googleusercontent.com/d/${driveId}=w1000`,
+                `https://drive.google.com/uc?export=view&id=${driveId}`
+            ];
+        }
+
+        window.handleCardImageError = function(imgEl, cardId) {
+            const card = werewolfCards.find(c => c.id === cardId);
+            if (!card) return;
+            const urls = getDriveImageUrls(card.driveId);
+            let attempt = parseInt(imgEl.getAttribute("data-attempt") || "0", 10) + 1;
+
+            if (attempt < urls.length) {
+                imgEl.setAttribute("data-attempt", String(attempt));
+                imgEl.src = urls[attempt];
+            } else {
+                imgEl.classList.add("hidden");
+                const fallback = imgEl.parentElement ? imgEl.parentElement.querySelector(".gothic-svg-fallback") : null;
+                if (fallback) {
+                    fallback.classList.remove("hidden");
+                    fallback.classList.add("flex");
+                }
+            }
+        };
+
+        // =========================================================================
+        // 2. COMPLETE AUK WEREWOLF CARDS DATA (ALL ROLES FROM GOOGLE DRIVE)
         // =========================================================================
         const werewolfCards = [
             // ================= KATEGORI: GOOD SIDE =================
@@ -1015,7 +1108,19 @@
                 driveId: "1U3DvyQFMl23WpJC3dhE41LuxmAgBFk6G",
                 icon: "fa-user-secret",
                 actionType: "Pasif • Kunci Incaran Dewa",
-                desc: "Warga desa tersembunyi yang menyimpan takdir rahasia desa; keberadaannya menjadi kunci utama yang dicari oleh entitas Dewa.",
+                desc: "Every night he wakes up to visit one of the villagers' houses. If he visits a Werewolf's house, he is killed. If he visits a house that is also visited by a Werewolf or Serial Killer, he is killed (unless a Guardian is protecting that house). If he visits a Werewolf's house that is protected by a Guardian, the Harlot still dies.",
+                explanation: "Harlot bertamu ke rumah pemain lain setiap malam. Jika ia selamat kembali di pagi hari sementara tuan rumah tidak diserang, itu memberi petunjuk bahwa tuan rumah bukanlah Werewolf. Namun risikonya tinggi: berkunjung ke rumah Werewolf (meski dilindungi Guardian) atau rumah yang sedang diserang Werewolf/Serial Killer akan menewaskan Harlot.",
+                strategy: "Beri kode halus kepada warga tepercaya mengenai rumah siapa yang akan kamu kunjungi malam ini, sehingga jika kamu mati di malam hari, warga langsung tahu siapa pembunuhmu."
+            },
+            {
+                id: "hidden-villager",
+                name: "Hidden Villager",
+                title: "Warga Rahasia Kunci Takdir",
+                faction: "good",
+                driveId: "1U3DvyQFMl23WpJC3dhE41LuxmAgBFk6G",
+                icon: "fa-user-secret",
+                actionType: "Pasif • Kunci Incaran Dewa",
+                desc: "Warga desa tersembunyi yang menyimpan rahasia besar desa. Keberadaannya diincar oleh Dewa; jika identitasnya terungkap oleh Dewa, malapetaka besar dapat menimpa warga desa.",
                 explanation: "Hidden Villager tampak seperti warga biasa di Good Side, namun ia memegang takdir keselamatan desa. Ia harus menyembunyikan jati dirinya rapat-rapat agar tidak ditemukan oleh Dewa, karena jika Dewa berhasil menebak atau menemukannya, seluruh warga desa akan musnah.",
                 strategy: "Jangan pernah membuka identitas aslimu sebagai Hidden Villager di ruang publik apabila ada peran Dewa di dalam permainan!"
             },
@@ -1027,21 +1132,9 @@
                 driveId: "1BSFQV6a79t5eNwDu8N4vPyIoJxTzFWLm",
                 icon: "fa-bullseye",
                 actionType: "Reaksi Kematian • Tembakan Balasan",
-                desc: "Pemburu tangguh desa. Ketika Hunter tereliminasi (baik karena dibunuh pada malam hari maupun digantung warga pada siang hari), ia dapat menarik pelatuk terakhirnya untuk membawa mati satu pemain lain.",
+                desc: "Pemburu desa yang selalu siap siaga. Ketika Hunter tereliminasi (baik dimangsa malam hari maupun digantung saat voting), ia dapat menarik pelatuk terakhirnya untuk menembak mati satu pemain lain.",
                 explanation: "Hunter tidak pernah mati sendirian. Sesaat sebelum menghembuskan napas terakhirnya karena serangan malam atau eksekusi voting, Hunter berhak menunjuk satu pemain lain untuk ditembak mati seketika.",
                 strategy: "Amati dengan jeli perilaku setiap pemain sepanjang permainan, supaya ketika kamu tiba-tiba terbunuh di malam hari, tembakan terakhir milikmu tepat mengenai Werewolf."
-            },
-            {
-                id: "lord",
-                name: "Lord",
-                title: "Bangsawan Bertameng Warga",
-                faction: "good",
-                driveId: "1KlVPEgwpTxUqVbIx114WWa7GCo5qcj31",
-                icon: "fa-chess-king",
-                actionType: "Aktif • Tameng Hidup",
-                desc: "Role aktif yg dapat mengacak atau memilih satu villager untuk menjadi tameng dia. Apabila Lord ingin dicabik Werewolf, maka yg akan mati terlebih dahulu adalah villager yg menjadi tameng Lord.",
-                explanation: "Bangsawan desa yang menggunakan pemain lain sebagai perisai hidup. Setiap malam Lord dapat memilih (atau mengacak) satu pemain sebagai tameng. Jika Werewolf menyerang Lord, sang tamenglah yang akan tewas menggantikannya sementara Lord tetap selamat.",
-                strategy: "Pilihlah pemain yang paling kamu curigai sebagai tamengmu, jangan memilih pemain yang sudah terbukti sebagai Seer atau Guardian."
             },
             {
                 id: "lycan",
@@ -1409,6 +1502,19 @@
                 strategy: "Tunggu hingga ada pemain dengan role kuat yang tewas, lalu gali makamnya pada saat kubu dari role tersebut sedang berada di atas angin."
             },
             {
+                id: "hex",
+                name: "Hex",
+                title: "Kutukan Suara Hewan & Kebangkitan",
+                faction: "neutral",
+                driveId: "1oFw90AxzBiQJZjB555jaN6NbYcDcziH5",
+                hasWhiteBg: true,
+                icon: "fa-paw",
+                actionType: "Aktif • Wajib Suara Hewan & Bangkitkan Mayat",
+                desc: "Jika kamu mendapatkan role ini, maka bersiaplah anda harus bersuara seperti hewan ditentukan oleh moderator selama permainan. Jika melanggar maka akan langsung mati. Kekuatan lainnya yaitu mampu menghidupkan orang mati secara berturut-turut.",
+                explanation: "Peran penuh kutukan sekaligus keajaiban. Sepanjang permainan, pemilik kartu Hex wajib bersuara seperti hewan yang ditetapkan moderator—sekali saja berbicara normal tanpa suara hewan, ia langsung mati. Sebagai imbalannya, ia punya kekuatan luar biasa untuk menghidupkan kembali orang mati secara berturut-turut.",
+                strategy: "Tetap fokus dan jangan sampai terpancing berbicara normal saat kaget atau berdebat, sambil terus menghidupkan pemain yang mati untuk mengendalikan jalannya permainan."
+            },
+            {
                 id: "juggernaut",
                 name: "Juggernaut",
                 title: "Raksasa Pembantai Berevolusi",
@@ -1431,6 +1537,18 @@
                 desc: "Warga yang mempunyai kekuatan jika dia diam dan tidak bersuara selama permainan maka dia akan mati. Dia mampu membuat orang lain berkicau seperti dirinya selama permainan berlanjut, meskipun malam hari harus tetap bersuara.",
                 explanation: "Peran pengacau keheningan paling unik! Kicau Mania tidak boleh berhenti bersuara/berkicau karena jika diam ia akan mati. Lebih serunya lagi, ia bisa menularkan kutukan kicauannya ke pemain lain sehingga target tersebut juga wajib terus berkicau bahkan saat semua orang menutup mata di malam hari!",
                 strategy: "Tularkan kicauanmu ke pemain yang kamu curigai sebagai Werewolf agar ia kesulitan berkoordinasi secara senyap di malam hari!"
+            },
+            {
+                id: "lord",
+                name: "Lord",
+                title: "Bangsawan Bertameng Warga",
+                faction: "neutral",
+                driveId: "1KlVPEgwpTxUqVbIx114WWa7GCo5qcj31",
+                icon: "fa-chess-king",
+                actionType: "Aktif • Tameng Hidup",
+                desc: "Role aktif yg dapat mengacak atau memilih satu villager untuk menjadi tameng dia. Apabila Lord ingin dicabik Werewolf, maka yg akan mati terlebih dahulu adalah villager yg menjadi tameng Lord.",
+                explanation: "Bangsawan yang menggunakan pemain lain sebagai perisai hidup. Setiap malam Lord dapat memilih (atau mengacak) satu pemain sebagai tameng. Jika Werewolf menyerang Lord, sang tamenglah yang akan tewas menggantikannya sementara Lord tetap selamat.",
+                strategy: "Pilihlah pemain yang paling mencurigakan sebagai tamengmu agar kamu tetap bertahan hidup melewati serangan malam."
             },
             {
                 id: "mad-man",
@@ -1543,172 +1661,7 @@
         ];
 
         // =========================================================================
-        // 2. FACTION THEME CONFIGURATION
-        // =========================================================================
-        const factionConfig = {
-            good: {
-                label: "Good Side",
-                border: "border-blue-500/50",
-                badgeBg: "bg-blue-950/90 text-blue-300 border-blue-400/40",
-                cardGradient: "from-[#0c162c] via-[#0f172a] to-[#070a12]",
-                icon: "fa-shield-heart text-blue-400",
-                alignmentText: "Berpihak pada Good Side (Tim Desa). Bertugas menjaga keselamatan warga dan mengungkap penyamaran musuh.",
-                winText: "Menang bersama Good Side apabila seluruh Bad Side (Werewolf) dan ancaman solo mematikan berhasil dieliminasi."
-            },
-            werewolf: {
-                label: "Bad Side",
-                border: "border-rose-500/50",
-                badgeBg: "bg-rose-950/90 text-rose-300 border-rose-400/40",
-                cardGradient: "from-[#28070f] via-[#19050a] to-[#0a0204]",
-                icon: "fa-paw text-rose-500",
-                alignmentText: "Berpihak pada Bad Side (Kawanan Werewolf & Sekutu Kegelapan). Berburu di malam hari dan memanipulasi diskusi warga di siang hari.",
-                winText: "Menang bersama Bad Side ketika jumlah anggota Bad Side menyamai atau melebihi pemain yang tersisa di desa."
-            },
-            neutral: {
-                label: "Neutral Side",
-                border: "border-purple-500/50",
-                badgeBg: "bg-purple-950/90 text-purple-300 border-purple-400/40",
-                cardGradient: "from-[#220c38] via-[#140824] to-[#090310]",
-                icon: "fa-masks-theater text-purple-400",
-                alignmentText: "Berpihak pada Neutral Side (Independen / Solo / Pengacau). Memiliki agenda tersendiri yang dapat mengubah jalannya permainan secara drastis.",
-                winText: "Memenuhi objektif unik masing-masing peran (menang solo, bertahan hidup, atau mengikuti aliansi peran yang diambil)."
-            }
-        };
-
-        // =========================================================================
-        // 3. IMAGE LOADER & WHITE-BACKGROUND FLOOD-FILL TRANSPARENCY PROCESSOR
-        //    (Removes outer white backgrounds on cards like Dictator, President, Hex)
-        // =========================================================================
-        const processedTransparentCache = {};
-
-        function getDriveImageUrls(driveId) {
-            return [
-                `https://lh3.googleusercontent.com/d/${driveId}=w1000`,
-                `https://drive.google.com/thumbnail?id=${driveId}&sz=w1000`,
-                `https://drive.google.com/uc?export=view&id=${driveId}`
-            ];
-        }
-
-        // Flood-fill from outer borders to remove white/light backgrounds around cards
-        // while preserving interior white text and artwork details
-        function removeOuterWhiteBackground(imgEl, cardId) {
-            if (imgEl.getAttribute("data-bg-cleaned") === "true") return;
-            if (processedTransparentCache[cardId]) {
-                imgEl.src = processedTransparentCache[cardId];
-                imgEl.setAttribute("data-bg-cleaned", "true");
-                return;
-            }
-
-            try {
-                const w = imgEl.naturalWidth;
-                const h = imgEl.naturalHeight;
-                if (!w || !h) return;
-
-                const offCanvas = document.createElement("canvas");
-                offCanvas.width = w;
-                offCanvas.height = h;
-                const offCtx = offCanvas.getContext("2d", { willReadFrequently: true });
-                offCtx.drawImage(imgEl, 0, 0);
-
-                const imgData = offCtx.getImageData(0, 0, w, h);
-                const data = imgData.data;
-
-                // Check if corners have white/light background pixels
-                const isLightBgPixel = (idx) => {
-                    const r = data[idx];
-                    const g = data[idx + 1];
-                    const b = data[idx + 2];
-                    const a = data[idx + 3];
-                    return a > 20 && r >= 220 && g >= 220 && b >= 220;
-                };
-
-                const visited = new Uint8Array(w * h);
-                const queue = [];
-
-                // Seed flood-fill from all 4 outer edges
-                for (let x = 0; x < w; x++) {
-                    const topIdx = x;
-                    const botIdx = (h - 1) * w + x;
-                    if (isLightBgPixel(topIdx * 4)) { visited[topIdx] = 1; queue.push(topIdx); }
-                    if (isLightBgPixel(botIdx * 4)) { visited[botIdx] = 1; queue.push(botIdx); }
-                }
-                for (let y = 0; y < h; y++) {
-                    const leftIdx = y * w;
-                    const rightIdx = y * w + (w - 1);
-                    if (!visited[leftIdx] && isLightBgPixel(leftIdx * 4)) { visited[leftIdx] = 1; queue.push(leftIdx); }
-                    if (!visited[rightIdx] && isLightBgPixel(rightIdx * 4)) { visited[rightIdx] = 1; queue.push(rightIdx); }
-                }
-
-                // BFS Flood-Fill connected outer white pixels -> alpha = 0
-                let head = 0;
-                while (head < queue.length) {
-                    const curr = queue[head++];
-                    const pIdx = curr * 4;
-                    data[pIdx + 3] = 0; // Make transparent
-
-                    const cx = curr % w;
-                    const cy = (curr / w) | 0;
-
-                    const neighbors = [];
-                    if (cx > 0) neighbors.push(curr - 1);
-                    if (cx < w - 1) neighbors.push(curr + 1);
-                    if (cy > 0) neighbors.push(curr - w);
-                    if (cy < h - 1) neighbors.push(curr + w);
-
-                    for (let i = 0; i < neighbors.length; i++) {
-                        const n = neighbors[i];
-                        if (!visited[n] && isLightBgPixel(n * 4)) {
-                            visited[n] = 1;
-                            queue.push(n);
-                        } else if (!visited[n]) {
-                            // Soft anti-aliased edge feathering
-                            const np = n * 4;
-                            if (data[np] > 200 && data[np + 1] > 200 && data[np + 2] > 200) {
-                                data[np + 3] = Math.min(data[np + 3], 90);
-                            }
-                        }
-                    }
-                }
-
-                offCtx.putImageData(imgData, 0, 0);
-                const cleanedDataUrl = offCanvas.toDataURL("image/png");
-                processedTransparentCache[cardId] = cleanedDataUrl;
-                imgEl.setAttribute("data-bg-cleaned", "true");
-                imgEl.src = cleanedDataUrl;
-            } catch (err) {
-                // If CORS restricts pixel reading on a specific endpoint, apply clean rounded clipping & crop-scale for white-bordered cards
-                const cardObj = werewolfCards.find(c => c.id === cardId);
-                if (cardObj && cardObj.hasWhiteBg) {
-                    imgEl.style.transform = "scale(1.045)";
-                    imgEl.style.borderRadius = "1rem";
-                }
-                imgEl.setAttribute("data-bg-cleaned", "true");
-            }
-        }
-
-        function handleCardImageLoad(imgEl, cardId) {
-            removeOuterWhiteBackground(imgEl, cardId);
-        }
-
-        function handleCardImageError(imgEl, cardId) {
-            const card = werewolfCards.find(c => c.id === cardId);
-            if (!card) return;
-            const urls = getDriveImageUrls(card.driveId);
-            const attempt = parseInt(imgEl.getAttribute("data-attempt") || "0", 10);
-
-            if (attempt + 1 < urls.length) {
-                imgEl.removeAttribute("crossorigin");
-                imgEl.setAttribute("data-attempt", String(attempt + 1));
-                imgEl.src = urls[attempt + 1];
-            } else {
-                imgEl.classList.add("hidden");
-                const fallbackEl = imgEl.parentElement.querySelector(".gothic-svg-fallback");
-                if (fallbackEl) fallbackEl.classList.remove("hidden");
-            }
-        }
-
-        // =========================================================================
-        // 4. RENDER CARDS & GRID OVERVIEW MODES (STANDARD / COMPACT OVERVIEW / LIST)
+        // 4. RENDER CARDS (FULL IMAGE, 3D HOVER, CLICK FOR FULL EXPLANATION)
         // =========================================================================
         const cardsGrid = document.getElementById("cardsGrid");
         const emptyState = document.getElementById("emptyState");
@@ -1717,7 +1670,6 @@
 
         let currentFilter = "all";
         let currentSearch = "";
-        let currentGridMode = "standard"; // 'standard' | 'overview' | 'list'
 
         function updateCounters() {
             const goodCount = werewolfCards.filter(c => c.faction === "good").length;
@@ -1736,19 +1688,8 @@
             totalCardCount.textContent = allCount;
         }
 
-        function applyGridLayoutClass() {
-            if (currentGridMode === "overview") {
-                cardsGrid.className = "grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-4";
-            } else if (currentGridMode === "list") {
-                cardsGrid.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
-            } else {
-                cardsGrid.className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7 sm:gap-8";
-            }
-        }
-
         function renderCards() {
             updateCounters();
-            applyGridLayoutClass();
 
             const filtered = werewolfCards.filter(card => {
                 const matchesFaction = currentFilter === "all" || card.faction === currentFilter;
@@ -1773,127 +1714,89 @@
                 emptyState.classList.add("hidden");
             }
 
-            const titleColorClass = isDayMode ? "text-slate-900 group-hover:text-amber-600" : "text-white group-hover:text-amber-300";
-            const subColorClass = isDayMode ? "text-slate-600" : "text-slate-400";
-
             filtered.forEach((card, idx) => {
                 const cfg = factionConfig[card.faction];
-                const primaryUrl = processedTransparentCache[card.id] || getDriveImageUrls(card.driveId)[0];
+                const primaryUrl = getDriveImageUrls(card.driveId)[0];
                 const cardNumber = String(idx + 1).padStart(2, "0");
-                const whiteBgFixStyle = card.hasWhiteBg ? "transform: scale(1.045);" : "";
+                const maskClass = card.hasWhiteBg ? "white-corner-mask" : "";
 
                 const cardWrapper = document.createElement("div");
+                cardWrapper.className = "card-perspective flex flex-col items-center group cursor-pointer select-none";
+                cardWrapper.setAttribute("data-faction", card.faction);
+                cardWrapper.setAttribute("data-id", card.id);
 
-                if (currentGridMode === "list") {
-                    // Compact Horizontal List Overview Item
-                    cardWrapper.className = `theme-panel border ${cfg.border} rounded-2xl p-3.5 flex items-center gap-4 cursor-pointer hover:border-amber-400 transition-all group`;
-                    cardWrapper.innerHTML = `
-                        <div class="w-16 sm:w-20 aspect-[2.5/3.6] rounded-xl overflow-hidden shrink-0 border ${cfg.border} bg-transparent flex items-center justify-center">
+                cardWrapper.innerHTML = `
+                    <article class="werewolf-card theme-card-shell relative w-full aspect-[2.5/3.6] border-2 ${cfg.border} overflow-hidden shadow-xl flex items-center justify-center p-0.5">
+                        <div class="card-dynamic-glare absolute inset-0 pointer-events-none z-20"></div>
+
+                        <div class="card-art-frame ${maskClass}">
                             <img 
                                 src="${primaryUrl}" 
                                 alt="${card.name}" 
-                                crossorigin="anonymous"
                                 data-attempt="0"
                                 loading="lazy"
-                                style="${whiteBgFixStyle}"
-                                onload="handleCardImageLoad(this, '${card.id}')"
                                 onerror="handleCardImageError(this, '${card.id}')"
-                                class="w-full h-full object-cover rounded-lg"
+                                class="card-art-img"
                             />
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center justify-between gap-2 mb-1">
-                                <h3 class="font-display text-base font-bold ${titleColorClass} truncate">${card.name}</h3>
-                                <span class="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-serif font-bold uppercase border ${cfg.badgeBg}">
-                                    ${cfg.label}
-                                </span>
-                            </div>
-                            <p class="font-serif text-[11px] text-amber-500 uppercase tracking-wider mb-1">${card.title} • ${card.actionType}</p>
-                            <p class="text-xs ${subColorClass} line-clamp-2 leading-relaxed">${card.desc}</p>
-                        </div>
-                    `;
-                } else {
-                    // Standard 4-Col or Compact 7-Col Grid Overview Card
-                    const isCompact = currentGridMode === "overview";
-                    cardWrapper.className = "card-perspective flex flex-col items-center group cursor-pointer select-none";
-                    cardWrapper.setAttribute("data-faction", card.faction);
-                    cardWrapper.setAttribute("data-id", card.id);
 
-                    cardWrapper.innerHTML = `
-                        <article class="werewolf-card theme-card-shell relative w-full aspect-[2.5/3.6] border-2 ${cfg.border} overflow-hidden shadow-xl flex items-center justify-center p-0.5">
-                            <div class="card-dynamic-glare absolute inset-0 pointer-events-none z-20"></div>
-
-                            <div class="card-art-frame">
-                                <img 
-                                    src="${primaryUrl}" 
-                                    alt="${card.name}" 
-                                    crossorigin="anonymous"
-                                    data-attempt="0"
-                                    loading="lazy"
-                                    style="${whiteBgFixStyle}"
-                                    onload="handleCardImageLoad(this, '${card.id}')"
-                                    onerror="handleCardImageError(this, '${card.id}')"
-                                    class="card-art-img"
-                                />
-
-                                <!-- Fallback if Drive image fails -->
-                                <div class="gothic-svg-fallback hidden w-full h-full flex flex-col items-center justify-between p-4 text-center bg-gradient-to-b ${cfg.cardGradient}">
-                                    <div class="w-full flex items-center justify-between text-[10px] font-serif text-amber-300/80">
-                                        <span>#${cardNumber}</span>
-                                        <span>${cfg.label}</span>
-                                    </div>
-                                    <div class="my-auto flex flex-col items-center">
-                                        <div class="w-16 h-16 rounded-full bg-black/50 border border-amber-500/40 flex items-center justify-center mb-3">
-                                            <i class="fa-solid ${card.icon} text-2xl text-amber-300"></i>
-                                        </div>
-                                        <h3 class="font-display text-base font-bold text-white">${card.name}</h3>
-                                    </div>
-                                    <div class="text-[10px] text-slate-300 line-clamp-2">${card.title}</div>
+                            <!-- Rich Illustrated SVG Card Fallback if Google Drive thumbnail is blocked -->
+                            <div class="gothic-svg-fallback hidden w-full h-full flex-col items-center justify-between p-5 text-center bg-gradient-to-b ${cfg.cardGradient}">
+                                <div class="w-full flex items-center justify-between text-[10px] font-serif text-amber-300/80 border-b border-white/10 pb-2">
+                                    <span>#${cardNumber}</span>
+                                    <span>${cfg.label}</span>
                                 </div>
+                                <div class="my-auto flex flex-col items-center">
+                                    <div class="w-20 h-20 rounded-full bg-black/55 border-2 border-amber-400/50 flex items-center justify-center mb-3 shadow-[0_0_25px_rgba(245,158,11,0.25)]">
+                                        <i class="fa-solid ${card.icon} text-3xl text-amber-300"></i>
+                                    </div>
+                                    <h3 class="font-display text-lg font-bold text-white tracking-wide">${card.name}</h3>
+                                    <p class="font-serif text-[11px] text-amber-300/90 mt-1">${card.title}</p>
+                                </div>
+                                <div class="text-[11px] text-slate-300 line-clamp-3 italic bg-black/40 p-2.5 rounded-xl border border-white/10">${card.desc}</div>
                             </div>
-                        </article>
-
-                        <div class="w-full mt-2.5 px-1 flex items-center justify-between gap-1.5">
-                            <div class="truncate">
-                                <h3 class="font-display ${isCompact ? 'text-xs' : 'text-sm sm:text-base'} font-bold ${titleColorClass} transition-colors truncate">
-                                    ${card.name}
-                                </h3>
-                                ${isCompact ? '' : `<p class="font-serif text-[11px] ${subColorClass} truncate">${card.title}</p>`}
-                            </div>
-                            <span class="shrink-0 ${isCompact ? 'px-1.5 py-0.5 text-[8px]' : 'px-2.5 py-1 text-[10px]'} rounded-full font-serif font-bold tracking-wider uppercase border ${cfg.badgeBg} flex items-center gap-1">
-                                <i class="fa-solid ${cfg.icon}"></i>
-                                ${isCompact ? '' : `<span>${cfg.label}</span>`}
-                            </span>
                         </div>
-                    `;
+                    </article>
 
-                    // 3D Hover Tilt on Cards
-                    const cardElement = cardWrapper.querySelector(".werewolf-card");
-                    const glareElement = cardWrapper.querySelector(".card-dynamic-glare");
+                    <div class="w-full mt-2.5 px-1 flex items-center justify-between gap-1.5">
+                        <div class="truncate">
+                            <h3 class="font-display text-sm sm:text-base font-bold text-white group-hover:text-amber-300 transition-colors truncate">
+                                ${card.name}
+                            </h3>
+                            <p class="font-serif text-[11px] text-slate-400 truncate">${card.title}</p>
+                        </div>
+                        <span class="shrink-0 px-2.5 py-1 text-[10px] rounded-full font-serif font-bold tracking-wider uppercase border ${cfg.badgeBg} flex items-center gap-1">
+                            <i class="fa-solid ${cfg.icon}"></i>
+                            <span>${cfg.label}</span>
+                        </span>
+                    </div>
+                `;
 
-                    cardWrapper.addEventListener("mousemove", (e) => {
-                        if (window.matchMedia("(hover: hover)").matches) {
-                            const rect = cardElement.getBoundingClientRect();
-                            const x = e.clientX - rect.left;
-                            const y = e.clientY - rect.top;
-                            const centerX = rect.width / 2;
-                            const centerY = rect.height / 2;
+                // 3D Hover Tilt on Cards
+                const cardElement = cardWrapper.querySelector(".werewolf-card");
+                const glareElement = cardWrapper.querySelector(".card-dynamic-glare");
 
-                            const rotateX = ((y - centerY) / centerY) * -10;
-                            const rotateY = ((x - centerX) / centerX) * 10;
+                cardWrapper.addEventListener("mousemove", (e) => {
+                    if (window.matchMedia("(hover: hover)").matches) {
+                        const rect = cardElement.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
 
-                            cardElement.style.transform = `scale(1.05) translateY(-6px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                        const rotateX = ((y - centerY) / centerY) * -10;
+                        const rotateY = ((x - centerX) / centerX) * 10;
 
-                            const percentX = (x / rect.width) * 100;
-                            const percentY = (y / rect.height) * 100;
-                            glareElement.style.background = `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.06) 38%, transparent 70%)`;
-                        }
-                    });
+                        cardElement.style.transform = `scale(1.05) translateY(-6px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
-                    cardWrapper.addEventListener("mouseleave", () => {
-                        cardElement.style.transform = "";
-                    });
-                }
+                        const percentX = (x / rect.width) * 100;
+                        const percentY = (y / rect.height) * 100;
+                        glareElement.style.background = `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.06) 38%, transparent 70%)`;
+                    }
+                });
+
+                cardWrapper.addEventListener("mouseleave", () => {
+                    cardElement.style.transform = "";
+                });
 
                 cardWrapper.addEventListener("click", () => {
                     openCardModal(card.id);
@@ -1904,80 +1807,300 @@
         }
 
         // =========================================================================
-        // 5. FULL OVERVIEW MATRIX MODAL (QUICK ALL-ROLES OVERVIEW BY FACTION)
+        // 5. "BE MODERATOR" FEATURE (MIN 4 MAX 100 PLAYERS, INDIVIDUAL & BULK DICE)
         // =========================================================================
-        const overviewModal = document.getElementById("overviewModal");
-        const overviewModalContent = document.getElementById("overviewModalContent");
-        const openOverviewModalBtn = document.getElementById("openOverviewModalBtn");
-        const closeOverviewModalBtn = document.getElementById("closeOverviewModalBtn");
-        const overviewMatrixBody = document.getElementById("overviewMatrixBody");
+        const moderatorModal = document.getElementById("moderatorModal");
+        const moderatorModalContent = document.getElementById("moderatorModalContent");
+        const playerCountInput = document.getElementById("playerCountInput");
+        const playerCountSlider = document.getElementById("playerCountSlider");
+        const decPlayerBtn = document.getElementById("decPlayerBtn");
+        const incPlayerBtn = document.getElementById("incPlayerBtn");
+        const presetCountBtns = document.querySelectorAll(".preset-count-btn");
+        const rollAllRolesBtn = document.getElementById("rollAllRolesBtn");
+        const copyModListBtn = document.getElementById("copyModListBtn");
+        const clearModRolesBtn = document.getElementById("clearModRolesBtn");
+        const uniqueRolesCheckbox = document.getElementById("uniqueRolesCheckbox");
+        const modAllowGood = document.getElementById("modAllowGood");
+        const modAllowWolf = document.getElementById("modAllowWolf");
+        const modAllowNeutral = document.getElementById("modAllowNeutral");
+        const moderatorPlayersList = document.getElementById("moderatorPlayersList");
 
-        function openOverviewModal() {
-            const groups = [
-                { key: "good", title: "Good Side (Aliran Desa)", icon: "fa-shield-heart text-blue-400", border: "border-blue-500/30" },
-                { key: "werewolf", title: "Bad Side (Kawanan Werewolf)", icon: "fa-paw text-rose-500", border: "border-rose-500/30" },
-                { key: "neutral", title: "Neutral Side (Solo & Pengacau)", icon: "fa-masks-theater text-purple-400", border: "border-purple-500/30" }
-            ];
+        let moderatorPlayers = [];
+        let activePlayerCount = 8;
 
-            overviewMatrixBody.innerHTML = groups.map(g => {
-                const roles = werewolfCards.filter(c => c.faction === g.key);
-                const cfg = factionConfig[g.key];
-                const itemsHtml = roles.map(r => {
-                    const thumbUrl = processedTransparentCache[r.id] || getDriveImageUrls(r.driveId)[0];
-                    const whiteBgFixStyle = r.hasWhiteBg ? "transform: scale(1.045);" : "";
-                    return `
-                        <button type="button" onclick="closeOverviewModal(); openCardModal('${r.id}')" class="flex items-center gap-2.5 p-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border ${g.border} text-left transition-all group">
-                            <div class="w-10 h-14 rounded-lg overflow-hidden shrink-0 border ${cfg.border}">
-                                <img src="${thumbUrl}" alt="${r.name}" style="${whiteBgFixStyle}" class="w-full h-full object-cover" onerror="this.style.display='none'" />
-                            </div>
-                            <div class="min-w-0 flex-1">
-                                <div class="font-display text-xs font-bold text-white group-hover:text-amber-300 truncate">${r.name}</div>
-                                <div class="text-[10px] text-slate-400 truncate">${r.title}</div>
-                                <div class="text-[9px] text-amber-400/90 font-serif truncate mt-0.5">${r.actionType}</div>
-                            </div>
+        function ensureModeratorPlayersPool(count) {
+            while (moderatorPlayers.length < count) {
+                const idx = moderatorPlayers.length + 1;
+                moderatorPlayers.push({
+                    index: idx,
+                    username: `Pemain ${idx}`,
+                    roleId: null
+                });
+            }
+        }
+
+        function clampPlayerCount(val) {
+            let num = parseInt(val, 10);
+            if (isNaN(num)) num = 4;
+            return Math.max(4, Math.min(100, num));
+        }
+
+        function getModeratorFilteredPool() {
+            const allowG = modAllowGood ? modAllowGood.checked : true;
+            const allowW = modAllowWolf ? modAllowWolf.checked : true;
+            const allowN = modAllowNeutral ? modAllowNeutral.checked : true;
+
+            const filtered = werewolfCards.filter(c => {
+                if (c.faction === "good" && allowG) return true;
+                if (c.faction === "werewolf" && allowW) return true;
+                if (c.faction === "neutral" && allowN) return true;
+                return false;
+            });
+
+            return filtered.length > 0 ? filtered : [...werewolfCards];
+        }
+
+        function updateModeratorSummary() {
+            const activeSlice = moderatorPlayers.slice(0, activePlayerCount);
+            let good = 0, wolf = 0, neutral = 0, assigned = 0;
+
+            activeSlice.forEach(p => {
+                if (p.roleId) {
+                    const card = werewolfCards.find(c => c.id === p.roleId);
+                    if (card) {
+                        assigned++;
+                        if (card.faction === "good") good++;
+                        else if (card.faction === "werewolf") wolf++;
+                        else if (card.faction === "neutral") neutral++;
+                    }
+                }
+            });
+
+            document.getElementById("modSumGood").textContent = good;
+            document.getElementById("modSumWolf").textContent = wolf;
+            document.getElementById("modSumNeutral").textContent = neutral;
+            document.getElementById("modAssignedCount").textContent = assigned;
+            document.getElementById("modTotalSlots").textContent = activePlayerCount;
+        }
+
+        function renderModeratorRows() {
+            ensureModeratorPlayersPool(activePlayerCount);
+            moderatorPlayersList.innerHTML = "";
+
+            for (let i = 0; i < activePlayerCount; i++) {
+                const player = moderatorPlayers[i];
+                const assignedCard = player.roleId ? werewolfCards.find(c => c.id === player.roleId) : null;
+                const cfg = assignedCard ? factionConfig[assignedCard.faction] : null;
+                const thumbUrl = assignedCard ? getDriveImageUrls(assignedCard.driveId)[0] : "";
+
+                const row = document.createElement("div");
+                row.className = `p-3 rounded-2xl bg-slate-900/90 border ${assignedCard ? cfg.border : 'border-slate-800'} flex items-center justify-between gap-2.5 transition-all hover:border-slate-600`;
+
+                row.innerHTML = `
+                    <!-- Left: Number + Username Input + Dice Button -->
+                    <div class="flex items-center gap-2 flex-1 min-w-0">
+                        <span class="w-7 h-7 rounded-lg bg-slate-950 border border-slate-800 text-[11px] font-serif font-bold text-amber-400 flex items-center justify-center shrink-0">
+                            ${i + 1}
+                        </span>
+                        <input 
+                            type="text" 
+                            data-player-idx="${i}"
+                            value="${player.username.replace(/"/g, '&quot;')}" 
+                            placeholder="Username ${i + 1}..."
+                            class="mod-username-input w-full min-w-[95px] bg-slate-950/90 border border-slate-700/80 focus:border-amber-400 rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none transition-colors"
+                        />
+                        <button 
+                            type="button" 
+                            data-roll-idx="${i}"
+                            title="Acak Role untuk ${player.username}"
+                            class="mod-single-dice-btn w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-rose-600 hover:from-amber-400 hover:to-rose-500 text-white shadow-md flex items-center justify-center shrink-0 transition-transform active:scale-95 cursor-pointer"
+                        >
+                            <i class="fa-solid fa-dice text-base"></i>
                         </button>
-                    `;
-                }).join("");
+                    </div>
 
-                return `
-                    <div>
-                        <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-800">
-                            <h3 class="font-display text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                                <i class="fa-solid ${g.icon}"></i>
-                                <span>${g.title}</span>
-                            </h3>
-                            <span class="text-xs font-serif text-slate-400">${roles.length} Kartu</span>
-                        </div>
-                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
-                            ${itemsHtml}
-                        </div>
+                    <!-- Right: Assigned Role Display -->
+                    <div class="shrink-0">
+                        ${assignedCard ? `
+                            <button 
+                                type="button" 
+                                data-inspect-role="${assignedCard.id}"
+                                title="Klik untuk melihat penjelasan kartu ${assignedCard.name}"
+                                class="mod-inspect-role-btn flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-xl bg-slate-950/90 hover:bg-slate-800 border ${cfg.border} text-left transition-all group cursor-pointer"
+                            >
+                                <div class="w-8 h-11 rounded-lg overflow-hidden border ${cfg.border} shrink-0 bg-slate-900 flex items-center justify-center">
+                                    <img src="${thumbUrl}" alt="${assignedCard.name}" class="w-full h-full object-cover" onerror="this.style.display='none'" />
+                                </div>
+                                <div class="max-w-[125px] sm:max-w-[150px]">
+                                    <div class="font-display text-xs font-bold text-white group-hover:text-amber-300 truncate">${assignedCard.name}</div>
+                                    <span class="inline-flex items-center gap-1 text-[9px] font-serif uppercase tracking-wider px-1.5 py-0.5 rounded-md border ${cfg.badgeBg} mt-0.5">
+                                        <i class="fa-solid ${cfg.icon}"></i>
+                                        <span>${cfg.label}</span>
+                                    </span>
+                                </div>
+                            </button>
+                        ` : `
+                            <div class="px-3 py-2 rounded-xl bg-slate-950/60 border border-dashed border-slate-800 text-[11px] text-slate-500 font-serif italic">
+                                Belum ada role
+                            </div>
+                        `}
                     </div>
                 `;
-            }).join("");
 
-            overviewModal.classList.remove("hidden");
-            overviewModal.classList.add("flex");
-            requestAnimationFrame(() => {
-                overviewModal.classList.remove("opacity-0");
-                overviewModalContent.classList.remove("scale-95");
-                overviewModalContent.classList.add("scale-100");
+                moderatorPlayersList.appendChild(row);
+            }
+
+            moderatorPlayersList.querySelectorAll(".mod-username-input").forEach(input => {
+                input.addEventListener("input", (e) => {
+                    const idx = parseInt(e.target.getAttribute("data-player-idx"), 10);
+                    moderatorPlayers[idx].username = e.target.value;
+                });
             });
+
+            moderatorPlayersList.querySelectorAll(".mod-single-dice-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const idx = parseInt(btn.getAttribute("data-roll-idx"), 10);
+                    const icon = btn.querySelector("i");
+                    if (icon) {
+                        icon.classList.remove("dice-rolling");
+                        void icon.offsetWidth;
+                        icon.classList.add("dice-rolling");
+                    }
+                    setTimeout(() => {
+                        rollSinglePlayerRole(idx);
+                    }, 160);
+                });
+            });
+
+            moderatorPlayersList.querySelectorAll(".mod-inspect-role-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const roleId = btn.getAttribute("data-inspect-role");
+                    openCardModal(roleId);
+                });
+            });
+
+            updateModeratorSummary();
         }
 
-        function closeOverviewModal() {
-            overviewModal.classList.add("opacity-0");
-            overviewModalContent.classList.remove("scale-100");
-            overviewModalContent.classList.add("scale-95");
+        function rollSinglePlayerRole(playerIdx) {
+            const preferUnique = uniqueRolesCheckbox.checked;
+            const basePool = getModeratorFilteredPool();
+            let pool = [...basePool];
+
+            if (preferUnique) {
+                const usedIds = new Set(
+                    moderatorPlayers
+                        .slice(0, activePlayerCount)
+                        .filter((_, idx) => idx !== playerIdx)
+                        .map(p => p.roleId)
+                        .filter(Boolean)
+                );
+                const unusedCards = basePool.filter(c => !usedIds.has(c.id));
+                if (unusedCards.length > 0) {
+                    pool = unusedCards;
+                }
+            }
+
+            const chosen = pool[Math.floor(Math.random() * pool.length)];
+            moderatorPlayers[playerIdx].roleId = chosen.id;
+            renderModeratorRows();
+            showToast(`${moderatorPlayers[playerIdx].username || 'Pemain ' + (playerIdx + 1)} mendapatkan role: ${chosen.name}`, "fa-dice text-amber-300");
+        }
+
+        function rollAllPlayersRoles() {
+            const preferUnique = uniqueRolesCheckbox.checked;
+            const basePool = getModeratorFilteredPool();
+            ensureModeratorPlayersPool(activePlayerCount);
+
+            if (preferUnique) {
+                let shuffledDeck = [];
+                for (let i = 0; i < activePlayerCount; i++) {
+                    if (shuffledDeck.length === 0) {
+                        shuffledDeck = [...basePool].sort(() => Math.random() - 0.5);
+                    }
+                    moderatorPlayers[i].roleId = shuffledDeck.pop().id;
+                }
+            } else {
+                for (let i = 0; i < activePlayerCount; i++) {
+                    const rand = basePool[Math.floor(Math.random() * basePool.length)];
+                    moderatorPlayers[i].roleId = rand.id;
+                }
+            }
+
+            renderModeratorRows();
+            showToast(`Berhasil membagikan role acak kepada ${activePlayerCount} pemain!`, "fa-wand-magic-sparkles text-amber-300");
+        }
+
+        window.openModeratorModal = function() {
+            renderModeratorRows();
+            moderatorModal.classList.remove("hidden");
+            moderatorModal.classList.add("flex");
+            requestAnimationFrame(() => {
+                moderatorModal.classList.remove("opacity-0");
+                moderatorModalContent.classList.remove("scale-95");
+                moderatorModalContent.classList.add("scale-100");
+            });
+        };
+
+        window.closeModeratorModal = function() {
+            moderatorModal.classList.add("opacity-0");
+            moderatorModalContent.classList.remove("scale-100");
+            moderatorModalContent.classList.add("scale-95");
             setTimeout(() => {
-                overviewModal.classList.remove("flex");
-                overviewModal.classList.add("hidden");
+                moderatorModal.classList.remove("flex");
+                moderatorModal.classList.add("hidden");
             }, 250);
+        };
+
+        moderatorModal.addEventListener("click", (e) => {
+            if (e.target === moderatorModal) closeModeratorModal();
+        });
+
+        function syncPlayerCountUI(newCount) {
+            activePlayerCount = clampPlayerCount(newCount);
+            playerCountInput.value = activePlayerCount;
+            if (playerCountSlider) playerCountSlider.value = activePlayerCount;
+            renderModeratorRows();
         }
 
-        openOverviewModalBtn.addEventListener("click", openOverviewModal);
-        closeOverviewModalBtn.addEventListener("click", closeOverviewModal);
-        overviewModal.addEventListener("click", (e) => {
-            if (e.target === overviewModal) closeOverviewModal();
+        playerCountInput.addEventListener("change", (e) => syncPlayerCountUI(e.target.value));
+        if (playerCountSlider) {
+            playerCountSlider.addEventListener("input", (e) => syncPlayerCountUI(e.target.value));
+        }
+
+        decPlayerBtn.addEventListener("click", () => syncPlayerCountUI(activePlayerCount - 1));
+        incPlayerBtn.addEventListener("click", () => syncPlayerCountUI(activePlayerCount + 1));
+
+        presetCountBtns.forEach(btn => {
+            btn.addEventListener("click", () => syncPlayerCountUI(btn.getAttribute("data-preset")));
+        });
+
+        rollAllRolesBtn.addEventListener("click", rollAllPlayersRoles);
+
+        clearModRolesBtn.addEventListener("click", () => {
+            for (let i = 0; i < activePlayerCount; i++) {
+                if (moderatorPlayers[i]) moderatorPlayers[i].roleId = null;
+            }
+            renderModeratorRows();
+            showToast("Semua role pemain telah di-reset.", "fa-rotate-left text-rose-400");
+        });
+
+        copyModListBtn.addEventListener("click", () => {
+            const lines = [`=== DAFTAR PEMAIN & ROLE AUK WEREWOLF (${activePlayerCount} PEMAIN) ===`];
+            for (let i = 0; i < activePlayerCount; i++) {
+                const p = moderatorPlayers[i];
+                const card = p.roleId ? werewolfCards.find(c => c.id === p.roleId) : null;
+                const roleLabel = card ? `${card.name} [${factionConfig[card.faction].label}]` : "Belum ditentukan";
+                lines.push(`${i + 1}. ${p.username || 'Pemain ' + (i + 1)} — ${roleLabel}`);
+            }
+
+            const textArea = document.createElement("textarea");
+            textArea.value = lines.join("\n");
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            showToast("Daftar pembagian role berhasil disalin ke Clipboard!", "fa-check text-emerald-400");
         });
 
         // =========================================================================
@@ -1989,14 +2112,14 @@
         const modalCard3DWrapper = document.getElementById("modalCard3DWrapper");
         const modalCardPreview = document.getElementById("modalCardPreview");
 
-        function openCardModal(cardId) {
+        window.openCardModal = function(cardId) {
             const cardIndex = werewolfCards.findIndex(c => c.id === cardId);
             if (cardIndex === -1) return;
             const card = werewolfCards[cardIndex];
 
             const cfg = factionConfig[card.faction];
-            const primaryUrl = processedTransparentCache[card.id] || getDriveImageUrls(card.driveId)[0];
-            const whiteBgFixStyle = card.hasWhiteBg ? "transform: scale(1.045);" : "";
+            const primaryUrl = getDriveImageUrls(card.driveId)[0];
+            const maskClass = card.hasWhiteBg ? "white-corner-mask" : "";
 
             const modalVisualPane = document.getElementById("modalVisualPane");
             modalVisualPane.className = `w-full md:w-5/12 p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800/90 bg-gradient-to-b ${cfg.cardGradient}`;
@@ -2005,18 +2128,15 @@
             modalCardPreview.style.transform = "";
             modalCardPreview.innerHTML = `
                 <div id="modalCardGlare" class="card-dynamic-glare absolute inset-0 pointer-events-none z-20"></div>
-                <div class="card-art-frame">
+                <div class="card-art-frame ${maskClass}">
                     <img 
                         src="${primaryUrl}" 
                         alt="${card.name}" 
-                        crossorigin="anonymous"
                         data-attempt="0"
-                        style="${whiteBgFixStyle}"
-                        onload="handleCardImageLoad(this, '${card.id}')"
                         onerror="handleCardImageError(this, '${card.id}')"
                         class="card-art-img"
                     />
-                    <div class="gothic-svg-fallback hidden w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b ${cfg.cardGradient}">
+                    <div class="gothic-svg-fallback hidden w-full h-full flex-col items-center justify-center p-6 text-center bg-gradient-to-b ${cfg.cardGradient}">
                         <i class="fa-solid ${card.icon} text-6xl text-amber-300 mb-3"></i>
                         <div class="font-display text-xl font-bold text-white">${card.name}</div>
                         <div class="font-serif text-xs text-amber-400 uppercase mt-1">${card.title}</div>
@@ -2044,7 +2164,7 @@
                 cardModalContent.classList.remove("scale-95");
                 cardModalContent.classList.add("scale-100");
             });
-        }
+        };
 
         modalCard3DWrapper.addEventListener("mousemove", (e) => {
             const rect = modalCardPreview.getBoundingClientRect();
@@ -2088,7 +2208,7 @@
         document.addEventListener("keydown", (e) => {
             if (e.key === "Escape") {
                 if (!cardModal.classList.contains("hidden")) closeCardModal();
-                if (!overviewModal.classList.contains("hidden")) closeOverviewModal();
+                else if (!moderatorModal.classList.contains("hidden")) closeModeratorModal();
             }
         });
 
@@ -2107,14 +2227,12 @@
         }
 
         // =========================================================================
-        // 7. FILTER TABS, GRID MODE SWITCHER, SEARCH & RANDOM ROLE
+        // 7. FILTER TABS, SEARCH & RANDOM ROLE
         // =========================================================================
         const filterBtns = document.querySelectorAll(".filter-btn");
-        const gridModeBtns = document.querySelectorAll(".grid-mode-btn");
         const searchInput = document.getElementById("searchInput");
         const clearSearchBtn = document.getElementById("clearSearchBtn");
         const resetSearchBtn = document.getElementById("resetSearchBtn");
-        const randomRoleBtn = document.getElementById("randomRoleBtn");
 
         function updateActiveFilterTab(selectedFilter) {
             filterBtns.forEach(btn => {
@@ -2131,20 +2249,6 @@
             btn.addEventListener("click", () => {
                 currentFilter = btn.getAttribute("data-filter");
                 updateActiveFilterTab(currentFilter);
-                renderCards();
-            });
-        });
-
-        gridModeBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                currentGridMode = btn.getAttribute("data-grid");
-                gridModeBtns.forEach(b => {
-                    if (b.getAttribute("data-grid") === currentGridMode) {
-                        b.className = "grid-mode-btn px-2.5 py-1.5 rounded-lg text-xs font-serif font-semibold transition-all bg-amber-500 text-slate-950 flex items-center gap-1.5";
-                    } else {
-                        b.className = "grid-mode-btn px-2.5 py-1.5 rounded-lg text-xs font-serif font-semibold transition-all text-slate-300 hover:text-white flex items-center gap-1.5";
-                    }
-                });
                 renderCards();
             });
         });
@@ -2171,17 +2275,18 @@
             renderCards();
         });
 
-        randomRoleBtn.addEventListener("click", () => {
+        window.triggerRandomFateCard = function() {
             const randomIndex = Math.floor(Math.random() * werewolfCards.length);
             openCardModal(werewolfCards[randomIndex].id);
-        });
+        };
 
         // =========================================================================
-        // 8. SKY BACKGROUND CANVAS (NIGHT STARS <-> DAYLIGHT SUN MOTES)
+        // 8. DYNAMIC MOVING STARRY SKY & SHOOTING STARS CANVAS
         // =========================================================================
         const canvas = document.getElementById("skyCanvas");
         const ctx = canvas.getContext("2d");
-        let particles = [];
+        let stars = [];
+        let shootingStars = [];
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -2189,60 +2294,94 @@
         }
 
         function initSkyParticles() {
-            particles = [];
-            const count = Math.min(110, Math.floor((window.innerWidth * window.innerHeight) / 12000));
+            stars = [];
+            const count = Math.min(135, Math.floor((window.innerWidth * window.innerHeight) / 10000));
 
             for (let i = 0; i < count; i++) {
-                if (isDayMode) {
-                    // Warm golden daylight motes drifting gently
-                    particles.push({
-                        x: Math.random() * canvas.width,
-                        y: Math.random() * canvas.height,
-                        radius: Math.random() * 2.2 + 0.8,
-                        baseAlpha: Math.random() * 0.35 + 0.15,
-                        speedY: -(Math.random() * 0.25 + 0.08),
-                        speedX: (Math.random() - 0.5) * 0.2,
-                        phase: Math.random() * Math.PI * 2,
-                        color: Math.random() > 0.4 ? "#f59e0b" : "#38bdf8"
-                    });
-                } else {
-                    // Subtle night stars
-                    particles.push({
-                        x: Math.random() * canvas.width,
-                        y: Math.random() * canvas.height * 0.9,
-                        radius: Math.random() * 1.3 + 0.4,
-                        baseAlpha: Math.random() * 0.45 + 0.2,
-                        speedY: 0,
-                        speedX: 0,
-                        phase: Math.random() * Math.PI * 2,
-                        color: Math.random() > 0.25 ? "#f8fafc" : "#bae6fd"
-                    });
-                }
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.45 + 0.35,
+                    baseAlpha: Math.random() * 0.5 + 0.25,
+                    // Gentle dynamic cosmic drift
+                    speedX: (Math.random() - 0.5) * 0.22,
+                    speedY: -(Math.random() * 0.18 + 0.05),
+                    phase: Math.random() * Math.PI * 2,
+                    twinkleSpeed: Math.random() * 0.025 + 0.01,
+                    color: Math.random() > 0.28 ? "#f8fafc" : (Math.random() > 0.5 ? "#bae6fd" : "#fde68a")
+                });
+            }
+        }
+
+        function spawnShootingStar() {
+            if (shootingStars.length < 2 && Math.random() < 0.008) {
+                shootingStars.push({
+                    x: Math.random() * canvas.width * 0.8 + canvas.width * 0.1,
+                    y: Math.random() * canvas.height * 0.35,
+                    length: Math.random() * 70 + 45,
+                    speed: Math.random() * 7 + 6,
+                    angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2,
+                    alpha: 1
+                });
             }
         }
 
         function animateSky() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            particles.forEach(p => {
-                p.phase += 0.015;
-                p.x += p.speedX;
-                p.y += p.speedY;
+            // Draw dynamically moving & twinkling stars
+            stars.forEach(s => {
+                s.phase += s.twinkleSpeed;
+                s.x += s.speedX;
+                s.y += s.speedY;
 
-                if (p.y < -10) p.y = canvas.height + 10;
-                if (p.x < -10) p.x = canvas.width + 10;
-                if (p.x > canvas.width + 10) p.x = -10;
+                // Wrap around screen smoothly
+                if (s.y < -5) s.y = canvas.height + 5;
+                if (s.y > canvas.height + 5) s.y = -5;
+                if (s.x < -5) s.x = canvas.width + 5;
+                if (s.x > canvas.width + 5) s.x = -5;
 
-                const alpha = Math.max(0.08, Math.min(0.85, p.baseAlpha + Math.sin(p.phase) * 0.22));
+                const alpha = Math.max(0.1, Math.min(0.95, s.baseAlpha + Math.sin(s.phase) * 0.28));
 
                 ctx.save();
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctx.fillStyle = s.color;
                 ctx.globalAlpha = alpha;
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = s.color;
                 ctx.fill();
                 ctx.restore();
             });
+
+            // Occasional subtle shooting star
+            spawnShootingStar();
+            for (let i = shootingStars.length - 1; i >= 0; i--) {
+                const st = shootingStars[i];
+                st.x += Math.cos(st.angle) * st.speed;
+                st.y += Math.sin(st.angle) * st.speed;
+                st.alpha -= 0.018;
+
+                if (st.alpha <= 0) {
+                    shootingStars.splice(i, 1);
+                    continue;
+                }
+
+                ctx.save();
+                const tailX = st.x - Math.cos(st.angle) * st.length;
+                const tailY = st.y - Math.sin(st.angle) * st.length;
+                const grad = ctx.createLinearGradient(st.x, st.y, tailX, tailY);
+                grad.addColorStop(0, `rgba(255, 255, 255, ${st.alpha})`);
+                grad.addColorStop(1, "rgba(255, 255, 255, 0)");
+
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = 1.6;
+                ctx.beginPath();
+                ctx.moveTo(st.x, st.y);
+                ctx.lineTo(tailX, tailY);
+                ctx.stroke();
+                ctx.restore();
+            }
 
             requestAnimationFrame(animateSky);
         }
@@ -2252,13 +2391,19 @@
             initSkyParticles();
         });
 
-        window.onload = function () {
+        function bootApplication() {
             resizeCanvas();
             initSkyParticles();
             animateSky();
             initGentleLogoHover();
             renderCards();
-        };
+        }
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", bootApplication);
+        } else {
+            bootApplication();
+        }
     </script>
 </body>
 </html>
