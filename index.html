@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood Moon Chronicles: Custom Werewolf Card Collection</title>
+    <title>AUK Werewolf — Koleksi Resmi Kartu Peran</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Cinzel Decorative, Cinzel, and Plus Jakarta Sans -->
@@ -41,9 +41,9 @@
 
     <style>
         :root {
-            --glow-good: rgba(59, 130, 246, 0.65);
-            --glow-werewolf: rgba(225, 29, 72, 0.72);
-            --glow-neutral: rgba(168, 85, 247, 0.68);
+            --glow-good: rgba(59, 130, 246, 0.75);
+            --glow-werewolf: rgba(225, 29, 72, 0.8);
+            --glow-neutral: rgba(168, 85, 247, 0.78);
         }
 
         body {
@@ -73,8 +73,8 @@
             background: #990f02;
         }
 
-        /* Blood Moon Glow Effect */
-        .blood-moon {
+        /* AUK Moon Glow Effect */
+        .auk-moon {
             box-shadow: 
                 0 0 60px 15px rgba(225, 29, 72, 0.45),
                 0 0 120px 40px rgba(153, 15, 2, 0.3),
@@ -93,93 +93,59 @@
             }
         }
 
-        /* Card 3D & Hover Zoom Container */
+        /* Pure 3D Card Perspective & Tilt */
         .card-perspective {
-            perspective: 1200px;
+            perspective: 1100px;
         }
 
         .werewolf-card {
-            transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.42s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
+            transition: transform 0.18s ease-out, box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
             transform-style: preserve-3d;
             will-change: transform, box-shadow;
         }
 
-        /* Desktop Hover Zoom & Elevation */
+        .card-perspective:not(:hover) .werewolf-card {
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.35s ease;
+        }
+
+        /* Desktop Pure 3D Hover Glow & Elevation (No Text Overlay Blocking Image) */
         @media (hover: hover) {
             .card-perspective:hover {
-                z-index: 40;
-            }
-            .card-perspective:hover .werewolf-card {
-                transform: scale(1.13) translateY(-12px);
+                z-index: 35;
             }
             .card-perspective[data-faction="good"]:hover .werewolf-card {
-                box-shadow: 0 28px 55px -12px rgba(0, 0, 0, 0.96), 0 0 38px 6px var(--glow-good);
+                box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.95), 0 0 38px 5px var(--glow-good);
                 border-color: #60a5fa;
             }
             .card-perspective[data-faction="werewolf"]:hover .werewolf-card {
-                box-shadow: 0 28px 55px -12px rgba(0, 0, 0, 0.96), 0 0 40px 7px var(--glow-werewolf);
+                box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.95), 0 0 40px 6px var(--glow-werewolf);
                 border-color: #f43f5e;
             }
             .card-perspective[data-faction="neutral"]:hover .werewolf-card {
-                box-shadow: 0 28px 55px -12px rgba(0, 0, 0, 0.96), 0 0 38px 6px var(--glow-neutral);
+                box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.95), 0 0 38px 5px var(--glow-neutral);
                 border-color: #c084fc;
             }
-
-            /* Reveal Description Drawer on Hover */
-            .card-perspective:hover .card-hover-drawer {
-                opacity: 1;
-                transform: translateY(0);
-                pointer-events: auto;
-            }
-
-            .card-perspective:hover .card-art-media {
-                transform: scale(1.09);
-            }
-
-            .card-perspective:hover .card-default-footer {
-                opacity: 0;
-                transform: translateY(12px);
-            }
         }
 
-        .card-hover-drawer {
+        /* Dynamic 3D Specular Glare Following Cursor */
+        .card-dynamic-glare {
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.08) 35%, transparent 70%);
             opacity: 0;
-            transform: translateY(28px);
-            transition: all 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-            pointer-events: none;
+            transition: opacity 0.3s ease;
+            mix-blend-mode: overlay;
         }
 
-        .card-art-media {
-            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
-        }
-
-        /* Ornate Corner Filigree */
-        .corner-ornament {
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            pointer-events: none;
-            z-index: 25;
-            opacity: 0.85;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        .card-perspective:hover .corner-ornament {
+        .card-perspective:hover .card-dynamic-glare {
             opacity: 1;
-            transform: scale(1.12);
         }
 
-        /* Shimmer effect on card frame */
-        .card-glare {
-            background: linear-gradient(125deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.12) 48%, rgba(255,255,255,0) 65%);
-            background-size: 200% 200%;
-            transition: opacity 0.4s ease;
+        /* Modal 3D Card Preview */
+        .modal-card-3d-wrapper {
+            perspective: 1100px;
         }
-        .card-perspective:hover .card-glare {
-            animation: shimmerSweep 1.7s infinite linear;
-        }
-        @keyframes shimmerSweep {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+        .modal-card-3d {
+            transition: transform 0.2s ease-out, box-shadow 0.35s ease;
+            transform-style: preserve-3d;
         }
     </style>
 </head>
@@ -187,10 +153,6 @@
 
     <!-- Ambient Floating Embers Canvas -->
     <canvas id="emberCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-75"></canvas>
-
-    <!-- Hidden File Inputs for Custom Local Folder / Single Card Upload -->
-    <input type="file" id="folderUploadInput" multiple accept="image/*" class="hidden">
-    <input type="file" id="singleCardUploadInput" accept="image/*" class="hidden">
 
     <!-- Sticky Navigation Bar -->
     <header class="sticky top-0 z-50 backdrop-blur-md bg-[#06060b]/90 border-b border-amber-500/20 shadow-lg shadow-black/60">
@@ -201,17 +163,17 @@
                     <i class="fa-solid fa-wolf-pack-battalion text-amber-400 text-xl"></i>
                 </div>
                 <div>
-                    <span class="font-display text-base sm:text-xl font-bold tracking-wider bg-gradient-to-r from-amber-200 via-amber-400 to-rose-500 bg-clip-text text-transparent block leading-none">
-                        BLOOD MOON
+                    <span class="font-display text-lg sm:text-2xl font-bold tracking-wider bg-gradient-to-r from-amber-200 via-amber-400 to-rose-500 bg-clip-text text-transparent block leading-none">
+                        AUK WEREWOLF
                     </span>
                     <span class="font-serif text-[10px] sm:text-xs tracking-[0.2em] text-slate-400 uppercase block mt-1">
-                        Custom Card Compendium
+                        Koleksi Resmi Kartu Peran AUK Werewolf
                     </span>
                 </div>
             </a>
 
             <!-- Live Faction Counters -->
-            <div class="hidden xl:flex items-center gap-3 bg-slate-900/90 border border-slate-800 px-4 py-1.5 rounded-full text-xs text-slate-300">
+            <div class="hidden lg:flex items-center gap-3 bg-slate-900/90 border border-slate-800 px-4 py-1.5 rounded-full text-xs text-slate-300">
                 <span class="flex items-center gap-1.5">
                     <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
                     Kartu Baik: <strong id="navCountGood" class="text-blue-300">0</strong>
@@ -228,26 +190,12 @@
                 </span>
             </div>
 
-            <!-- Action Buttons: Google Drive Link, Upload Local Images & Random Role -->
-            <div class="flex items-center gap-2 sm:gap-2.5">
-                <a href="https://drive.google.com/drive/folders/12Gzc7KBG2lQgAlgvGLxq1xo6LH3ncFCk?usp=sharing" target="_blank" rel="noopener noreferrer"
-                   class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-200 text-xs font-medium transition-all flex items-center gap-2"
-                   title="Buka Folder Google Drive Asli">
-                    <i class="fa-brands fa-google-drive text-emerald-400 text-sm"></i>
-                    <span class="hidden md:inline">Folder Drive</span>
-                </a>
-
-                <button id="uploadFolderBtn" 
-                        class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-amber-950/40 border border-amber-500/30 text-amber-200 text-xs font-medium transition-all flex items-center gap-2"
-                        title="Muat file gambar kartu (.jpg/.png) dari komputer jika gambar Google Drive terblokir jaringan">
-                    <i class="fa-solid fa-folder-open text-amber-400"></i>
-                    <span class="hidden sm:inline">Muat File Lokal</span>
-                </button>
-
+            <!-- Action Button: Random Destiny -->
+            <div class="flex items-center gap-2">
                 <button id="randomRoleBtn" 
-                        class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600/25 to-rose-700/35 hover:from-amber-500/40 hover:to-rose-600/50 border border-amber-500/50 text-amber-200 text-xs sm:text-sm font-serif font-semibold tracking-wide transition-all flex items-center gap-2 shadow-sm hover:shadow-rose-900/40">
+                        class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-600/30 to-rose-700/40 hover:from-amber-500/50 hover:to-rose-600/60 border border-amber-500/50 text-amber-200 text-xs sm:text-sm font-serif font-semibold tracking-wide transition-all flex items-center gap-2 shadow-md hover:shadow-rose-900/40">
                     <i class="fa-solid fa-dice-d20 text-amber-400"></i>
-                    <span class="hidden sm:inline">Kocok Takdir</span>
+                    <span>Kocok Takdir Acak</span>
                 </button>
             </div>
         </div>
@@ -256,16 +204,16 @@
     <!-- Notification Toast -->
     <div id="toastBanner" class="fixed bottom-5 right-5 z-50 hidden max-w-sm bg-slate-900/95 border border-amber-500/50 text-slate-100 px-4 py-3 rounded-2xl shadow-2xl backdrop-blur-md items-center gap-3 text-xs sm:text-sm">
         <i class="fa-solid fa-wand-magic-sparkles text-amber-400 text-base"></i>
-        <span id="toastMessage">Berhasil memperbarui kartu!</span>
+        <span id="toastMessage">Berhasil memperbarui kategori kartu!</span>
     </div>
 
-    <!-- Hero Section with Blood Moon -->
-    <section class="relative pt-8 pb-10 sm:pt-12 sm:pb-14 overflow-hidden z-10">
+    <!-- Hero Section -->
+    <section class="relative pt-8 pb-8 sm:pt-12 sm:pb-12 overflow-hidden z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative flex flex-col items-center text-center">
             
-            <!-- Atmospheric Glowing Blood Moon & Silhouette -->
-            <div class="relative mb-5 sm:mb-7 flex items-center justify-center">
-                <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-tr from-[#3b0404] via-[#990f02] to-[#fb7185] blood-moon relative flex items-center justify-center overflow-hidden">
+            <!-- Atmospheric Glowing Emblem -->
+            <div class="relative mb-5 sm:mb-6 flex items-center justify-center">
+                <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-tr from-[#3b0404] via-[#990f02] to-[#fb7185] auk-moon relative flex items-center justify-center overflow-hidden">
                     <svg class="w-full h-full opacity-35 mix-blend-multiply" viewBox="0 0 100 100">
                         <circle cx="30" cy="35" r="12" fill="#2a0404"/>
                         <circle cx="65" cy="25" r="8" fill="#2a0404"/>
@@ -280,19 +228,19 @@
             </div>
 
             <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-rose-950/60 border border-rose-500/30 text-rose-300 text-xs font-medium tracking-widest uppercase mb-3">
-                <i class="fa-solid fa-moon text-rose-400"></i> Koleksi Kartu Kustom Orisinal
+                <i class="fa-solid fa-moon text-rose-400"></i> Koleksi Resmi Kartu Peran AUK Werewolf
             </div>
 
-            <h1 class="font-display text-3xl sm:text-5xl font-black tracking-tight text-white max-w-4xl leading-tight">
-                ENSIKLOPEDIA ROLE <span class="bg-gradient-to-r from-rose-500 via-amber-300 to-rose-500 bg-clip-text text-transparent">WEREWOLF</span>
+            <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-4xl leading-tight">
+                AUK <span class="bg-gradient-to-r from-rose-500 via-amber-300 to-rose-500 bg-clip-text text-transparent">WEREWOLF</span>
             </h1>
 
             <p class="mt-3 max-w-2xl text-xs sm:text-base text-slate-300 leading-relaxed">
-                Menampilkan seluruh koleksi kartu kustom Anda yang terbagi dalam tiga aliansi utama: 
+                Galeri lengkap kartu peran orisinal <strong>AUK Werewolf</strong> yang terbagi dalam 
                 <span class="text-blue-400 font-semibold">Kartu Baik</span>, 
                 <span class="text-rose-400 font-semibold">Kartu Werewolf</span>, dan 
                 <span class="text-purple-400 font-semibold">Kartu Netral</span>. 
-                <span class="text-amber-300 font-semibold underline decoration-amber-500/50 underline-offset-4">Arahkan kursor (Hover)</span> ke kartu untuk memperbesar (Zoom) dan membaca deskripsi kekuatannya.
+                <span class="text-amber-300 font-semibold">Arahkan kursor (Hover)</span> untuk efek kartu 3D interaktif, dan <span class="text-amber-300 font-semibold underline decoration-amber-500/60 underline-offset-4">Klik Kartu</span> untuk membuka deskripsi serta penjelasan lengkapnya.
             </p>
         </div>
     </section>
@@ -336,7 +284,7 @@
                         <input 
                             type="text" 
                             id="searchInput" 
-                            placeholder="Cari nama kartu atau kekuatan..." 
+                            placeholder="Cari nama peran atau kekuatan..." 
                             class="w-full pl-10 pr-9 py-2.5 bg-slate-950/90 border border-slate-700/80 focus:border-amber-500 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-all"
                         >
                         <button id="clearSearchBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
@@ -346,11 +294,11 @@
                 </div>
             </div>
 
-            <!-- Live Hover Status Bar -->
+            <!-- Live Status Bar -->
             <div class="mt-4 pt-3 border-t border-slate-800/90 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-400">
                 <div class="flex items-center gap-2">
                     <span class="inline-block w-2 h-2 rounded-full bg-amber-400 animate-ping shrink-0"></span>
-                    <span id="hudStatusText" class="text-slate-300 line-clamp-1">Arahkan kursor ke salah satu kartu untuk melakukan Zoom 3D & melihat deskripsi lengkap peran.</span>
+                    <span id="hudStatusText" class="text-slate-300 line-clamp-1">Gerakkan kursor di atas kartu untuk melihat efek 3D, lalu klik kartu untuk membaca penjelasan lengkap.</span>
                 </div>
                 <div class="font-serif uppercase tracking-wider text-amber-400/90 font-semibold shrink-0">
                     Menampilkan <span id="visibleCardCount">0</span> dari <span id="totalCardCount">0</span> Kartu
@@ -359,11 +307,11 @@
         </div>
     </section>
 
-    <!-- Main Card Collection Grid -->
+    <!-- Main Full-Card Collection Grid -->
     <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         
         <!-- Cards Grid Container -->
-        <div id="cardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7 sm:gap-8">
+        <div id="cardsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7 sm:gap-8">
             <!-- Populated dynamically via JS -->
         </div>
 
@@ -373,74 +321,87 @@
                 <i class="fa-solid fa-ghost"></i>
             </div>
             <h3 class="font-serif text-xl font-bold text-white mb-2">Kartu Tidak Ditemukan</h3>
-            <p class="text-sm text-slate-400 mb-6">Tidak ada kartu yang cocok dengan kata kunci atau filter kategori tersebut.</p>
+            <p class="text-sm text-slate-400 mb-6">Tidak ada kartu peran AUK Werewolf yang cocok dengan kata kunci atau filter kategori tersebut.</p>
             <button id="resetSearchBtn" class="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-black font-serif font-bold text-xs uppercase tracking-wider transition-all">
                 Tampilkan Semua Kartu
             </button>
         </div>
     </main>
 
-    <!-- Full Card Inspector Modal (Triggered on Click or Random Role Button) -->
-    <div id="cardModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300">
-        <div id="cardModalContent" class="relative w-full max-w-4xl bg-[#12121e] border-2 border-amber-500/40 rounded-3xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 max-h-[92vh] flex flex-col md:flex-row">
+    <!-- Full Card Inspector & Complete Explanation Modal (Triggered on Click) -->
+    <div id="cardModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300">
+        <div id="cardModalContent" class="relative w-full max-w-5xl bg-[#10101a] border-2 border-amber-500/40 rounded-3xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 max-h-[92vh] flex flex-col md:flex-row">
             
             <!-- Close Button -->
-            <button id="closeModalBtn" class="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/75 hover:bg-rose-700 text-slate-200 hover:text-white border border-slate-600 flex items-center justify-center transition-all">
+            <button id="closeModalBtn" class="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/80 hover:bg-rose-700 text-slate-200 hover:text-white border border-slate-600 flex items-center justify-center transition-all shadow-lg">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
 
-            <!-- Left Column: Full Card Visual Preview -->
-            <div id="modalVisualPane" class="w-full md:w-5/12 p-6 flex flex-col items-center justify-center relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800">
-                <div id="modalCardPreview" class="w-64 sm:w-72 aspect-[2.5/3.6] rounded-2xl border-2 overflow-hidden relative shadow-2xl bg-black flex flex-col justify-between">
-                    <!-- Populated dynamically -->
+            <!-- Left Column: Full Uncropped 3D Card Visual Preview -->
+            <div id="modalVisualPane" class="w-full md:w-5/12 p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800/90">
+                <div id="modalCard3DWrapper" class="modal-card-3d-wrapper w-full max-w-[290px] sm:max-w-[320px]">
+                    <div id="modalCardPreview" class="modal-card-3d w-full aspect-[2.5/3.6] rounded-2xl border-2 overflow-hidden relative shadow-2xl bg-[#07070c] flex items-center justify-center">
+                        <!-- Populated dynamically with full card image -->
+                    </div>
                 </div>
-                <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-                    <button id="changeSingleImgBtn" class="px-3 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-amber-500/30 text-amber-300 text-xs flex items-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-image"></i> Ganti Gambar Lokal
-                    </button>
-                    <a id="openDriveFileLink" href="#" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs flex items-center gap-1.5 transition-all">
-                        <i class="fa-brands fa-google-drive text-emerald-400"></i> Lihat di Drive
-                    </a>
-                </div>
+                <p class="mt-3 text-[11px] font-serif text-slate-400 tracking-wider uppercase flex items-center gap-1.5">
+                    <i class="fa-solid fa-cube text-amber-400"></i> Gerakkan kursor pada kartu untuk efek 3D
+                </p>
             </div>
 
-            <!-- Right Column: Complete Role Description & Category Switcher -->
+            <!-- Right Column: Complete Role Description & Deep Mechanical Explanation -->
             <div class="w-full md:w-7/12 p-6 sm:p-8 overflow-y-auto space-y-5">
                 <div>
                     <div class="flex flex-wrap items-center gap-2 mb-2.5">
                         <span id="modalFactionBadge" class="px-3 py-1 rounded-full text-xs font-serif font-bold uppercase tracking-wider"></span>
-                        <span id="modalNumberBadge" class="px-3 py-1 rounded-full text-xs bg-slate-800 text-amber-300 border border-amber-500/20 font-serif"></span>
+                        <span id="modalNumberBadge" class="px-3 py-1 rounded-full text-xs bg-slate-900 text-amber-300 border border-amber-500/30 font-serif"></span>
                     </div>
                     <h2 id="modalRoleTitle" class="font-display text-2xl sm:text-4xl font-bold text-white tracking-wide"></h2>
                     <p id="modalRoleSubtitle" class="font-serif text-xs sm:text-sm text-amber-400 tracking-widest uppercase mt-1"></p>
                 </div>
 
-                <!-- Main Card Ability & Rules Description -->
-                <div class="p-4 sm:p-5 rounded-2xl bg-slate-900/95 border border-amber-500/30 shadow-inner">
-                    <h4 class="text-xs font-serif uppercase tracking-wider text-amber-400 mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-scroll"></i> Deskripsi & Mekanik Kartu
+                <!-- Box 1: Deskripsi Asli Kartu -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-slate-900/95 border border-amber-500/35 shadow-inner">
+                    <h4 class="text-xs font-serif font-bold uppercase tracking-wider text-amber-400 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-scroll"></i> Deskripsi Kartu
                     </h4>
-                    <p id="modalRoleDesc" class="text-sm sm:text-base text-slate-100 leading-relaxed"></p>
+                    <p id="modalRoleDesc" class="text-sm sm:text-base text-slate-100 leading-relaxed italic"></p>
                 </div>
 
-                <!-- Faction Summary & Win Condition -->
+                <!-- Box 2: Penjelasan Lengkap & Mekanik Permainan -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-3">
+                    <h4 class="text-xs font-serif font-bold uppercase tracking-wider text-rose-400 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open-reader"></i> Penjelasan Lengkap & Aturan Main
+                    </h4>
+                    <p id="modalRoleExplanation" class="text-xs sm:text-sm text-slate-200 leading-relaxed"></p>
+                </div>
+
+                <!-- Box 3: Fase Aktif, Aliansi & Syarat Kemenangan -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
                         <h5 class="text-xs font-serif uppercase tracking-wider text-blue-400 mb-1 flex items-center gap-1.5">
-                            <i class="fa-solid fa-compass"></i> Aliansi / Faksi Saat Ini
+                            <i class="fa-solid fa-compass"></i> Aliansi & Fase Aksi
                         </h5>
-                        <p id="modalAlignmentInfo" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
+                        <p id="modalAlignmentInfo" class="text-xs text-slate-300 leading-relaxed"></p>
                     </div>
                     <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
                         <h5 class="text-xs font-serif uppercase tracking-wider text-emerald-400 mb-1 flex items-center gap-1.5">
                             <i class="fa-solid fa-trophy"></i> Syarat Kemenangan
                         </h5>
-                        <p id="modalWinCondition" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
+                        <p id="modalWinCondition" class="text-xs text-slate-300 leading-relaxed"></p>
                     </div>
                 </div>
 
-                <!-- Interactive Faction Re-Categorizer (Allows user to move card between Good, Werewolf, Neutral anytime) -->
-                <div class="p-4 rounded-xl bg-black/40 border border-slate-800">
+                <!-- Box 4: Tips & Strategi Bermain -->
+                <div class="p-4 rounded-xl bg-amber-950/20 border border-amber-500/25">
+                    <h5 class="text-xs font-serif font-bold uppercase tracking-wider text-amber-300 mb-1.5 flex items-center gap-1.5">
+                        <i class="fa-solid fa-chess-knight"></i> Tips & Strategi Bermain
+                    </h5>
+                    <p id="modalStrategyText" class="text-xs text-slate-300 leading-relaxed"></p>
+                </div>
+
+                <!-- Interactive Faction Re-Categorizer -->
+                <div class="p-4 rounded-xl bg-black/45 border border-slate-800">
                     <h5 class="text-xs font-serif uppercase tracking-wider text-slate-400 mb-2.5 flex items-center justify-between">
                         <span><i class="fa-solid fa-sliders text-amber-400 mr-1.5"></i> Ubah Kategori Faksi Kartu Ini:</span>
                     </h5>
@@ -464,12 +425,12 @@
     <footer class="relative z-10 border-t border-slate-800/80 bg-[#040407] py-8 text-center text-xs text-slate-500">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2">
-                <i class="fa-solid fa-moon text-rose-500"></i>
-                <span class="font-serif text-slate-300 tracking-wider">BLOOD MOON CHRONICLES</span>
-                <span>— Koleksi Lengkap Kartu Werewolf Kustom</span>
+                <i class="fa-solid fa-wolf-pack-battalion text-rose-500"></i>
+                <span class="font-serif text-slate-300 tracking-wider font-bold">AUK WEREWOLF</span>
+                <span>— Koleksi Resmi Kartu Peran AUK Werewolf</span>
             </div>
             <div>
-                Arahkan kursor pada kartu untuk efek 3D Zoom & Deskripsi Instan.
+                Hover untuk efek 3D • Klik kartu untuk Deskripsi & Penjelasan Lengkap
             </div>
         </div>
     </footer>
@@ -477,7 +438,7 @@
     <!-- Application Script -->
     <script>
         // =========================================================================
-        // 1. COMPLETE CUSTOM WEREWOLF CARDS DATA FROM USER'S GOOGLE DRIVE
+        // 1. COMPLETE AUK WEREWOLF CARDS DATA (ALL CARDS FROM USER'S COLLECTION)
         // =========================================================================
         const werewolfCards = [
             // ================= KATEGORI: KARTU BAIK (good) =================
@@ -489,67 +450,81 @@
                 driveId: "1YCp4IpkcLxG0aXoL0XLKgI_hapIYYtO3",
                 icon: "fa-book-skull",
                 actionType: "Efek Kematian Pasif",
-                desc: "Role sangat penting yaitu penjaga musibah misterius. Jika role ini mati, maka seluruh penduduk desa akan dikutuk menjadi hewan dan harus bersuara seperti hewan."
+                desc: "Role sangat penting yaitu penjaga musibah misterius. Jika role ini mati, maka seluruh penduduk desa akan dikutuk menjadi hewan dan harus bersuara seperti hewan.",
+                explanation: "Ancient Keeper adalah pilar pelindung desa dari kutukan purba. Selama ia hidup, warga desa dapat berkomunikasi dengan normal. Namun begitu Ancient Keeper tewas (baik karena dimangsa Werewolf di malam hari maupun digantung warga di siang hari), kutukan langsung aktif: seluruh pemain yang masih hidup wajib menirukan suara hewan saat berbicara sesuai ketentuan moderator.",
+                strategy: "Bermainlah dengan hati-hati agar tidak memancing perhatian Werewolf di malam hari maupun kecurigaan warga di siang hari, karena kematianmu akan membuat komunikasi seluruh desa menjadi kacau."
             },
             {
                 id: "bard",
                 name: "Bard",
-                title: "Pemusik Peniduran",
+                title: "Pemusik Peniduran Desa",
                 faction: "good",
                 driveId: "1uNBMeQoDVKq3vdCIL055hQCIXTpaKnit",
                 icon: "fa-guitar",
-                actionType: "Aktif • Musik Tidur",
-                desc: "Role yang mempunyai kekuatan khusus mampu membuat seluruh penduduk desa tertidur selama 1 ronde karena alunan suara dan instrumentasinya. Tidak ada diskusi dan tidak ada kegiatan apapun pada pagi hari."
+                actionType: "Aktif • Musik Tidur 1 Ronde",
+                desc: "Role yang mempunyai kekuatan khusus mampu membuat seluruh penduduk desa tertidur selama 1 ronde karena alunan suara dan instrumentasinya. Tidak ada diskusi dan tidak ada kegiatan apapun pada pagi hari.",
+                explanation: "Bard dapat memainkan musik magisnya untuk menidurkan satu desa penuh. Saat diaktifkan, fase pagi/siang hari dilewati sepenuhnya tanpa diskusi dan tanpa voting gantung, langsung menuju malam berikutnya. Sangat berguna untuk menyelamatkan warga penting dari kepanikan atau menggagalkan penggiringan opini Werewolf.",
+                strategy: "Gunakan alunan musikmu saat situasi diskusi siang mulai dikuasai oleh argumen palsu kubu jahat atau ketika warga baik yang krusial hampir tereliminasi oleh voting."
             },
             {
                 id: "beauty",
                 name: "Beauty",
-                title: "Pesona Desa",
+                title: "Pesona Pengikat Lover",
                 faction: "good",
                 driveId: "1wb35RHel45pcgVZpMOfafEmqFfl2d2mA",
                 icon: "fa-heart-circle-bolt",
-                actionType: "Pasif • Ikatan Lover",
-                desc: "Warga desa paling cantik di desanya. Apabila dikunjungi oleh warga yang memiliki skill aktif, mereka akan menjadi Lover-nya Beauty (role ini tidak bisa dicuri oleh Thief). Maksimal Lover Beauty hanya satu. Apabila lebih dari satu, warga yang datang paling akhir menjadi Lover baru, dan Lover sebelumnya mati bunuh diri di siang hari."
+                actionType: "Pasif • Ikatan Lover Kunjungan",
+                desc: "Beauty adalah warga desa paling cantik di desanya. Apabila dikunjungi oleh warga yang memiliki skill aktif, mereka akan menjadi Lover-nya Beauty (role ini tidak bisa dicuri oleh THIEF). Maksimal Lover Beauty hanya satu. Apabila lebih dari satu, maka warga yang datang paling akhir ke rumah Beauty-lah yang menjadi Lover baru, dan warga yang sebelumnya menjadi Lover-nya akan mati bunuh diri di siang hari.",
+                explanation: "Pesona Beauty memikat siapa pun yang bertamu ke rumahnya di malam hari. Pengunjung ber-skill aktif otomatis terikat menjadi Lover-nya dan kartu Beauty tidak dapat dicuri oleh Thief. Namun karena kuota Lover hanya satu orang, jika ada pemain aktif lain yang mengunjungi Beauty di kemudian hari, Lover lama akan patah hati dan mati bunuh diri di siang hari, digantikan oleh pengunjung terbaru.",
+                strategy: "Perhatikan siapa yang mati bunuh diri karena patah hati di siang hari; hal itu menandakan malam sebelumnya ada pemain ber-skill aktif baru yang baru saja mengunjungi rumahmu."
             },
             {
                 id: "circadian-manipulation",
                 name: "Circadian Manipulation",
-                title: "Pengendali Siang & Malam",
+                title: "Pengendali Siklus Siang & Malam",
                 faction: "good",
                 driveId: "1zUoRdApXtz5VFiOVMyMCGweNnCN145p6",
                 icon: "fa-sun-plant-wilt",
-                actionType: "Aktif • Rotasi Waktu",
-                desc: "Penduduk desa yang mempunyai kekuatan apabila diaktifkan pada malam hari akan berubah menjadi pagi hari, dan apabila diaktifkan pada pagi hari akan berubah menjadi malam hari."
+                actionType: "Aktif • Putar Waktu Siang/Malam",
+                desc: "Penduduk desa yang mempunyai kekuatan apabila diaktifkan pada malam hari akan berubah menjadi pagi hari, dan apabila diaktifkan pada pagi hari akan berubah menjadi malam hari.",
+                explanation: "Pengendali siklus waktu siang dan malam. Jika ia mengaktifkan kekuatannya di tengah malam, malam langsung berakhir menjadi pagi (memotong aksi malam yang belum sempat berjalan). Jika diaktifkan pada pagi/siang hari, diskusi dan voting langsung dipotong dan berubah menjadi malam hari.",
+                strategy: "Simpan kekuatanmu untuk momen genting, misalnya memotong fase siang saat warga hampir salah menggantung Seer, atau memotong malam untuk mengacaukan giliran berburu kubu jahat."
             },
             {
                 id: "detective",
                 name: "Detective",
-                title: "Penyelidik Jejak",
+                title: "Penyelidik Jejak Malam",
                 faction: "good",
                 driveId: "1aygbawG25U5YNXCzqOARaSEf8djJAD6B",
                 icon: "fa-magnifying-glass-location",
                 actionType: "Aktif Malam • Investigasi",
-                desc: "Penyelidik ulung desa yang bertugas menganalisis petunjuk di malam hari untuk memeriksa jejak kejahatan dan mengungkap identitas musuh yang bersembunyi di antara warga."
+                desc: "Warga desa penyelidik ulung yang mampu memeriksa petunjuk dan menginvestigasi keterlibatan pemain lain dalam pembunuhan malam hari.",
+                explanation: "Detective membantu tim desa mempersempit daftar tersangka dengan menganalisis jejak kejahatan di malam hari atau memeriksa keterkaitan faksi antar pemain sesuai petunjuk moderator.",
+                strategy: "Kumpulkan hasil penyelidikanmu selama beberapa malam sebelum membuka suara di diskusi siang agar para Werewolf tidak langsung mengincarmu di awal permainan."
             },
             {
                 id: "dictator",
                 name: "Dictator",
-                title: "Suara Mutlak",
+                title: "Pemegang Hak Voting Mutlak",
                 faction: "good",
                 driveId: "1gpgbU6cWTMm1c0GK9-6QK77LY22Yw2Io",
                 icon: "fa-gavel",
                 actionType: "Aktif Pagi • Eksekusi Mutlak",
-                desc: "Warga yang mempunyai kekuatan voting mutlak dan tidak bisa diganggu gugat. Salah satu warga desa jika divote oleh Dictator pada pagi hari, maka warga desa tersebut akan langsung digantung."
+                desc: "Warga yang mempunyai kekuatan voting mutlak dan tidak bisa diganggu gugat. Salah satu warga desa jika divote oleh Dictator pada pagi hari, maka warga desa tersebut akan langsung digantung.",
+                explanation: "Dictator memegang hak veto mutlak dalam sidang desa. Saat ia memutuskan untuk menggunakan kekuatannya pada fase voting pagi/siang hari, suara seluruh warga lain diabaikan dan target yang ditunjuk Dictator langsung dieksekusi gantung saat itu juga.",
+                strategy: "Pastikan kamu sudah memiliki bukti kuat atau konfirmasi dari Seer/Tracker sebelum menjatuhkan vonis mutlak agar tidak salah menggantung warga baik."
             },
             {
                 id: "diseased",
                 name: "Diseased",
-                title: "Pembawa Wabah",
+                title: "Pembawa Wabah Penangkal Serigala",
                 faction: "good",
                 driveId: "1y-R-ceqohHjHYdZ77EuLlf6z8wY-hzoU",
                 icon: "fa-biohazard",
-                actionType: "Pasif • Infeksi Serigala",
-                desc: "Villager yang penyakitan. Apabila Diseased mati karena dimangsa Werewolf, maka para Werewolf tidak bisa memangsa untuk satu malam berikutnya."
+                actionType: "Pasif • Lumpuhkan Mangsa 1 Malam",
+                desc: "Villager yang penyakitan, apabila Diseased mati karena dimangsa Werewolf, maka para Werewolf tidak bisa memangsa untuk satu malam berikutnya.",
+                explanation: "Peran pasif penangkal serangan beruntun. Darah Diseased mengandung wabah bagi bangsa serigala. Jika Werewolf membunuhnya di malam hari, kawanan Werewolf akan jatuh sakit dan kehilangan giliran memangsa pada malam selanjutnya.",
+                strategy: "Kamu tidak perlu takut mati dimangsa Werewolf karena pengorbananmu akan memberikan satu malam bebas kematian bagi seluruh warga desa."
             },
             {
                 id: "drunker",
@@ -558,88 +533,94 @@
                 faction: "good",
                 driveId: "1odolZH31RkM5Zl7lDbI0P87ZNXhWKATK",
                 icon: "fa-wine-bottle",
-                actionType: "Pasif • Efek Mabuk",
-                desc: "Warga pemabuk yang selalu teler. Karena kadar alkohol di tubuhnya, pihak yang menyerangnya di malam hari akan ikut pusing dan kehilangan fokus pada malam berikutnya."
+                actionType: "Pasif • Efek Alkohol",
+                desc: "Warga pemabuk yang selalu berada di bawah pengaruh alkohol. Aksi atau interaksi yang mengenainya sering kali berbalik arah atau menimbulkan kebingungan.",
+                explanation: "Karena kondisinya yang mabuk berat, Drunker dapat mengacaukan konsentrasi siapa pun yang berinteraksi dengannya atau membuat pihak penyerang ikut pusing dan terganggu pada malam berikutnya.",
+                strategy: "Gunakan sifat unik peranmu untuk mengecoh perhatian Werewolf dari peran-peran investigasi utama seperti Seer."
             },
             {
                 id: "food-giver",
                 name: "Food Giver",
-                title: "Koki Desa",
+                title: "Koki Desa Spesial",
                 faction: "good",
                 driveId: "1QBGK9Ma9kPOBGK15IzjAsnPx7trGSIsR",
                 icon: "fa-bowl-food",
-                actionType: "Aktif Pagi • Masakan Kebal/Racun",
-                desc: "Penduduk desa yang bisa memasak dan setiap paginya memilih satu penduduk desa untuk memakan masakannya. Masakan tersebut membuat kebal vote dan bunuh pada pagi dan malam hari selama 1 ronde, namun ada peluang makanan tersebut beracun dan membuatnya mati seketika."
+                actionType: "Aktif Pagi • Masakan Kebal / Racun",
+                desc: "Penduduk desa yang bisa memasak dan setiap paginya dia akan memilih salah satu penduduk desa yang harus memakan masakan tersebut. Masakan tersebut spesial, makanan tersebut mampu membuat kebal vote dan bunuh pada pagi dan malam hari selama 1 ronde, namun ada kesempatan makanan tersebut beracun dan membuatnya mati pada saat itu juga.",
+                explanation: "Setiap pagi, koki desa ini menghidangkan masakan kepada satu pemain. Hidangan tersebut memberikan efek perlindungan absolut (kebal digantung siang hari & kebal dibunuh malam hari selama 1 ronde penuh), tetapi selalu ada risiko acak (ditentukan moderator) bahwa masakannya beracun dan langsung menewaskan sang penerima.",
+                strategy: "Pertimbangkan matang-matang sebelum memberikan makanan kepada warga penting; bisa jadi kamu memberinya kekebalan mutlak, atau justru meracuninya bila sedang sial!"
             },
             {
                 id: "guardian",
                 name: "Guardian",
-                title: "Perisai Pelindung",
+                title: "Perisai Pelindung Malam",
                 faction: "good",
                 driveId: "1yIn-_bBs5dNuKeKMCPlmtCWMiNfFDbSa",
                 icon: "fa-shield-halved",
-                actionType: "Aktif Malam • Proteksi",
-                desc: "Setiap malam memilih satu pemain untuk dilindungi. Pemain dalam perlindungan Guardian tidak bisa dimangsa oleh Werewolf. Diperbolehkan melindungi pemain yang sama secara terus-menerus."
+                actionType: "Aktif Malam • Proteksi Tanpa Batas",
+                desc: "Setiap malam, ia memilih satu pemain untuk dilindungi. Pemain yang sedang dalam perlindungan Guardian tidak bisa dimangsa oleh Werewolf. Ia diperbolehkan melindungi pemain yang sama secara terus-menerus.",
+                explanation: "Perisai utama warga desa. Setiap malam Guardian menunjuk satu pemain untuk dijaga dari serangan maut Werewolf. Keunggulan utama Guardian di AUK Werewolf adalah ia bebas melindungi pemain yang sama berkali-kali berturut-turut tanpa batasan malam.",
+                strategy: "Lindungi peran kunci seperti President atau Seer yang sudah terkonfirmasi, namun tetap rahasiakan identitasmu agar Werewolf tidak beralih memangsamu lebih dulu."
             },
             {
                 id: "gunner",
                 name: "Gunner",
-                title: "Penembak Jitu",
+                title: "Penembak Jitu Siang Hari",
                 faction: "good",
                 driveId: "1o6RsShqpeiP6aGQc7TJMwdrrLUVH2xnr",
                 icon: "fa-crosshairs",
-                actionType: "Aktif Siang • Tembakan Peluru",
-                desc: "Penembak jitu desa yang membekali diri dengan senapan dan peluru terbatas untuk mengeksekusi target yang dicurigai sebagai ancaman di siang hari."
+                actionType: "Aktif Siang • Tembakan Langsung",
+                desc: "Warga desa bersenjata senapan dengan peluru terbatas yang dapat menembak target pilihannya secara langsung pada siang hari.",
+                explanation: "Gunner memiliki amunisi terbatas untuk mengeksekusi pemain yang dicurigai di siang hari tanpa perlu menunggu hasil voting warga. Namun ketika menembak, seluruh desa akan mengetahui identitas sang Gunner.",
+                strategy: "Gunakan pelurumu hanya ketika kamu yakin target tersebut adalah Werewolf atau ancaman berbahaya, sehingga tembakanmu sekaligus membuktikan bahwa kamu di pihak warga baik."
             },
             {
                 id: "harlot",
                 name: "Harlot",
-                title: "Pengunjung Malam",
+                title: "Pengunjung Rumah Malam",
                 faction: "good",
                 driveId: "1cOgtsrGIBHJRCjIYFEgRD06lzGDmH6eA",
                 icon: "fa-door-open",
-                actionType: "Aktif Malam • Kunjungan",
-                desc: "Setiap malam bangun untuk mengunjungi rumah salah satu villager. Jika berkunjung ke rumah Werewolf, ia terbunuh. Jika mengunjungi rumah yang juga diserang Werewolf atau Serial Killer, ia ikut terbunuh (kecuali dilindungi Guardian). Namun jika berkunjung langsung ke rumah Werewolf yang dilindungi Guardian, Harlot tetap mati."
-            },
-            {
-                id: "hex",
-                name: "Hex",
-                title: "Mantra Kebangkitan Hewan",
-                faction: "good",
-                driveId: "1oFw90AxzBiQJZjB555jaN6NbYcDcziH5",
-                icon: "fa-paw",
-                actionType: "Aktif • Bangkitkan Mayat",
-                desc: "Jika mendapatkan role ini, harus bersuara seperti hewan yang ditentukan oleh moderator selama permainan. Jika melanggar maka akan langsung mati. Kekuatan utamanya yaitu mampu menghidupkan orang mati secara berturut-turut."
+                actionType: "Aktif Malam • Kunjungan Rumah",
+                desc: "Setiap malam ia bangun untuk mengunjungi rumah salah satu villager. Jika berkunjung ke rumah Werewolf, ia terbunuh. Jika mengunjungi rumah yang juga dikunjungi Werewolf atau Serial Killer, ia terbunuh (kecuali ada Guardian yang melindungi rumah tersebut). Jika berkunjung ke rumah Werewolf yang dilindungi Guardian, Harlot tetap mati.",
+                explanation: "Harlot bertamu ke rumah pemain lain setiap malam. Jika ia selamat kembali di pagi hari sementara tuan rumah tidak diserang, itu memberi petunjuk bahwa tuan rumah bukanlah Werewolf. Namun risikonya tinggi: berkunjung ke rumah Werewolf (meski dilindungi Guardian) atau rumah yang sedang diserang Werewolf/Serial Killer akan menewaskan Harlot.",
+                strategy: "Beri kode halus kepada warga tepercaya mengenai rumah siapa yang akan kamu kunjungi malam ini, sehingga jika kamu mati di malam hari, warga langsung tahu siapa pembunuhmu."
             },
             {
                 id: "hidden-villager",
                 name: "Hidden Villager",
-                title: "Warga Tersembunyi",
+                title: "Warga Rahasia Kunci Takdir",
                 faction: "good",
                 driveId: "1U3DvyQFMl23WpJC3dhE41LuxmAgBFk6G",
                 icon: "fa-user-secret",
-                actionType: "Pasif • Kunci Rahasia",
-                desc: "Warga desa misterius yang menyembunyikan jati dirinya di balik bayangan. Keberadaannya menjadi kunci pemicu kekuatan dahsyat milik Dewa apabila identitasnya berhasil ditemukan."
+                actionType: "Pasif • Kunci Incaran Dewa",
+                desc: "Warga desa tersembunyi yang menyimpan rahasia besar desa. Keberadaannya menjadi kunci utama yang dicari oleh peran Dewa.",
+                explanation: "Hidden Villager tampak seperti warga biasa, namun ia memegang takdir keselamatan desa. Ia harus menyembunyikan jati dirinya rapat-rapat agar tidak ditemukan oleh Dewa, karena jika Dewa berhasil menebak atau menemukannya, seluruh warga desa akan musnah.",
+                strategy: "Jangan pernah membuka identitas aslimu sebagai Hidden Villager di ruang publik apabila ada peran Dewa di dalam permainan!"
             },
             {
                 id: "hunter",
                 name: "Hunter",
-                title: "Pemburu Terakhir",
+                title: "Pemburu Pelatuk Terakhir",
                 faction: "good",
                 driveId: "1BSFQV6a79t5eNwDu8N4vPyIoJxTzFWLm",
                 icon: "fa-bullseye",
                 actionType: "Reaksi Kematian • Tembakan Balasan",
-                desc: "Pemburu tangguh desa. Saat Hunter tereliminasi atau mati (baik karena dimangsa di malam hari maupun digantung warga), ia dapat menarik pelatuk terakhirnya untuk menembak mati satu pemain lain."
+                desc: "Pemburu tangguh desa. Ketika Hunter tereliminasi (baik karena dibunuh pada malam hari maupun digantung warga pada siang hari), ia dapat menarik pelatuk terakhirnya untuk membawa mati satu pemain lain.",
+                explanation: "Hunter tidak pernah mati sendirian. Sesaat sebelum menghembuskan napas terakhirnya karena serangan malam atau eksekusi voting, Hunter berhak menunjuk satu pemain lain untuk ditembak mati seketika.",
+                strategy: "Amati dengan jeli perilaku setiap pemain sepanjang permainan, supaya ketika kamu tiba-tiba terbunuh di malam hari, tembakan terakhir milikmu tepat mengenai Werewolf."
             },
             {
                 id: "lord",
                 name: "Lord",
-                title: "Bangsawan Bertameng",
+                title: "Bangsawan Bertameng Warga",
                 faction: "good",
                 driveId: "1KlVPEgwpTxUqVbIx114WWa7GCo5qcj31",
                 icon: "fa-chess-king",
-                actionType: "Aktif • Tameng Warga",
-                desc: "Role aktif yang dapat mengacak atau memilih satu villager untuk menjadi tamengnya. Apabila Lord hendak dicabik Werewolf, maka yang akan mati terlebih dahulu adalah villager yang menjadi tameng Lord."
+                actionType: "Aktif • Tameng Hidup",
+                desc: "Role aktif yg dapat mengacak atau memilih satu villager untuk menjadi tameng dia. Apabila Lord ingin dicabik Werewolf, maka yg akan mati terlebih dahulu adalah villager yg menjadi tameng Lord.",
+                explanation: "Bangsawan desa yang menggunakan pemain lain sebagai perisai hidup. Setiap malam Lord dapat memilih (atau mengacak) satu pemain sebagai tameng. Jika Werewolf menyerang Lord, sang tamenglah yang akan tewas menggantikannya sementara Lord tetap selamat.",
+                strategy: "Pilihlah pemain yang paling kamu curigai sebagai tamengmu, jangan memilih pemain yang sudah terbukti sebagai Seer atau Guardian."
             },
             {
                 id: "lycan",
@@ -648,18 +629,22 @@
                 faction: "good",
                 driveId: "14eG0z3X8DgIXUHcdhwNcoR1yXIDLoBzI",
                 icon: "fa-dog",
-                actionType: "Pasif • Aura Palsu",
-                desc: "Villager yang terkutuk dan tidak memiliki keahlian khusus. Namun ketika Seer menerawangnya, Seer melihatnya sebagai Werewolf. Lycan tetap memihak desa dan tidak ikut bangun bersama para Werewolf."
+                actionType: "Pasif • Terbaca Werewolf oleh Seer",
+                desc: "Adalah villager yang terkutuk, ia tidak memiliki keahlian. Namun ketika Seer menerawangnya, ia melihatnya sebagai werewolf. Lycan tidak ikut bangun dengan para Werewolf.",
+                explanation: "Lycan murni berada di pihak warga desa (Kartu Baik) dan tidak memiliki kemampuan aktif. Namun karena darah kutukan di tubuhnya, apabila Seer menerawang Lycan di malam hari, moderator akan memberi tahu Seer bahwa ia adalah Werewolf.",
+                strategy: "Jika Seer menuduhmu sebagai Werewolf di siang hari, jelaskan dengan tenang dan logis bahwa kamu adalah Lycan agar warga tidak membuang satu giliran gantung."
             },
             {
                 id: "mason",
                 name: "Mason",
-                title: "Persaudaraan Rahasia",
+                title: "Persaudaraan Rahasia Desa",
                 faction: "good",
                 driveId: "17lrvkx_0sprq5KtytF6V8Ma5KZKyWTT6",
                 icon: "fa-trowel-bricks",
-                actionType: "Pasif • Saling Mengenal",
-                desc: "Anggota persaudaraan rahasia desa. Sesama Mason saling mengenal identitas satu sama lain sejak malam pertama sehingga dapat saling memastikan bahwa mereka adalah warga baik."
+                actionType: "Pasif • Saling Mengenal Sejak Awal",
+                desc: "Anggota persaudaraan rahasia desa yang saling mengenal identitas sesama Mason sejak malam pertama permainan dimulai.",
+                explanation: "Para anggota Mason membuka mata bersama di awal permainan untuk saling mengetahui siapa rekan sesama Mason mereka, sehingga mereka memiliki sekutu warga baik yang 100% dapat dipercaya sejak hari pertama.",
+                strategy: "Gunakan kepercayaan mutlak antar sesama Mason untuk mengawal alur diskusi siang tanpa harus buru-buru membocorkan semua anggota Mason ke para Werewolf."
             },
             {
                 id: "president",
@@ -668,28 +653,34 @@
                 faction: "good",
                 driveId: "1OivD7M6TDvtfgWitGuuN9TgHIWJO1B0q",
                 icon: "fa-landmark-dome",
-                actionType: "Pasif • Identitas Terbuka",
-                desc: "Seorang penduduk desa yang terpilih menjadi ketua atau pemimpin, identitasnya langsung diketahui oleh seluruh penduduk desa. Jika President mati, Werewolf dapat membunuh 2 penduduk dalam 1 malam."
+                actionType: "Pasif • Identitas Terbuka & Efek Maut",
+                desc: "Seorang penduduk desa yang terpilih menjadi ketua atau pemimpin, identitas akan langsung diketahui oleh seluruh penduduk desa. Jika President mati, werewolf dapat membunuh 2 penduduk dalam 1 malam.",
+                explanation: "Pemimpin tertinggi desa yang identitasnya diumumkan secara terbuka sejak awal permainan. Guardian dan warga wajib menjaga keselamatan President, sebab jika President tewas, kawanan Werewolf akan mendapatkan kekuatan membunuh 2 warga sekaligus dalam satu malam.",
+                strategy: "Pimpin jalannya diskusi desa dengan wibawa dan minta Guardian untuk memprioritaskan penjagaan rumahmu setiap malam."
             },
             {
                 id: "seer",
                 name: "Seer",
-                title: "Sang Penerawang",
+                title: "Sang Penerawang Aura",
                 faction: "good",
                 driveId: "1b0uwg7-7yzBlresg9A6ytfXVHSJPr-Q9",
                 icon: "fa-eye",
-                actionType: "Aktif Malam • Terawangan",
-                desc: "Villager yang memiliki skill untuk menerawang pemain lain setiap malamnya. Seer hanya bisa mengetahui apakah target adalah Werewolf atau Villager. Apabila Sorcerer, Serial Killer, ataupun no-side diterawang, moderator memberitahukan bahwa dia adalah Villager."
+                actionType: "Aktif Malam • Terawangan Werewolf/Villager",
+                desc: "Villager yang memiliki skill untuk menerawang pemain lain setiap malamnya. Seer hanya bisa mengetahui apakah target adalah Werewolf atau Villager. Apabila Sorcerer, Serial Killer, ataupun no-side (tanpa tim) diterawang, maka moderator memberitahukan bahwa dia adalah Villager.",
+                explanation: "Mata batin utama desa. Setiap malam Seer menunjuk satu pemain untuk diterawang. Perlu diingat bahwa Seer hanya mendeteksi aura Werewolf (serta Lycan); peran jahat pendukung seperti Sorcerer atau peran Netral seperti Serial Killer akan terbaca sebagai Villager biasa.",
+                strategy: "Waspadai keberadaan Sorcerer yang mencarimu di malam hari. Jangan langsung membuka identitas di hari pertama kecuali sudah berhasil menangkap basah satu Werewolf."
             },
             {
                 id: "sheriff",
                 name: "Sheriff",
-                title: "Penegak Keadilan",
+                title: "Penegak Pistol Keadilan",
                 faction: "good",
                 driveId: "19xqaN_3P34mWGZRO3Nh7cUIPI0TuhadO",
                 icon: "fa-star",
-                actionType: "Aktif • Pistol Keadilan",
-                desc: "Warga desa yang mempunyai pistol khusus untuk menembak orang jahat atau Werewolf. Jika Sheriff salah menembak warga biasa atau warga baik, maka Sheriff sendiri yang akan mati."
+                actionType: "Aktif • Tembak Jahat / Mati Jika Salah",
+                desc: "Warga desa yang mempunyai pistol, tetapi pistolnya khusus menembak orang jahat atau Werewolf. Jika Sheriff menembak warga biasa atau warga baik, maka Sheriff akan mati.",
+                explanation: "Penegak hukum desa yang dapat menembak tersangka. Jika sasaran tembaknya benar-benar Werewolf atau peran jahat, target tersebut tewas. Namun jika Sheriff salah tembak dan mengenai warga baik, peluru keadilan akan berbalik menewaskan Sheriff sendiri.",
+                strategy: "Tarik pelatuk hanya ketika kamu sudah mengantongi petunjuk kuat, karena salah menembak akan merugikan tim desa dan merenggut nyawamu sendiri."
             },
             {
                 id: "strong-villager",
@@ -698,38 +689,46 @@
                 faction: "good",
                 driveId: "1QiZk6kghNBWxHtGljOAZ_JlKz8MP62Wp",
                 icon: "fa-dumbbell",
-                actionType: "Pasif • Ketahanan Fisik",
-                desc: "Warga desa bertubuh kekar dan berfisik baja yang memiliki ketahanan ekstra terhadap serangan di malam hari sehingga tidak mudah tumbang dalam sekali serang."
+                actionType: "Pasif • Ketahanan Serangan Malam",
+                desc: "Warga desa berfisik sangat kuat dan tangguh yang mampu bertahan dari serangan mematikan pertama pada malam hari.",
+                explanation: "Berbeda dengan warga biasa yang langsung tewas saat diserang, fisik ekstra kuat dari Strong Villager membuatnya memiliki ketahanan lebih terhadap serangan malam sehingga menjadi benteng alami bagi desa.",
+                strategy: "Kamu bisa tampil sedikit lebih berani dalam memimpin argumen siang hari untuk memancing Werewolf membuang serangan malam mereka ke arahmu."
             },
             {
                 id: "time-caster",
                 name: "Time Caster",
-                title: "Pemutar Waktu",
+                title: "Penyihir Pemutar Waktu",
                 faction: "good",
                 driveId: "1HuCek_A4ZfmHIaIDm7qAlxG-4YeAXUoj",
                 icon: "fa-hourglass-half",
-                actionType: "Aktif 1x • Mundurkan Waktu",
-                desc: "Role aktif yang bisa memundurkan waktu. Ketika ada seorang warga yang mati dibunuh Werewolf, Time Caster bisa memundurkan waktu dan warga itu hidup kembali pada pagi harinya. Hanya dapat digunakan 1 kali dan identitas Time Caster langsung terungkap setelahnya."
+                actionType: "Aktif 1x • Hidupkan Korban Werewolf",
+                desc: "Role aktif yang bisa memundurkan waktu. Ketika ada seorang warga yang mati dibunuh Werewolf, Time Caster bisa memundurkan waktu dan warga itu hidup kembali pada pagi harinya. Kekuatan ini hanya dapat digunakan 1 kali saja dan identitas Time Caster akan terungkap setelah menggunakan kekuatan tersebut.",
+                explanation: "Penyihir pengendali waktu. Saat seorang warga tewas diterkam Werewolf, Time Caster dapat memutar balik waktu agar korban kembali hidup di pagi hari. Kekuatan dahsyat ini hanya berlaku sekali seumur hidup dan langsung membuka identitas Time Caster ke seluruh pemain.",
+                strategy: "Gunakan putaran waktumu untuk menghidupkan kembali peran vital seperti Seer, Guardian, atau President yang tewas diterkam Werewolf."
             },
             {
                 id: "tracker",
                 name: "Tracker",
-                title: "Pelacak Jejak Malam",
+                title: "Pelacak Jejak Kaki Malam",
                 faction: "good",
                 driveId: "1_xc3dQX3-3XOg4OLYoAZaRyz4D9-_K8R",
                 icon: "fa-shoe-prints",
-                actionType: "Aktif Malam • Lacak Kunjungan",
-                desc: "Villager yang mampu mengetahui gerak-gerik setiap warga, pergi ke mana dan ke rumah siapa pada malam hari, tetapi Tracker tidak mengetahui apa role dari pemain yang dilacak tersebut."
+                actionType: "Aktif Malam • Lacak Tujuan Kunjungan",
+                desc: "Villager yang mampu mengetahui gerak-gerik setiap warga, pergi kemana, kerumah siapa, tapi Tracker tidak mengetahui role yang ditrack itu apa.",
+                explanation: "Pelacak jejak kaki di malam hari. Setiap malam Tracker memilih satu pemain untuk diikuti. Moderator akan memberi tahu ke rumah siapa pemain tersebut pergi berkunjung, meski Tracker tidak diberitahu apa nama role target tersebut.",
+                strategy: "Cocokkan hasil lacakmu dengan kejadian kematian di pagi hari: jika orang yang kamu lacak mengunjungi rumah korban yang tewas malam itu, besar kemungkinan dia adalah pembunuhnya (atau Guardian/Harlot)."
             },
             {
                 id: "trapper",
                 name: "Trapper",
-                title: "Pemasang Perangkap",
+                title: "Pemasang Perangkap Maut",
                 faction: "good",
                 driveId: "1JRvJm2ZMfxL5PgXR9LScOnA8fTUP2FNW",
                 icon: "fa-land-mine-on",
-                actionType: "Aktif Malam • Jebakan Maut",
-                desc: "Trapper bekerja di malam hari. Apabila Trapper meletakkan jebakan (trap) di salah satu rumah player yang masih hidup, maka apabila player lain dengan role aktif berkunjung ke rumah tersebut, pengunjung itu akan mati di malam itu."
+                actionType: "Aktif Malam • Jebakan Rumah",
+                desc: "Trapper bekerja dimalam hari. Apabila trapper meletakkan trap disalah satu rumah player yang masih hidup, maka apabila player lain dengan role aktif berkunjung ke rumah player tersebut maka player tersebut akan mati dimalam itu.",
+                explanation: "Pemasang perangkap mematikan. Setiap malam Trapper memasang jebakan di rumah salah satu pemain. Siapa pun pemilik role aktif (baik Werewolf maupun warga aktif seperti Harlot/Seer) yang mengunjungi rumah berjebakan itu pada malam tersebut akan langsung tewas terkena perangkap.",
+                strategy: "Pasang perangkap di rumah warga yang kemungkinan besar diincar Werewolf, namun berhati-hatilah agar tidak menjebak rumah yang sedang ingin dikunjungi Harlot atau Guardian."
             },
             {
                 id: "villager",
@@ -738,38 +737,46 @@
                 faction: "good",
                 driveId: "1Yh8ewtzXvD7PIY3c-cerQVPZxnNlMH8z",
                 icon: "fa-person-rays",
-                actionType: "Suara Diskusi Siang",
-                desc: "Warga desa biasa tanpa kemampuan malam khusus. Mengandalkan ketajaman analisis, diskusi di siang hari, dan hak suara (voting) untuk menemukan serta menggantung para Werewolf."
+                actionType: "Diskusi & Suara Voting Siang",
+                desc: "Warga desa biasa tanpa kekuatan khusus di malam hari. Mengandalkan ketajaman analisis, diskusi, dan hak suara di siang hari untuk menemukan serta menggantung para Werewolf.",
+                explanation: "Tulang punggung suara mayoritas desa. Meski tidak bangun di malam hari, kejelian Villager dalam membaca gelagat, berargumen, dan memberikan vote di siang hari adalah penentu kemenangan Tim Baik.",
+                strategy: "Perhatikan siapa yang selalu berusaha mengalihkan topik saat seorang tersangka mulai terpojok di diskusi siang."
             },
             {
                 id: "wise-elder",
                 name: "Wise Elder",
-                title: "Tetua Bijak",
+                title: "Tetua Bijaksana Desa",
                 faction: "good",
                 driveId: "1z7EcIS3DE8zT_AjhFfIEhjXawUrUXrTM",
                 icon: "fa-hat-wizard",
-                actionType: "Kebijaksanaan & Perlindungan",
-                desc: "Tetua bijak yang dihormati seluruh warga desa. Pengalaman dan kebijaksanaannya memberikan perlindungan spiritual serta petunjuk berharga bagi warga dalam menghadapi teror malam."
+                actionType: "Kebijaksanaan & Ketahanan Tetua",
+                desc: "Tetua bijaksana desa yang dihormati. Memiliki kebijaksanaan tinggi dan ketahanan terhadap serangan awal malam hari, namun kematiannya oleh warga desa akan membawa konsekuensi berat.",
+                explanation: "Tetua desa yang berpengalaman. Warga desa harus sangat berhati-hati agar tidak salah menggantung atau membunuh Wise Elder dalam persidangan maupun tembakan siang.",
+                strategy: "Jadikan dirimu jangkar ketenangan diskusi desa dan ingatkan para pemilik senjata siang hari agar tidak gegabah menembak."
             },
             {
                 id: "witch",
                 name: "Witch",
-                title: "Penyihir Pengorbanan",
+                title: "Penyihir Pengorbanan Nyawa",
                 faction: "good",
                 driveId: "1laz0Kz_iSHQhBPXzOhVR12mw_OmSxMDM",
                 icon: "fa-flask-vial",
-                actionType: "Aktif 1x • Bangkit/Bunuh",
-                desc: "Kekuatan Witch adalah membangkitkan mayat atau membunuh pemain. Baik digunakan untuk membunuh maupun membangkitkan pemain, Witch akan mati bunuh diri setelah menggunakannya. Hanya dapat digunakan sekali."
+                actionType: "Aktif 1x • Bangkit/Bunuh & Tumbal Diri",
+                desc: "Kekuatan Witch adalah membangkitkan mayat atau membunuh pemain. Jika kekuatannya digunakan untuk membunuh, maka Witch akan mati bunuh diri. Jika kekuatannya digunakan untuk membangkitkan pemain, maka Witch akan mati bunuh diri. Hanya dapat digunakan sekali.",
+                explanation: "Penyihir pengorbanan jiwa. Witch memiliki satu kekuatan pamungkas yang bisa dipakai untuk membangkitkan pemain yang sudah mati ATAU membunuh satu pemain hidup. Namun apa pun pilihan yang diambil, penggunaan kekuatan ini menuntut nyawa Witch sendiri sebagai tumbal (langsung mati bunuh diri setelah beraksi).",
+                strategy: "Tukarkan nyawamu hanya untuk menghidupkan kembali peran penentu kemenangan desa atau untuk langsung membunuh Werewolf terakhir yang sudah pasti identitasnya."
             },
             {
                 id: "wizard",
                 name: "Wizard",
-                title: "Penyihir Tebak Peran",
+                title: "Penyihir Agung Penebak Role",
                 faction: "good",
                 driveId: "1EUQKE0E_glk-d2qDUmD7rCmyKU0RDsYZ",
                 icon: "fa-wand-sparkles",
-                actionType: "Aktif Siang • Tebak Role",
-                desc: "Penyihir agung desa yang dapat mengeksekusi pemain lain di siang hari dengan menebak perannya. Jika tebakan perannya benar maka target langsung mati, namun jika tebakannya salah maka Wizard yang akan mati."
+                actionType: "Aktif Siang • Tebak Role Target",
+                desc: "Penyihir agung desa yang dapat menebak role pemain lain di siang hari untuk mengeliminasinya. Jika tebakannya benar maka target langsung mati, namun jika tebakannya salah maka Wizard sendiri yang akan mati.",
+                explanation: "Eksekutor berbasis deduksi di siang hari. Wizard dapat menunjuk seorang pemain dan menyebutkan tebakan role spesifiknya kepada moderator. Jika tepat sasaran, target langsung tewas tereliminasi; tetapi jika meleset, mantra tersebut memantul dan membunuh Wizard seketika.",
+                strategy: "Kumpulkan informasi dari diskusi siang untuk memastikan nama role spesifik musuh (misal: Werewolf, Alpha Werewolf, atau Serial Killer) sebelum merapalkan tebakanmu."
             },
 
             // ================= KATEGORI: KARTU WEREWOLF / JAHAT (werewolf) =================
@@ -781,179 +788,227 @@
                 driveId: "1QtWc1whIZPlFjURBusNNWuFGaTWsad6j",
                 icon: "fa-crown",
                 actionType: "Warisan Kutukan Saat Mati",
-                desc: "Ketika Alphawolf mati (divote/dibunuh), ia memilih satu pemain untuk dijadikan Werewolf. Jika mati pada siang hari atau divote, ia menarik orang pada malam hari (sebelum pagi tiba). Jika terbunuh saat malam hari, ia menarik orang pada sore hari (sebelum malam tiba)."
+                desc: "Ketika Alphawolf mati (Vote/Dibunuh), ia memilih satu pemain untuk dijadikan Werewolf. Jika Alphawolf mati dibunuh pada siang hari atau divote, maka ia akan menarik orang pada malam hari (sebelum pagi tiba). Jika Alphawolf terbunuh saat malam hari, maka ia akan menarik orang pada sore hari (sebelum malam tiba).",
+                explanation: "Pemimpin tertinggi kawanan serigala. Kematian Alpha Werewolf bukanlah akhir, melainkan awal teror baru: saat ia mati karena digantung atau dibunuh, ia berhak menunjuk satu pemain hidup untuk ditarik dan diubah menjadi Werewolf baru sesuai waktu kematiannya.",
+                strategy: "Saat kamu gugur, tariklah pemain warga baik yang paling dipercaya oleh desa (seperti Mason atau pemain yang sudah dibela Seer) agar tidak ada yang mencurigai bahwa dia kini telah berubah menjadi Werewolf!"
             },
             {
                 id: "cursed",
                 name: "Cursed",
-                title: "Darah Terkutuk",
+                title: "Warga Berdarah Kutukan Serigala",
                 faction: "werewolf",
                 driveId: "1V_sdZJordsbvwElzJywMOPJfCmxM-ot-",
                 icon: "fa-skull-crossbones",
-                actionType: "Pasif • Transformasi Serigala",
-                desc: "Seorang warga biasa yang menyimpan kutukan kegelapan. Jika ia dibunuh oleh Werewolf pada malam hari, ia tidak akan mati, melainkan bangkit dan bergabung ke tim Werewolf."
+                actionType: "Pasif • Bangkit Jadi Werewolf Saat Dimangsa",
+                desc: "Seorang warga biasa yang menyimpan kutukan kegelapan. Jika ia dibunuh oleh Werewolf pada malam hari, ia tidak akan mati, melainkan bangkit dan bergabung ke tim Werewolf.",
+                explanation: "Pada awalnya Cursed berbaur sebagai warga biasa. Namun jika kawanan Werewolf memilihnya sebagai mangsa di malam hari, kutukan di dalam darahnya aktif: ia tidak mati, melainkan bertransformasi menjadi Werewolf dan bergabung ke kubu jahat sejak malam berikutnya.",
+                strategy: "Bertingkahlah seperti peran warga penting di siang hari agar Werewolf tertarik memangsamu di malam hari dan mengaktifkan transformasimu menjadi anggota kawanan serigala."
             },
             {
                 id: "nightmare-werewolf",
                 name: "Nightmare Werewolf",
-                title: "Serigala Mimpi Buruk",
+                title: "Penguasa Gerhana Mimpi Buruk",
                 faction: "werewolf",
                 driveId: "1f_STl3T2_8ixhuMG0mFB-Q4caJZI1VsD",
                 icon: "fa-cloud-moon",
-                actionType: "Aktif • Gerhana Mimpi Buruk",
-                desc: "Werewolf mengerikan penguasa mimpi buruk yang mampu mengubah siang menjadi malam gulita, menonaktifkan seluruh kekuatan warga desa kecuali kekuatan milik kawanan Werewolf dan pihak jahat."
+                actionType: "Aktif • Siang Jadi Malam & Kunci Skill Baik",
+                desc: "Werewolf mengerikan penguasa mimpi buruk yang mampu mengubah siang menjadi malam gelap gulita serta membungkam seluruh kekuatan warga baik, sehingga hanya kekuatan Werewolf dan pihak jahat yang tetap aktif.",
+                explanation: "Senjata pamungkas kawanan serigala. Saat Nightmare Werewolf melepaskan terornya, fase siang berubah menjadi malam dan seluruh skill milik warga desa terkunci total, membiarkan kubu Werewolf mendominasi permainan tanpa perlawanan.",
+                strategy: "Aktifkan mimpi buruk saat jumlah pemain mulai menipis atau ketika warga desa sudah bersiap menggantung rekan Werewolf-mu di siang hari."
             },
             {
                 id: "prawler",
                 name: "Prawler",
-                title: "Serigala Tersesat",
+                title: "Serigala Pengembara Tersesat",
                 faction: "werewolf",
                 driveId: "1na_r6QX3u5wfguiH0BQ8-sQBCYSaa1Gh",
                 icon: "fa-compass-drafting",
-                actionType: "Aktif Malam • Cari Kawanan",
-                desc: "Werewolf yang belum menemukan kawanan alias Werewolf tersesat. Setiap malam memberikan nama ke moderator mau pergi ke mana; apabila ia bertemu kawanan Werewolf, barulah ia resmi bergabung."
+                actionType: "Aktif Malam • Cari Kawanan Werewolf",
+                desc: "Prawler adalah Werewolf yang belum menemukan kawanan alias Werewolf tersesat. Setiap malam memberikan nama ke moderator mau ke mana, kalau-kalau dia bertemu kawanan Werewolf maka baru boleh bergabung.",
+                explanation: "Serigala pengembara yang terpisah dari kawanannya di awal permainan. Setiap malam ia menyetor satu nama pemain kepada moderator untuk dikunjungi. Begitu ia berhasil menebak/mengunjungi salah satu anggota kawanan Werewolf, ia resmi bergabung dan bangun bersama mereka.",
+                strategy: "Amati siapa pemain yang tampak saling membela secara halus di diskusi siang untuk menebak siapa anggota kawanan Werewolf yang harus kamu kunjungi malam nanti."
             },
             {
                 id: "sorcerer",
                 name: "Sorcerer",
-                title: "Penyihir Kegelapan",
+                title: "Penyihir Kegelapan Pemburu Seer",
                 faction: "werewolf",
                 driveId: "1hEDOmwiKeikse7yGf8QMHRjpZenMMtQO",
                 icon: "fa-fire-flame-curved",
-                actionType: "Aktif Malam • Pemburu Seer",
-                desc: "Penyihir kegelapan sekutu Werewolf yang menggunakan sihir hitamnya di malam hari untuk mencari keberadaan Seer dan membantu kawanan serigala menghabisi warga desa."
+                actionType: "Aktif Malam • Lacak Seer (Kebal Terawang)",
+                desc: "Penyihir gelap sekutu Werewolf yang menerawang di malam hari untuk mencari keberadaan Seer dan membantu kawanan Werewolf memenangkan permainan. Jika diterawang Seer, Sorcerer terbaca sebagai Villager.",
+                explanation: "Mata-mata mistis di kubu Werewolf. Setiap malam Sorcerer dapat menerawang pemain untuk menemukan siapa Seer sebenarnya agar bisa segera dihabisi oleh serigala. Kelebihannya, aura hitamnya tersembunyi sehingga Seer melihatnya sebagai Villager biasa.",
+                strategy: "Karena kamu terbaca sebagai Villager oleh Seer, kamu bahkan bisa berpura-pura mengaku sebagai Seer asli di siang hari untuk mengadu domba warga desa!"
             },
             {
                 id: "spell-caster",
                 name: "Spell Caster",
-                title: "Perapal Mantra Bisu",
+                title: "Perapal Mantra Pembungkam",
                 faction: "werewolf",
                 driveId: "1GO-b9K4jbetCL3ud29QmrurmRrA7_w7V",
                 icon: "fa-comment-slash",
-                actionType: "Aktif Malam • Kutukan Bisu",
-                desc: "Pengguna mantra kutukan pembungkam dari pihak kegelapan. Setiap malam dapat memilih target agar membisu dan tidak bisa berbicara atau membela diri saat diskusi siang hari."
+                actionType: "Aktif Malam • Kutukan Bisu Siang Hari",
+                desc: "Pengguna mantra kegelapan pendukung tim jahat yang dapat membisukan (mute) seorang warga pada malam hari sehingga target tidak boleh berbicara atau berdiskusi sepanjang siang hari berikutnya.",
+                explanation: "Setiap malam Spell Caster menunjuk satu pemain untuk dikenai mantra bisu. Pada pagi dan siang hari berikutnya, pemain yang terkena mantra dilarang mengeluarkan suara atau berargumen, melumpuhkan penyampaian informasi penting desa.",
+                strategy: "Bungkam pemain yang paling vokal memimpin analisis desa atau pemain yang dicurigai sebagai Seer agar ia tidak bisa mengumumkan hasil terawangannya."
             },
             {
                 id: "traitor",
                 name: "Traitor",
-                title: "Pengkhianat Desa",
+                title: "Pengkhianat Penerus Serigala",
                 faction: "werewolf",
                 driveId: "1QwzmbM3c16hsuWpTLAMpYYOzqa0kpVvN",
                 icon: "fa-mask",
-                actionType: "Pasif • Penerus Werewolf",
-                desc: "Pengkhianat berwujud warga desa yang memihak tim Werewolf. Apabila seluruh kawanan Werewolf asli telah mati terbunuh, Traitor akan bertransformasi menjadi Werewolf baru untuk melanjutkan teror."
+                actionType: "Pasif • Transformasi Jika Werewolf Habis",
+                desc: "Pengkhianat di tengah warga desa yang memihak kawanan Werewolf. Jika seluruh Werewolf asli telah mati tereliminasi, Traitor akan bangkit bertransformasi menjadi Werewolf untuk melanjutkan pembantaian.",
+                explanation: "Traitor menang bersama tim Werewolf. Selama masih ada Werewolf hidup, ia berbaur di desa (dan akan membunuh Thief yang nekat mencoba mencuri rolenya). Namun jika semua Werewolf habis, Traitor mengambil alih taring serigala dan menjadi Werewolf baru.",
+                strategy: "Berpura-puralah menjadi warga desa paling setia di awal permainan sehingga tidak ada seorang pun yang mencurigaimu saat kamu mewarisi peran Werewolf di akhir permainan."
             },
             {
                 id: "werewolf",
                 name: "Werewolf",
-                title: "Pemangsa Malam",
+                title: "Pemangsa Utama Malam",
                 faction: "werewolf",
                 driveId: "1cc81t3zmtPRJ4V6T0ZLv6F6ikWS8JgcF",
                 icon: "fa-wolf-pack-battalion",
-                actionType: "Aktif Malam • Mangsa Warga",
-                desc: "Pemangsa utama malam hari. Bangun bersama kawanan Werewolf setiap malam untuk berdiskusi dalam senyap dan memilih satu warga desa untuk dicabik-cabik, lalu menyamar sebagai warga baik di siang hari."
+                actionType: "Aktif Malam • Mangsa Warga Desa",
+                desc: "Predator malam pemangsa warga desa. Bangun setiap malam bersama kawanan Werewolf lainnya untuk berdiskusi secara senyap dan memilih satu warga desa untuk dimangsa hingga tewas.",
+                explanation: "Inti dari kubu jahat. Pada malam hari mereka saling mengenal dan kompak menunjuk satu korban. Pada siang hari mereka harus menyamar sebagai warga baik, memfitnah warga lain, dan menghindari tiang gantungan.",
+                strategy: "Jangan selalu membela rekan sesama Werewolf secara mencolok di siang hari; sesekali berbeda pendapatlah agar warga tidak dapat menebak jaringan kawananmu."
             },
             {
                 id: "wolf-seer",
                 name: "Wolf Seer",
-                title: "Serigala Penerawang",
+                title: "Serigala Penerawang Peran",
                 faction: "werewolf",
                 driveId: "1HZgUTSMwwhTCck-_2iUzb4dtoagnHqkW",
                 icon: "fa-eye-low-vision",
-                actionType: "Aktif Malam • Intip Role",
-                desc: "Serigala mistis dengan mata batin tajam yang memiliki kemampuan untuk menerawang dan mengetahui peran asli dari pemain lain guna memberi informasi krusial bagi kawanan Werewolf."
+                actionType: "Aktif Malam • Intip Role Pasti",
+                desc: "Serigala peramal dari kawanan Werewolf yang memiliki kekuatan untuk menerawang dan mengetahui role pasti dari pemain lain di malam hari.",
+                explanation: "Memberikan keunggulan intelijen luar biasa bagi kawanan Werewolf. Dengan menerawang identitas asli seorang warga di malam hari, Wolf Seer dapat memberi tahu kawanannya mana target ber-skill penting yang harus diutamakan untuk dimangsa.",
+                strategy: "Gunakan hasil terawanganmu untuk menghindari memangsa Diseased, Prophet, atau rumah yang dijaga Trapper, serta prioritaskan mencari Guardian dan Seer."
             },
             {
                 id: "wolfcub",
                 name: "Wolfcub",
-                title: "Anak Serigala",
+                title: "Anak Kesayangan Kawanan Serigala",
                 faction: "werewolf",
                 driveId: "1gd1E3T274wz4EPEq0A7fQimDyO42Ots5",
                 icon: "fa-paw",
                 actionType: "Efek Kematian • Dendam 2x Mangsa",
-                desc: "Anak kesayangan para Werewolf. Wolfcub tidak dapat membunuh, namun ketika Wolfcub di-vote ataupun dibunuh, pada malam berikutnya para Werewolf akan mengamuk dan memangsa dua warga sekaligus."
+                desc: "Anak kesayangan Werewolfs. Ketika di-vote ataupun dibunuh, malam berikutnya Werewolfs akan marah dan memangsa dua warga sekaligus. Wolfcub tidak dapat membunuh.",
+                explanation: "Anak serigala yang sangat disayangi kawanannya. Wolfcub sendiri tidak dapat melakukan pembunuhan sendirian, namun kematiannya (baik karena digantung warga maupun dibunuh role lain) akan memicu kemarahan kawanan Werewolf sehingga pada malam berikutnya mereka berhak memangsa 2 warga sekaligus.",
+                strategy: "Jika kawananmu butuh mempercepat jumlah pembunuhan di malam berikutnya, kamu bisa sengaja memancing warga untuk menggantungmu di siang hari."
             },
 
             // ================= KATEGORI: KARTU NETRAL / PENGACAU (neutral) =================
             {
                 id: "arsonist",
                 name: "Arsonist",
-                title: "Pembakar Desa",
+                title: "Pembakar Rumah Desa",
                 faction: "neutral",
                 driveId: "1Oor0mHndA3E8IeSevJMzBqwXqpUJ9-lq",
                 icon: "fa-fire",
-                actionType: "Solo • Siram Minyak & Bakar",
-                desc: "Mempunyai kekuatan menyiram minyak dan membakar penduduk desa setiap malam. Arsonist akan menang sendirian jika setiap rumah warga desa yang tersisa sudah berhasil dibakar."
+                actionType: "Solo • Siram Minyak & Bakar Desa",
+                desc: "Seorang warga yang mempunyai kekuatan membakar penduduk desa setiap malam. Arsonist akan menang jika setiap warga desa yang tersisa sudah dibakar atau diberikan pada masing-masing rumah yang tersisa.",
+                explanation: "Pembakar berantai berfaksi Netral Solo. Setiap malam ia menyiramkan minyak atau membakar rumah warga. Arsonist meraih kemenangan mutlak sendirian apabila seluruh rumah pemain yang masih bertahan hidup berhasil ia bakar habis.",
+                strategy: "Siramkan minyak ke pemain-pemain yang cenderung bertahan hidup lama (yang jarang diincar Werewolf maupun divote warga), lalu sulut apinya sekaligus!"
             },
             {
                 id: "clown",
                 name: "Clown",
-                title: "Badut Tiang Gantungan",
+                title: "Badut Pengecoh Tiang Gantungan",
                 faction: "neutral",
                 driveId: "1R7-L_or6-6kE42KQm8ehX6_ZK3Dgn0Ww",
                 icon: "fa-face-grin-tongue-wink",
-                actionType: "Solo • Menang Saat Digantung",
-                desc: "Seorang badut licik yang berusaha memancing kecurigaan agar dieliminasi dengan cara divoting oleh warga desa, karena jika ia mati digantung di siang hari maka Clown langsung menang."
+                actionType: "Solo • Menang Instan Saat Digantung",
+                desc: "Dia seorang badut yang berusaha untuk dieliminasi dengan cara divoting oleh warga desa, karena jika ia mati digantung maka Clown akan menang.",
+                explanation: "Pengecoh persidangan desa. Tujuan hidup Clown hanya satu: memancing kecurigaan seluruh warga agar dirinya divote dan mati digantung pada siang hari. Begitu warga menggantung Clown, ia langsung memenangkan permainan secara instan.",
+                strategy: "Berikan argumen yang agak janggal atau pura-pura salah bicara seperti Werewolf yang panik, namun jangan terlalu berlebihan agar warga tidak sadar bahwa kamu adalah Clown."
             },
             {
                 id: "cupid",
                 name: "Cupid",
-                title: "Sang Pengikat Cinta",
+                title: "Sang Pengikat Takdir Cinta",
                 faction: "neutral",
                 driveId: "1Yk7-eidyVz8L6EsNJDa7vFCcvi2jH4JN",
                 icon: "fa-heart",
-                actionType: "Awal Permainan • Pasangan Cinta",
-                desc: "Memilih satu pemain untuk dijadikan pasangan cintanya (Lover) pada awal permainan, termasuk Werewolf. Jika pasangan Cupid adalah Werewolf, maka Cupid akan masuk ke kawanan Werewolf, tapi tetap terdeteksi sebagai Villager oleh Seer."
+                actionType: "Awal Permainan • Pilih Lover & Ikut Faksi",
+                desc: "Cupid memilih satu pemain untuk dijadikan pasangan cintanya (Lover) pada awal permainan. Cupid dapat memilih siapapun, termasuk Werewolf. Role Cupid tidak akan diberikan untuk kawanan Werewolf. Jika pasangan Cupid adalah Werewolf, maka Cupid akan masuk ke kawanan Werewolf, tapi akan tetap terdeteksi sebagai Villager oleh Seer.",
+                explanation: "Pengikat takdir cinta di awal permainan. Cupid memilih satu pemain untuk menjadi Lover-nya sendiri. Faksi Cupid bersifat dinamis mengikuti pasangannya: jika pasangannya warga baik ia memihak desa, namun jika pasangannya Werewolf ia ikut memihak Werewolf (sekalipun tetap terdeteksi sebagai Villager oleh Seer).",
+                strategy: "Lindungi pasangan cintamu dari tuduhan voting siang maupun ancaman malam, dan sesuaikan strategimu dengan faksi pasangan yang telah kamu pilih."
             },
             {
                 id: "dewa",
                 name: "Dewa",
-                title: "Entitas Absolut",
+                title: "Entitas Absolut Pemusnah Desa",
                 faction: "neutral",
                 driveId: "1YeESh1dhOz914SSZmyPkErPqt7govnPP",
                 icon: "fa-bolt-lightning",
-                actionType: "Solo • Pemusnah Desa",
-                desc: "Entitas tertinggi dengan kekuatan absolut di luar batas faksi biasa. Apabila Dewa berhasil menemukan keberadaan Hidden Villager, ia dapat memicu kehancuran yang melenyapkan seluruh warga desa."
+                actionType: "Solo • Temukan Hidden Villager & Musnahkan",
+                desc: "Entitas tertinggi pemilik kekuatan absolut yang mencari keberadaan Hidden Villager. Apabila Dewa berhasil menemukan Hidden Villager, ia dapat memusnahkan seluruh warga desa.",
+                explanation: "Peran penguasa takdir yang memiliki misi khusus melacak Hidden Villager di tengah kerumunan pemain. Jika Dewa berhasil mengidentifikasi Hidden Villager, kekuatan murkanya akan melenyapkan seluruh warga desa sekaligus.",
+                strategy: "Perhatikan pemain yang tampak terlalu berusaha menyembunyikan perannya sebagai warga biasa; mereka bisa jadi adalah Hidden Villager yang sedang kamu cari."
             },
             {
                 id: "doppleganger",
                 name: "Doppleganger",
-                title: "Peniru Bayangan",
+                title: "Peniru Identitas Bayangan",
                 faction: "neutral",
                 driveId: "1GH7XkJ4uP9TkHujLHpd9ejZ9o9BOOdXR",
                 icon: "fa-people-arrows",
-                actionType: "Malam Pertama • Warisi Role",
-                desc: "Pada malam pertama ia menunjuk satu pemain sebagai target bayangannya. Ketika pemain yang ditunjuk tersebut mati, Doppleganger langsung mengambil alih dan menggantikan peran pemain yang mati tersebut."
+                actionType: "Malam Pertama • Warisi Role Saat Target Mati",
+                desc: "Pada malam pertama ia menunjuk satu pemain. Ketika pemain yang ditunjuk mati, Doppelganger menggantikan peran pemain yang mati tersebut.",
+                explanation: "Peniru identitas bayangan. Di malam pertama, Doppleganger memilih satu pemain sebagai target tiruan. Selama target masih hidup, Doppleganger menunggu dalam bayangan; begitu target tersebut tewas, Doppleganger langsung mewarisi role dan faksi milik sang target sepenuhnya.",
+                strategy: "Pilihlah pemain yang aktif dan berpotensi menjadi incaran malam, sehingga ketika ia gugur kamu langsung mewarisi kekuatan pentingnya."
             },
             {
                 id: "gluttony",
                 name: "Gluttony",
-                title: "Pemakan Mayat",
+                title: "Pemakan Tujuh Mayat",
                 faction: "neutral",
                 driveId: "1DEhFf1BpOSIP3aanNLnO_vyNKXg2vAwR",
                 icon: "fa-skull",
-                actionType: "Solo • Makan 7 Mayat (2 Nyawa)",
-                desc: "Role aktif yang memakan mayat warga desa yang telah mati di makam. Apabila dia telah berhasil memakan mayat warga sebanyak 7 kali maka dia langsung menang. Gluttony mempunyai dua nyawa."
+                actionType: "Solo • Makan 7 Mayat (Punya 2 Nyawa)",
+                desc: "Role aktif yg memakan mayat warga desa yg telah mati. Apabila dia telah memakan mayat warga sebanyak 7 kali maka dia menang. Gluttony mempunyai dua nyawa.",
+                explanation: "Pemakan bangkai di kuburan desa. Setiap ada warga yang tewas, Gluttony dapat memakan mayat tersebut di malam hari. Ia dibekali 2 nyawa sehingga sangat sulit dibunuh, dan akan menang secara solo begitu berhasil menyantap 7 mayat warga.",
+                strategy: "Manfaatkan 2 nyawamu untuk bertahan hidup selama mungkin sambil membiarkan Werewolf dan warga saling membunuh agar stok mayat di kuburan cepat mencapai 7!"
             },
             {
                 id: "gravedigger",
                 name: "Gravedigger",
-                title: "Penggali Kubur",
+                title: "Penggali Kubur Pewaris Mayat",
                 faction: "neutral",
                 driveId: "1CB0Nw0JabOyAqMS6r42rmiob3dFIuRRx",
                 icon: "fa-tombstone",
-                actionType: "Aktif • Ambil Role Mayat",
-                desc: "Dapat menggali kuburan untuk mengambil role seorang mayat dan menggantikan peran mayat tersebut. Khusus jika menggali role Alphawolf, Gravedigger tidak menerima kekuatan Alphawolf dan hanya menjadi Werewolf biasa."
+                actionType: "Aktif • Gali Makam & Ambil Role Mayat",
+                desc: "Gravedigger dapat mengambil role seorang mayat dan menggantikan peran mayat tersebut. Khusus jika menggali role Alphawolf, seorang Gravedigger tidak akan menerima kekuatan Alphawolf tersebut dan hanya menjadi Werewolf biasa.",
+                explanation: "Penggali kubur yang dapat membongkar makam pemain yang telah tewas untuk mengambil alih role mereka. Jika ia menggali kuburan warga baik ia menjadi warga baik tersebut; jika menggali kuburan Werewolf ia menjadi Werewolf (namun jika yang digali adalah Alpha Werewolf, ia hanya menjadi Werewolf biasa tanpa skill tarik).",
+                strategy: "Tunggu hingga ada pemain dengan role kuat yang tewas, lalu gali makamnya pada saat kubu dari role tersebut sedang berada di atas angin."
+            },
+            {
+                id: "hex",
+                name: "Hex",
+                title: "Kutukan Suara Hewan & Kebangkitan",
+                faction: "neutral",
+                driveId: "1oFw90AxzBiQJZjB555jaN6NbYcDcziH5",
+                icon: "fa-paw",
+                actionType: "Aktif • Wajib Suara Hewan & Bangkitkan Mayat",
+                desc: "Jika kamu mendapatkan role ini, maka bersiaplah anda harus bersuara seperti hewan ditentukan oleh moderator selama permainan. Jika melanggar maka akan langsung mati. Kekuatan lainnya yaitu mampu menghidupkan orang mati secara berturut-turut.",
+                explanation: "Peran penuh kutukan sekaligus keajaiban. Sepanjang permainan, pemilik kartu Hex wajib bersuara seperti hewan yang ditetapkan moderator—sekali saja berbicara normal tanpa suara hewan, ia langsung mati. Sebagai imbalannya, ia punya kekuatan luar biasa untuk menghidupkan kembali orang mati secara berturut-turut.",
+                strategy: "Tetap fokus dan jangan sampai terpancing berbicara normal saat kaget atau berdebat, sambil terus menghidupkan pemain yang mati untuk mengendalikan jalannya permainan."
             },
             {
                 id: "juggernaut",
                 name: "Juggernaut",
-                title: "Raksasa Pembantai Bertahap",
+                title: "Raksasa Pembantai Berevolusi",
                 faction: "neutral",
                 driveId: "170y0Hu4HrwZl-I5dyNR8HfzddNF2whBQ",
                 icon: "fa-khanda",
-                actionType: "Solo • Evolusi Kill Bertahap",
-                desc: "Tidak bisa membunuh pada malam pertama. Kill 2x: dapat proteksi kematian 1x. Kill 3x: dapat proteksi vote 1x. Kill 4x: mode kill tembus Guardian. Kill 5x: mode kill 2x dalam semalam (1x malam saja)."
+                actionType: "Solo • Evolusi Kekuatan Tiap Kill",
+                desc: "Juggernaut tidak bisa membunuh pada malam pertama. Setelah berhasil membunuh 2x mendapatkan proteksi kematian 1x (untuk malam berikutnya). Setelah berhasil membunuh 3x mendapatkan proteksi vote 1x (untuk siang berikutnya). Setelah berhasil membunuh 4x mendapatkan mode kill tembus guardian. Setelah berhasil membunuh 5x mendapatkan mode kill 2x dalam semalam (1x malam saja).",
+                explanation: "Mesin pembunuh solo yang berevolusi setiap kali mendapatkan kill. Malam ke-1 ia belum bisa membunuh. Namun seiring bertambahnya jumlah korban (2, 3, 4, hingga 5 kill), Juggernaut membuka lapisan kekuatan baru mulai dari kebal mati malam, kebal digantung siang, serangan tembus perisai Guardian, hingga membantai 2 orang sekaligus dalam semalam.",
+                strategy: "Bermainlah sangat aman di malam pertama dan kedua; begitu kamu mencapai 3 dan 4 kill, kamu hampir tak terhentikan oleh desa maupun Werewolf."
             },
             {
                 id: "kicau-mania",
@@ -962,98 +1017,118 @@
                 faction: "neutral",
                 driveId: "1IxtpdkgyhMzEITvKMBkr8lMXEYQu6Yqh",
                 icon: "fa-crow",
-                actionType: "Aktif • Kutukan Berkicau",
-                desc: "Warga yang jika diam dan tidak bersuara selama permainan maka dia akan mati. Dia mampu membuat orang lain ikut berkicau seperti dirinya selama permainan berlanjut, bahkan saat malam hari harus tetap bersuara."
+                actionType: "Aktif • Mati Jika Diam & Tularkan Kicauan",
+                desc: "Warga yang mempunyai kekuatan jika dia diam dan tidak bersuara selama permainan maka dia akan mati. Dia mampu membuat orang lain berkicau seperti dirinya selama permainan berlanjut, meskipun malam hari harus tetap bersuara.",
+                explanation: "Peran pengacau keheningan paling unik! Kicau Mania tidak boleh berhenti bersuara/berkicau karena jika diam ia akan mati. Lebih serunya lagi, ia bisa menularkan kutukan kicauannya ke pemain lain sehingga target tersebut juga wajib terus berkicau bahkan saat semua orang menutup mata di malam hari!",
+                strategy: "Tularkan kicauanmu ke pemain yang kamu curigai sebagai Werewolf agar ia kesulitan berkoordinasi secara senyap di malam hari!"
             },
             {
                 id: "mad-man",
                 name: "Mad Man",
-                title: "Pengamuk Amarah",
+                title: "Pengamuk Tiga Puluh Panggilan",
                 faction: "neutral",
                 driveId: "1n7yu3Fym2TjIdWxVwuXW3bu1lMtd7gBZ",
                 icon: "fa-face-angry",
-                actionType: "Aktif • Sebut Nama 30x Banting",
-                desc: "Suka marah-marah dan selalu menaikkan nada bicaranya seiring ronde. Jika dia menyebut 10 kali nama salah satu penduduk desa per ronde selama 3 ronde (total 30 penyebutan), target tersebut akan dibanting dan dihancurkan hingga remuk."
+                actionType: "Aktif • Sebut Nama 10x/Ronde (3 Ronde Banting)",
+                desc: "Warga desa yang suka marah-marah dan selalu menaikkan nada bicaranya seiring ronde. Jika dia menyebut 10 kali nama salah satu penduduk desa selama 3 ronde, maka penduduk desa tersebut akan dibanting dan dihancurkan hingga remuk. (Total penyebutan nama berarti 30 dalam 3 ronde).",
+                explanation: "Pemarah berdarah panas yang harus selalu berbicara dengan nada tinggi yang makin naik setiap rondenya. Jika ia berhasil menyelipkan dan menyebutkan nama satu target sebanyak 10 kali per ronde selama 3 ronde (total 30 kali penyebutan), target tersebut langsung tewas dibanting hingga remuk.",
+                strategy: "Selipkan nama targetmu secara berulang-ulang di tengah kalimat kemarahanmu saat berdebat agar target tidak sadar sedang dihitung menuju bantingan maut."
             },
             {
                 id: "mind-control",
                 name: "Mind Control",
-                title: "Pengendali Kesadaran",
+                title: "Pengendali Pikiran & Kesadaran",
                 faction: "neutral",
                 driveId: "1ojDDy5KUBi4yHGvtauz5jBVqwYTtLq_e",
                 icon: "fa-brain",
-                actionType: "Aktif • Manipulasi Pikiran",
-                desc: "Pengendali pikiran misterius yang mampu merasuki kesadaran pemain lain, membelokkan hak suara atau memaksa target menjalankan aksi sesuai kehendaknya."
+                actionType: "Aktif • Manipulasi Target / Suara",
+                desc: "Pengendali pikiran misterius yang mampu memanipulasi tindakan, arah suara voting, atau target kemampuan pemain lain sesuai kehendaknya.",
+                explanation: "Dalang di balik layar yang dapat merasuki pikiran seorang pemain untuk membelokkan pilihan vote atau mengarahkan target skill malam pemain tersebut ke sasaran yang diinginkan Mind Control.",
+                strategy: "Kendalikan pemain yang memiliki senjata eksekusi (seperti Sheriff, Gunner, atau Dictator) untuk menyingkirkan musuh-musuhmu tanpa mengotori tanganmu sendiri."
             },
             {
                 id: "pandir",
                 name: "Pandir",
-                title: "Kekacauan Acak",
+                title: "Pengacau Eksekusi Acak",
                 faction: "neutral",
                 driveId: "1jU5GIovPXdwj6jGvbIRR3LrxJRIr9xSO",
                 icon: "fa-dice",
-                actionType: "Aktif • Bunuh/Gantung Acak",
-                desc: "Saking bodohnya, jika dia mengaktifkan kekuatannya pada malam hari maka dia membunuh salah satu warga desa secara acak. Jika diaktifkan pada pagi hari, dia akan menggantung salah satu warga desa secara acak (ditentukan oleh moderator)."
+                actionType: "Aktif • Bunuh Malam / Gantung Pagi Acak",
+                desc: "Warga desa yang saking bodohnya, jika dia mengaktifkan kekuatannya pada malam hari maka dia membunuh salah satu warga desa secara acak pada malam hari. Jika dia mengaktifkan pada pagi hari, dia akan menggantung salah satu warga desa secara acak (ditentukan oleh moderator).",
+                explanation: "Pengacau murni yang membahayakan siapa saja secara acak! Karena kepolosannya yang ekstrem, jika Pandir mengaktifkan skill di malam hari, moderator akan mengacak satu warga untuk terbunuh. Jika diaktifkan di pagi hari, satu pemain acak pilihan moderator akan langsung mati tergantung!",
+                strategy: "Aktifkan kekuatanmu saat suasana permainan sedang terlalu tegang untuk menciptakan kejutan tak terduga yang mengacak-acak rencana semua kubu."
             },
             {
                 id: "prophet",
                 name: "Prophet",
-                title: "Nabi Pembalik Takdir",
+                title: "Nabi Pembalik Serangan Malam",
                 faction: "neutral",
                 driveId: "1RaD8QWZf4w3yPUvfBHW1vVrLKAvvXpp0",
                 icon: "fa-ankh",
-                actionType: "Pasif • Pantulan Kematian",
-                desc: "Jika dibunuh selain oleh Werewolf pada malam hari, maka pembunuhnya akan terbunuh balik dan Prophet tetap hidup. Namun jika yang membunuhnya adalah Werewolf, Werewolf tersebut mati dan Prophet berubah menjadi Werewolf."
+                actionType: "Pasif • Pantul Kematian / Jadi Werewolf",
+                desc: "Warga yang mempunyai kekuatan jika dia dibunuh selain Werewolf pada malam hari, maka orang yang membunuhnya akan terbunuh, dan Prophet tetap hidup. Kemudian jika yang membunuhnya adalah Werewolf, maka Werewolf tersebut akan mati dan Prophet akan menjadi Werewolf.",
+                explanation: "Kartu pantulan takdir yang sangat ditakuti para pembunuh malam. Jika pembunuh selain Werewolf (seperti Serial Killer, Trapper, atau Witch) mencoba membunuhnya di malam hari, sang pembunuh justru tewas dan Prophet tetap hidup. Jika Werewolf yang menyerangnya, salah satu Werewolf akan mati sementara Prophet berubah menjadi Werewolf!",
+                strategy: "Kamu adalah mimpi buruk bagi semua penyerang malam; fokuslah menjaga diri agar tidak digantung oleh warga pada siang hari."
             },
             {
                 id: "serial-killer",
                 name: "Serial Killer",
-                title: "Psikopat Bergolok",
+                title: "Psikopat Golok Dua Nyawa",
                 faction: "neutral",
                 driveId: "1OMWYWduum9esllZ7tvx0kBLFF4knwGmc",
                 icon: "fa-kitchen-set",
-                actionType: "Solo • Bunuh Tiap Malam (2 Nyawa)",
-                desc: "Setiap malam mendatangi satu rumah warga untuk dibunuh dengan golok. Memiliki 2 nyawa saat diserang Werewolf. Jika saat membunuh bertemu kawanan Werewolf, salah satu Werewolf mati dan Serial Killer hidup. Jika gagal membunuh, ia stres dan bunuh diri."
+                actionType: "Solo • Kill Tiap Malam (2 Nyawa & Stres Jika Gagal)",
+                desc: "Setiap malam ia mendatangi satu rumah warga untuk dibunuh dengan golok. Jika Werewolf berkunjung ke rumah Serial Killer, ia tidak langsung mati karena memiliki 2 nyawa. Jika saat membunuh ia bertemu kawanan Werewolf, salah satu Werewolf akan mati dan Serial Killer tetap hidup. Jika gagal membunuh, ia akan stres dan bunuh diri.",
+                explanation: "Psikopat solo bersenjata golok dengan 2 nyawa. Ia membunuh satu target setiap malam dan bahkan sanggup membunuh salah satu Werewolf jika berpapasan saat beraksi. Namun kelemahan fatalnya adalah obsesi membunuhnya: jika pada suatu malam ia gagal membunuh targetnya (misalnya karena target dilindungi Guardian), Serial Killer akan stres berat dan mati bunuh diri.",
+                strategy: "Hindari menyerang target yang terlalu jelas sedang dijaga oleh Guardian (seperti President), karena gagal membunuh satu malam saja akan membuatmu bunuh diri!"
             },
             {
                 id: "swapper",
                 name: "Swapper",
-                title: "Penukar Target",
+                title: "Penukar Posisi & Target Malam",
                 faction: "neutral",
                 driveId: "1hGmCQK-QY16Ll7kmIRlxYSZuvZHejULe",
                 icon: "fa-shuffle",
-                actionType: "Aktif Malam • Tukar Posisi",
-                desc: "Pengacau takdir yang mampu menukar posisi atau target serangan antara dua pemain di malam hari, sehingga serangan atau terawangan berbelok ke orang yang salah."
+                actionType: "Aktif Malam • Tukar Target 2 Pemain",
+                desc: "Pengacau posisi yang mampu menukar posisi atau target dari dua pemain di malam hari, sehingga segala aksi malam yang mengarah ke pemain A akan berpindah mengenai pemain B dan sebaliknya.",
+                explanation: "Swapper memutarbalikkan target di malam hari. Jika Werewolf mengincar pemain A sementara Swapper menukar A dengan B, maka pemain B yang akan terkena serangan tersebut.",
+                strategy: "Tukarkan posisi dirimu atau warga penting dengan pemain yang kamu curigai sebagai Werewolf, sehingga kawanan serigala tanpa sengaja memangsa rekan mereka sendiri!"
             },
             {
                 id: "therianthropy",
                 name: "Therianthropy",
-                title: "Manusia Hewan Kebal",
+                title: "Manusia Hewan Kebal Mutlak",
                 faction: "neutral",
                 driveId: "1VjHO8eVLhUYnDVEwBzoilP8kATvMv2Gu",
                 icon: "fa-otter",
-                actionType: "Pasif • Suara Hewan & Kebal",
-                desc: "Dikutuk menjadi hewan selama permainan dan harus bersuara seperti hewan yang ditentukan oleh moderator. Dia kebal terhadap vote dan kebal terhadap pembunuhan."
+                actionType: "Pasif • Wajib Suara Hewan, Kebal Vote & Bunuh",
+                desc: "Warga desa yang dikutuk menjadi hewan selama permainan dan harus bersuara seperti hewan yang ditentukan oleh moderator. Dia kebal terhadap vote dan kebal terhadap pembunuhan.",
+                explanation: "Manusia terkutuk berwujud hewan yang tidak mempan digantung warga di siang hari maupun dibunuh di malam hari (kebal vote & kebal bunuh). Syarat mutlaknya: ia wajib terus mengeluarkan suara hewan yang ditentukan moderator setiap kali berkomunikasi sepanjang permainan.",
+                strategy: "Nikmati kekebalan mutlakmu terhadap vote dan serangan malam sambil terus patuh bersuara seperti hewan dan berkomunikasi lewat intonasi serta bahasa tubuh."
             },
             {
                 id: "thief",
                 name: "Thief",
-                title: "Pencuri Identitas",
+                title: "Pencuri Kartu Identitas",
                 faction: "neutral",
                 driveId: "1gmP3ZlVvM2mxvJnVO0T6dy1Hs3rh7tWV",
                 icon: "fa-hand-holding-hand",
-                actionType: "Aktif Malam • Curi Role",
-                desc: "Bisa menukar/mencuri role dari pemain lain di malam hari. Jika Thief mencoba menukar role dengan kawanan Werewolf atau Traitor, maka Thief akan mati. Thief dapat memilih ingin mencuri role atau tidak."
+                actionType: "Aktif Malam • Curi Role (Mati Jika Curi Werewolf/Traitor)",
+                desc: "Bisa menukar role dengan pemain lain. Jika Thief mencoba menukar role dengan kawanan Werewolf atau Traitor, maka Thief akan mati. Thief dapat memilih ingin mencuri role atau tidak pada malam itu.",
+                explanation: "Pencuri identitas malam hari. Thief bebas memilih kapan ingin beraksi menukar kartunya dengan pemain lain (kecuali Beauty yang tidak bisa dicuri). Namun aksi ini bagai judi nyawa: jika sasaran yang hendak dicuri ternyata adalah anggota Werewolf atau Traitor, Thief langsung tewas di tempat!",
+                strategy: "Tunggu dan amati diskusi hari pertama untuk memastikan seorang pemain adalah warga baik ber-skill bagus sebelum kamu mencuri rolenya di malam hari."
             },
             {
                 id: "troublemaker",
                 name: "Troublemaker",
-                title: "Penukar Peran",
+                title: "Pembuat Onar Penukar Role",
                 faction: "neutral",
                 driveId: "1_o5KWBubRhHcELh02uvUPAnbu2_8hSsh",
                 icon: "fa-arrows-spin",
-                actionType: "Aktif 1x • Tukar Role 2 Pemain",
-                desc: "Membuat kekacauan besar dengan cara menukar role salah satu pemain ke pemain lainnya, baik orang baik maupun jahat (hanya dapat digunakan sekali dalam seluruh permainan)."
+                actionType: "Aktif 1x • Tukar Kartu Role 2 Pemain",
+                desc: "Seorang Villager yang membuat masalah dengan cara menukar role salah satu pemain ke pemain lain, bisa orang baik atau jahat (hanya sekali dalam seluruh permainan).",
+                explanation: "Pembuat onar sejati. Sekali sepanjang permainan, Troublemaker dapat menunjuk dua orang pemain lain dan menukarkan kartu role mereka berdua secara paksa tanpa sepengetahuan desa, menciptakan kekacauan aliansi yang luar biasa.",
+                strategy: "Gunakan kekuatanmu untuk menukar role pemain yang sudah terkonfirmasi baik dengan pemain yang mencurigakan untuk membalikkan peta permainan seketika!"
             }
         ];
 
@@ -1063,46 +1138,40 @@
         const factionConfig = {
             good: {
                 label: "Kartu Baik",
-                border: "border-blue-500/45",
+                border: "border-blue-500/50",
                 badgeBg: "bg-blue-950/90 text-blue-300 border-blue-400/40",
                 cardGradient: "from-[#0c162c] via-[#0f172a] to-[#070a12]",
-                drawerAccent: "border-blue-400/50 from-blue-950/95 via-[#0a1122]/98 to-black/98",
                 icon: "fa-shield-heart text-blue-400",
                 alignmentText: "Berpihak pada Tim Desa (Kartu Baik). Bertugas menjaga keselamatan warga dan mengungkap penyamaran musuh.",
-                winText: "Menang bersama Warga Desa apabila seluruh Werewolf dan ancaman mematikan berhasil dieliminasi."
+                winText: "Menang bersama Warga Desa apabila seluruh Werewolf dan ancaman solo mematikan berhasil dieliminasi."
             },
             werewolf: {
                 label: "Kartu Werewolf",
-                border: "border-rose-500/45",
+                border: "border-rose-500/50",
                 badgeBg: "bg-rose-950/90 text-rose-300 border-rose-400/40",
                 cardGradient: "from-[#28070f] via-[#19050a] to-[#0a0204]",
-                drawerAccent: "border-rose-500/50 from-rose-950/95 via-[#1b050a]/98 to-black/98",
                 icon: "fa-paw text-rose-500",
                 alignmentText: "Berpihak pada Kawanan Werewolf / Kegelapan. Berburu di malam hari dan memanipulasi diskusi warga di siang hari.",
                 winText: "Menang bersama Tim Werewolf ketika jumlah pihak Werewolf menyamai atau melebihi warga desa yang tersisa."
             },
             neutral: {
                 label: "Kartu Netral",
-                border: "border-purple-500/45",
+                border: "border-purple-500/50",
                 badgeBg: "bg-purple-950/90 text-purple-300 border-purple-400/40",
                 cardGradient: "from-[#220c38] via-[#140824] to-[#090310]",
-                drawerAccent: "border-purple-400/50 from-purple-950/95 via-[#160828]/98 to-black/98",
                 icon: "fa-masks-theater text-purple-400",
                 alignmentText: "Pihak Independen / Netral / Pengacau. Memiliki agenda tersendiri yang dapat mengubah jalannya permainan secara drastis.",
-                winText: "Memenuhi objektif unik masing-masing peran (bertahan hidup, mengambil alih peran, atau mencapai target khusus)."
+                winText: "Memenuhi objektif unik masing-masing peran (menang solo, bertahan hidup, atau mengikuti aliansi peran yang diambil)."
             }
         };
 
-        // Store user custom local image overrides if uploaded
-        const customImageBlobs = {};
-
         // =========================================================================
-        // 3. GOOGLE DRIVE IMAGE LOADER & FALLBACK HANDLER
+        // 3. IMAGE LOADER & MULTI-ENDPOINT FALLBACK HANDLER
         // =========================================================================
         function getDriveImageUrls(driveId) {
             return [
-                `https://drive.google.com/thumbnail?id=${driveId}&sz=w800`,
                 `https://lh3.googleusercontent.com/d/${driveId}=w800`,
+                `https://drive.google.com/thumbnail?id=${driveId}&sz=w800`,
                 `https://drive.google.com/uc?export=view&id=${driveId}`
             ];
         }
@@ -1117,24 +1186,14 @@
                 imgEl.setAttribute("data-attempt", String(attempt + 1));
                 imgEl.src = urls[attempt + 1];
             } else {
-                // Hide broken image and show ornate gothic SVG fallback
                 imgEl.classList.add("hidden");
                 const fallbackEl = imgEl.parentElement.querySelector(".gothic-svg-fallback");
                 if (fallbackEl) fallbackEl.classList.remove("hidden");
             }
         }
 
-        function createCornerOrnamentSVG(positionClass) {
-            return `
-                <svg class="corner-ornament ${positionClass}" viewBox="0 0 24 24" fill="none">
-                    <path d="M2 2 H14 M2 2 V14 M2 2 L9 9" stroke="#d4af37" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="5" cy="5" r="1.5" fill="#d4af37"/>
-                </svg>
-            `;
-        }
-
         // =========================================================================
-        // 4. RENDER CARDS & UPDATE FACTION COUNTERS
+        // 4. RENDER FULL UNCROPPED CARDS & PURE 3D HOVER INTERACTION
         // =========================================================================
         const cardsGrid = document.getElementById("cardsGrid");
         const emptyState = document.getElementById("emptyState");
@@ -1173,6 +1232,7 @@
                     card.name.toLowerCase().includes(query) ||
                     card.title.toLowerCase().includes(query) ||
                     card.desc.toLowerCase().includes(query) ||
+                    card.explanation.toLowerCase().includes(query) ||
                     card.actionType.toLowerCase().includes(query) ||
                     factionConfig[card.faction].label.toLowerCase().includes(query);
                 return matchesFaction && matchesSearch;
@@ -1190,138 +1250,98 @@
 
             filtered.forEach((card, idx) => {
                 const cfg = factionConfig[card.faction];
-                const primaryUrl = customImageBlobs[card.id] || getDriveImageUrls(card.driveId)[0];
+                const primaryUrl = getDriveImageUrls(card.driveId)[0];
                 const cardNumber = String(idx + 1).padStart(2, "0");
 
                 const cardWrapper = document.createElement("div");
-                cardWrapper.className = "card-perspective relative group cursor-pointer select-none";
+                cardWrapper.className = "card-perspective flex flex-col items-center group cursor-pointer select-none";
                 cardWrapper.setAttribute("data-faction", card.faction);
                 cardWrapper.setAttribute("data-id", card.id);
 
+                // Full Card Image Display without any blocking overlay on the card
                 cardWrapper.innerHTML = `
-                    <article class="werewolf-card relative w-full h-[440px] rounded-2xl bg-gradient-to-b ${cfg.cardGradient} border-2 ${cfg.border} overflow-hidden shadow-xl flex flex-col justify-between">
+                    <article class="werewolf-card relative w-full aspect-[2.5/3.6] rounded-2xl bg-[#07070c] border-2 ${cfg.border} overflow-hidden shadow-2xl flex items-center justify-center">
                         
-                        <!-- Shimmer Glare Overlay -->
-                        <div class="card-glare absolute inset-0 pointer-events-none z-20"></div>
+                        <!-- Dynamic 3D Cursor Glare Layer -->
+                        <div class="card-dynamic-glare absolute inset-0 pointer-events-none z-20"></div>
 
-                        <!-- Ornate Gothic Filigree Corners -->
-                        ${createCornerOrnamentSVG("top-2.5 left-2.5")}
-                        ${createCornerOrnamentSVG("top-2.5 right-2.5 rotate-90")}
-                        ${createCornerOrnamentSVG("bottom-2.5 right-2.5 rotate-180")}
-                        ${createCornerOrnamentSVG("bottom-2.5 left-2.5 -rotate-90")}
+                        <!-- Entire Card Image Shown 100% Clearly -->
+                        <img 
+                            src="${primaryUrl}" 
+                            alt="${card.name}" 
+                            data-attempt="0"
+                            loading="lazy"
+                            onerror="handleCardImageError(this, '${card.id}')"
+                            class="w-full h-full object-contain bg-[#07070c] block"
+                        />
 
-                        <!-- Inner Gold Frame Border -->
-                        <div class="absolute inset-2 border border-amber-500/25 rounded-xl pointer-events-none z-20"></div>
-
-                        <!-- Top Bar: Card Number & Faction Badge -->
-                        <div class="relative z-20 flex items-center justify-between p-3.5 bg-gradient-to-b from-black/85 via-black/40 to-transparent">
-                            <span class="font-serif text-xs font-bold tracking-widest text-amber-300 bg-black/70 px-2.5 py-1 rounded-md border border-amber-500/30">
-                                #${cardNumber}
-                            </span>
-                            <span class="px-2.5 py-1 rounded-full text-[11px] font-serif font-bold tracking-wider uppercase border ${cfg.badgeBg} flex items-center gap-1.5 shadow">
-                                <i class="fa-solid ${cfg.icon}"></i>
-                                ${cfg.label}
-                            </span>
-                        </div>
-
-                        <!-- Full Card Image / Artwork Container -->
-                        <div class="absolute inset-0 z-10 flex items-center justify-center overflow-hidden bg-black/60">
-                            <img 
-                                src="${primaryUrl}" 
-                                alt="${card.name}" 
-                                data-attempt="0"
-                                loading="lazy"
-                                onerror="handleCardImageError(this, '${card.id}')"
-                                class="card-art-media w-full h-full object-cover object-center"
-                            />
-                            <!-- Ornate Gothic Fallback (Displayed if Drive Image is blocked) -->
-                            <div class="gothic-svg-fallback hidden w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b ${cfg.cardGradient}">
-                                <div class="w-28 h-28 rounded-full bg-black/50 border-2 border-amber-500/40 flex items-center justify-center mb-3 shadow-inner">
-                                    <i class="fa-solid ${card.icon} text-5xl text-amber-300"></i>
+                        <!-- Ornate Gothic Fallback (Only if Drive Image fails to load) -->
+                        <div class="gothic-svg-fallback hidden w-full h-full flex flex-col items-center justify-between p-6 text-center bg-gradient-to-b ${cfg.cardGradient}">
+                            <div class="w-full flex items-center justify-between text-[11px] font-serif text-amber-300/80">
+                                <span>#${cardNumber}</span>
+                                <span>${cfg.label}</span>
+                            </div>
+                            <div class="my-auto flex flex-col items-center">
+                                <div class="w-24 h-24 rounded-full bg-black/50 border-2 border-amber-500/40 flex items-center justify-center mb-4 shadow-inner">
+                                    <i class="fa-solid ${card.icon} text-4xl text-amber-300"></i>
                                 </div>
-                                <span class="font-serif text-[10px] uppercase tracking-widest text-slate-400">Ilustrasi Simbolis</span>
+                                <h3 class="font-display text-xl font-bold text-white">${card.name}</h3>
+                                <p class="font-serif text-xs text-amber-400 uppercase mt-1">${card.title}</p>
                             </div>
-                            <!-- Bottom Vignette Gradient for Legibility -->
-                            <div class="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black via-black/85 to-transparent pointer-events-none"></div>
+                            <div class="text-[11px] text-slate-300 line-clamp-3 bg-black/50 p-2.5 rounded-xl border border-white/10">
+                                ${card.desc}
+                            </div>
                         </div>
+                    </article>
 
-                        <!-- Default Card Footer (Visible before hover, fades smoothly on hover) -->
-                        <div class="card-default-footer relative z-20 p-4 pt-8 text-center transition-all duration-300">
-                            <div class="inline-block px-2.5 py-0.5 rounded-full bg-black/70 border border-amber-500/30 text-[10px] text-amber-300 uppercase tracking-widest mb-1">
-                                ${card.actionType}
-                            </div>
-                            <h3 class="font-display text-xl font-bold text-white tracking-wide drop-shadow">
+                    <!-- Clean Caption Below Card (Never Blocks the Card Artwork) -->
+                    <div class="w-full mt-3 px-1 flex items-center justify-between gap-2">
+                        <div class="truncate">
+                            <h3 class="font-display text-sm sm:text-base font-bold text-white group-hover:text-amber-300 transition-colors truncate">
                                 ${card.name}
                             </h3>
-                            <p class="font-serif text-[11px] text-amber-400/90 uppercase tracking-widest mt-0.5">
-                                ${card.title}
-                            </p>
+                            <p class="font-serif text-[11px] text-slate-400 truncate">${card.title}</p>
                         </div>
-
-                        <!-- HOVER ZOOM REVEAL DRAWER (Slides up when cursor hovers over the card) -->
-                        <div class="card-hover-drawer absolute inset-x-0 bottom-0 top-14 z-30 bg-gradient-to-t ${cfg.drawerAccent} backdrop-blur-md p-4 flex flex-col justify-between border-t-2 border-amber-500/50 rounded-b-2xl">
-                            <div class="overflow-y-auto pr-1 space-y-2.5">
-                                <div class="flex items-start justify-between border-b border-white/15 pb-2">
-                                    <div>
-                                        <h4 class="font-display text-lg font-bold text-white leading-tight">${card.name}</h4>
-                                        <span class="font-serif text-[11px] text-amber-300 uppercase tracking-wider">${card.title}</span>
-                                    </div>
-                                    <span class="px-2 py-0.5 rounded bg-amber-500/20 border border-amber-400/40 text-amber-200 text-[10px] font-semibold shrink-0">
-                                        ${card.actionType}
-                                    </span>
-                                </div>
-
-                                <!-- Complete Role Description -->
-                                <div class="p-3 rounded-xl bg-black/65 border border-white/10">
-                                    <div class="text-[10px] font-serif font-bold uppercase tracking-wider text-amber-400 mb-1 flex items-center gap-1.5">
-                                        <i class="fa-solid fa-wand-sparkles"></i> Deskripsi & Kekuatan Kartu:
-                                    </div>
-                                    <p class="text-xs text-slate-100 leading-relaxed">
-                                        ${card.desc}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <!-- Action Prompt at Bottom of Hover Card -->
-                            <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] shrink-0">
-                                <span class="text-slate-300 font-serif uppercase tracking-wider">${cfg.label}</span>
-                                <span class="text-amber-300 font-serif font-bold flex items-center gap-1">
-                                    Klik Perbesar <i class="fa-solid fa-expand text-[10px]"></i>
-                                </span>
-                            </div>
-                        </div>
-
-                    </article>
+                        <span class="shrink-0 px-2.5 py-1 rounded-full text-[10px] font-serif font-bold tracking-wider uppercase border ${cfg.badgeBg} flex items-center gap-1">
+                            <i class="fa-solid ${cfg.icon}"></i>
+                            <span>${cfg.label}</span>
+                        </span>
+                    </div>
                 `;
 
-                // Interactive 3D Mouse Tilt Effect + Live HUD Update on Hover
+                // Pure 3D Interactive Hover Effect (No Popup/Overlay on Hover)
                 const cardElement = cardWrapper.querySelector(".werewolf-card");
+                const glareElement = cardWrapper.querySelector(".card-dynamic-glare");
 
                 cardWrapper.addEventListener("mousemove", (e) => {
                     if (window.matchMedia("(hover: hover)").matches) {
-                        const rect = cardWrapper.getBoundingClientRect();
+                        const rect = cardElement.getBoundingClientRect();
                         const x = e.clientX - rect.left;
                         const y = e.clientY - rect.top;
                         const centerX = rect.width / 2;
                         const centerY = rect.height / 2;
-                        
-                        const rotateX = ((y - centerY) / centerY) * -7;
-                        const rotateY = ((x - centerX) / centerX) * 7;
 
-                        cardElement.style.transform = `scale(1.13) translateY(-12px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                        const rotateX = ((y - centerY) / centerY) * -12;
+                        const rotateY = ((x - centerX) / centerX) * 12;
+
+                        cardElement.style.transform = `scale(1.06) translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+                        const percentX = (x / rect.width) * 100;
+                        const percentY = (y / rect.height) * 100;
+                        glareElement.style.background = `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.08) 38%, transparent 70%)`;
                     }
                 });
 
                 cardWrapper.addEventListener("mouseenter", () => {
-                    hudStatusText.innerHTML = `<strong class="text-amber-300">${card.name} (${cfg.label})</strong> — ${card.desc}`;
+                    hudStatusText.innerHTML = `<strong class="text-amber-300">${card.name} (${cfg.label})</strong> — Klik kartu ini untuk membuka deskripsi & penjelasan lengkap.`;
                 });
 
                 cardWrapper.addEventListener("mouseleave", () => {
                     cardElement.style.transform = "";
-                    hudStatusText.textContent = "Arahkan kursor ke salah satu kartu untuk melakukan Zoom 3D & melihat deskripsi lengkap peran.";
+                    hudStatusText.textContent = "Gerakkan kursor di atas kartu untuk melihat efek 3D, lalu klik kartu untuk membaca penjelasan lengkap.";
                 });
 
-                // Click Event to Open Full Inspector Modal
+                // Click Event Opens Full Explanation Modal
                 cardWrapper.addEventListener("click", () => {
                     openCardModal(card.id);
                 });
@@ -1331,11 +1351,13 @@
         }
 
         // =========================================================================
-        // 5. FULL CARD INSPECTOR MODAL & CATEGORY SWITCHER
+        // 5. FULL EXPLANATION MODAL ON CLICK + 3D INTERACTIVE MODAL CARD
         // =========================================================================
         const cardModal = document.getElementById("cardModal");
         const cardModalContent = document.getElementById("cardModalContent");
         const closeModalBtn = document.getElementById("closeModalBtn");
+        const modalCard3DWrapper = document.getElementById("modalCard3DWrapper");
+        const modalCardPreview = document.getElementById("modalCardPreview");
 
         function openCardModal(cardId) {
             const cardIndex = werewolfCards.findIndex(c => c.id === cardId);
@@ -1344,21 +1366,22 @@
             activeModalCardId = card.id;
 
             const cfg = factionConfig[card.faction];
-            const primaryUrl = customImageBlobs[card.id] || getDriveImageUrls(card.driveId)[0];
+            const primaryUrl = getDriveImageUrls(card.driveId)[0];
 
             // Visual Left Pane
             const modalVisualPane = document.getElementById("modalVisualPane");
-            modalVisualPane.className = `w-full md:w-5/12 p-6 flex flex-col items-center justify-center relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800 bg-gradient-to-b ${cfg.cardGradient}`;
+            modalVisualPane.className = `w-full md:w-5/12 p-6 sm:p-8 flex flex-col items-center justify-center relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800/90 bg-gradient-to-b ${cfg.cardGradient}`;
 
-            const modalCardPreview = document.getElementById("modalCardPreview");
-            modalCardPreview.className = `w-64 sm:w-72 aspect-[2.5/3.6] rounded-2xl border-2 ${cfg.border} overflow-hidden relative shadow-2xl bg-black flex flex-col justify-between`;
+            modalCardPreview.className = `modal-card-3d w-full aspect-[2.5/3.6] rounded-2xl border-2 ${cfg.border} overflow-hidden relative shadow-2xl bg-[#07070c] flex items-center justify-center`;
+            modalCardPreview.style.transform = "";
             modalCardPreview.innerHTML = `
+                <div id="modalCardGlare" class="card-dynamic-glare absolute inset-0 pointer-events-none z-20"></div>
                 <img 
                     src="${primaryUrl}" 
                     alt="${card.name}" 
                     data-attempt="0"
                     onerror="handleCardImageError(this, '${card.id}')"
-                    class="w-full h-full object-cover object-center"
+                    class="w-full h-full object-contain bg-[#07070c]"
                 />
                 <div class="gothic-svg-fallback hidden w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b ${cfg.cardGradient}">
                     <i class="fa-solid ${card.icon} text-6xl text-amber-300 mb-3"></i>
@@ -1366,9 +1389,6 @@
                     <div class="font-serif text-xs text-amber-400 uppercase mt-1">${card.title}</div>
                 </div>
             `;
-
-            // Drive direct view link
-            document.getElementById("openDriveFileLink").href = `https://drive.google.com/file/d/${card.driveId}/view?usp=sharing`;
 
             // Right Details Pane
             const factionBadge = document.getElementById("modalFactionBadge");
@@ -1378,9 +1398,11 @@
             document.getElementById("modalNumberBadge").textContent = `Kartu #${String(cardIndex + 1).padStart(2, "0")} • ${card.actionType}`;
             document.getElementById("modalRoleTitle").textContent = card.name;
             document.getElementById("modalRoleSubtitle").textContent = card.title;
-            document.getElementById("modalRoleDesc").textContent = card.desc;
-            document.getElementById("modalAlignmentInfo").textContent = cfg.alignmentText;
+            document.getElementById("modalRoleDesc").textContent = `"${card.desc}"`;
+            document.getElementById("modalRoleExplanation").textContent = card.explanation;
+            document.getElementById("modalAlignmentInfo").textContent = `${cfg.alignmentText} (${card.actionType}).`;
             document.getElementById("modalWinCondition").textContent = cfg.winText;
+            document.getElementById("modalStrategyText").textContent = card.strategy;
 
             // Highlight active category button inside modal
             document.querySelectorAll(".cat-switch-btn").forEach(btn => {
@@ -1401,6 +1423,32 @@
                 cardModalContent.classList.add("scale-100");
             });
         }
+
+        // 3D Tilt inside Modal Card Preview
+        modalCard3DWrapper.addEventListener("mousemove", (e) => {
+            const rect = modalCardPreview.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -12;
+            const rotateY = ((x - centerX) / centerX) * 12;
+
+            modalCardPreview.style.transform = `scale(1.03) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            const glare = document.getElementById("modalCardGlare");
+            if (glare) {
+                const percentX = (x / rect.width) * 100;
+                const percentY = (y / rect.height) * 100;
+                glare.style.opacity = "1";
+                glare.style.background = `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.08) 40%, transparent 70%)`;
+            }
+        });
+
+        modalCard3DWrapper.addEventListener("mouseleave", () => {
+            modalCardPreview.style.transform = "";
+            const glare = document.getElementById("modalCardGlare");
+            if (glare) glare.style.opacity = "0";
+        });
 
         function closeCardModal() {
             cardModal.classList.add("opacity-0");
@@ -1437,49 +1485,6 @@
             });
         });
 
-        // =========================================================================
-        // 6. LOCAL IMAGE UPLOAD MATCHER (SINGLE OR MULTIPLE FILES)
-        // =========================================================================
-        const uploadFolderBtn = document.getElementById("uploadFolderBtn");
-        const folderUploadInput = document.getElementById("folderUploadInput");
-        const changeSingleImgBtn = document.getElementById("changeSingleImgBtn");
-        const singleCardUploadInput = document.getElementById("singleCardUploadInput");
-
-        uploadFolderBtn.addEventListener("click", () => folderUploadInput.click());
-
-        folderUploadInput.addEventListener("change", (e) => {
-            const files = Array.from(e.target.files || []);
-            if (!files.length) return;
-
-            let matchedCount = 0;
-            files.forEach(file => {
-                const cleanFileName = file.name.replace(/\.[^/.]+$/, "").toLowerCase().replace(/[^a-z0-9]/g, "");
-                const matchedCard = werewolfCards.find(c => {
-                    const cleanCardName = c.name.toLowerCase().replace(/[^a-z0-9]/g, "");
-                    return cleanCardName === cleanFileName || cleanFileName.includes(cleanCardName);
-                });
-
-                if (matchedCard) {
-                    customImageBlobs[matchedCard.id] = URL.createObjectURL(file);
-                    matchedCount++;
-                }
-            });
-
-            renderCards();
-            showToast(`Berhasil memuat ${matchedCount} gambar kartu dari komputer Anda!`);
-        });
-
-        changeSingleImgBtn.addEventListener("click", () => singleCardUploadInput.click());
-
-        singleCardUploadInput.addEventListener("change", (e) => {
-            const file = e.target.files && e.target.files[0];
-            if (!file || !activeModalCardId) return;
-            customImageBlobs[activeModalCardId] = URL.createObjectURL(file);
-            renderCards();
-            openCardModal(activeModalCardId);
-            showToast("Gambar kartu berhasil diperbarui!");
-        });
-
         function showToast(message) {
             const toast = document.getElementById("toastBanner");
             document.getElementById("toastMessage").textContent = message;
@@ -1492,7 +1497,7 @@
         }
 
         // =========================================================================
-        // 7. FILTER TABS, SEARCH & RANDOM ROLE
+        // 6. FILTER TABS, SEARCH & RANDOM ROLE
         // =========================================================================
         const filterBtns = document.querySelectorAll(".filter-btn");
         const searchInput = document.getElementById("searchInput");
@@ -1547,7 +1552,7 @@
         });
 
         // =========================================================================
-        // 8. AMBIENT FLOATING EMBERS CANVAS
+        // 7. AMBIENT FLOATING EMBERS CANVAS
         // =========================================================================
         const canvas = document.getElementById("emberCanvas");
         const ctx = canvas.getContext("2d");
