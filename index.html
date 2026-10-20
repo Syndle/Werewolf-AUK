@@ -238,11 +238,23 @@
             border-radius: 1.05rem;
             overflow: hidden;
             background: #0b0f19;
-            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s ease, border-color 0.32s ease;
+            transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s ease, border-color 0.32s ease;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: zoom-in;
+            transform-origin: center center;
+        }
+        .lightbox-card-frame.is-zoomed {
+            transform: scale(1.75);
+            cursor: zoom-out;
+            z-index: 50;
+        }
+        @media (max-width: 640px) {
+            .lightbox-card-frame.is-zoomed {
+                transform: scale(1.48);
+            }
         }
         @media (min-width: 640px) {
             .lightbox-card-frame {
@@ -255,6 +267,74 @@
                 max-width: 365px;
                 max-height: min(72vh, 525px);
             }
+        }
+        /* Festive Star Burst Effects for Takdir Acak */
+        .destiny-pop-reveal {
+            animation: destinyCardPop 0.62s cubic-bezier(0.18, 1.25, 0.4, 1);
+        }
+        @keyframes destinyCardPop {
+            0% { opacity: 0; transform: scale(0.42) rotate(-8deg); filter: brightness(2.2); }
+            60% { opacity: 1; transform: scale(1.06) rotate(1.5deg); filter: brightness(1.35); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); filter: brightness(1); }
+        }
+        .destiny-shockwave-ring {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 120px;
+            height: 120px;
+            margin-left: -60px;
+            margin-top: -60px;
+            border-radius: 9999px;
+            pointer-events: none;
+            animation: shockwaveBurst 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes shockwaveBurst {
+            0% { transform: scale(0.3); opacity: 0.95; }
+            100% { transform: scale(4.8); opacity: 0; }
+        }
+        .sparkle-star-particle {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            pointer-events: none;
+            will-change: transform, opacity;
+            animation: starBurstFly var(--dur, 1100ms) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: var(--delay, 0ms);
+            opacity: 0;
+        }
+        @keyframes starBurstFly {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) translate3d(0, 0, 0) scale(0.2) rotate(0deg);
+            }
+            25% {
+                opacity: 1;
+                transform: translate(-50%, -50%) translate3d(calc(var(--tx) * 0.45), calc(var(--ty) * 0.45), 0) scale(var(--sc, 1.15)) rotate(calc(var(--rot) * 0.5));
+            }
+            75% {
+                opacity: 0.92;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) translate3d(var(--tx), var(--ty), 0) scale(0.1) rotate(var(--rot));
+            }
+        }
+        .sparkle-twinkle-orb {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            pointer-events: none;
+            animation: orbTwinklePop var(--dur, 1300ms) ease-out forwards;
+            animation-delay: var(--delay, 80ms);
+            opacity: 0;
+        }
+        @keyframes orbTwinklePop {
+            0% { opacity: 0; transform: translate(-50%, -50%) translate3d(var(--tx), var(--ty), 0) scale(0); }
+            35% { opacity: 1; transform: translate(-50%, -50%) translate3d(var(--tx), var(--ty), 0) scale(1.25) rotate(45deg); }
+            65% { opacity: 0.4; transform: translate(-50%, -50%) translate3d(var(--tx), var(--ty), 0) scale(0.75) rotate(90deg); }
+            85% { opacity: 1; transform: translate(-50%, -50%) translate3d(var(--tx), var(--ty), 0) scale(1.1) rotate(135deg); }
+            100% { opacity: 0; transform: translate(-50%, -50%) translate3d(var(--tx), var(--ty), 0) scale(0) rotate(180deg); }
         }
         .lightbox-card-frame img {
             width: 100%;
@@ -456,20 +536,6 @@
                     AUK Werewolf - Card Game
                 </span>
             </div>
-
-            <!-- Navbar Right Action Buttons -->
-            <div class="flex items-center gap-2">
-                <a href="https://discord.gg/pde7crzZBr" target="_blank" rel="noopener noreferrer"
-                   class="px-2.5 py-1.5 sm:px-3.5 sm:py-1.5 rounded-xl bg-indigo-950/90 hover:bg-indigo-900 border border-indigo-500/40 text-indigo-200 font-serif font-bold text-[10px] sm:text-xs uppercase tracking-wider inline-flex items-center gap-1.5 shadow transition">
-                    <i class="fa-brands fa-discord text-indigo-400"></i>
-                    <span class="hidden sm:inline">Discord</span>
-                </a>
-                <button type="button" onclick="openModeratorModal()"
-                        class="px-2.5 py-1.5 sm:px-3.5 sm:py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-rose-600 hover:from-amber-400 hover:to-rose-500 text-slate-950 font-serif font-extrabold text-[10px] sm:text-xs uppercase tracking-wider inline-flex items-center gap-1.5 shadow cursor-pointer transition">
-                    <i class="fa-solid fa-crown"></i>
-                    <span>Be Moderator</span>
-                </button>
-            </div>
         </div>
     </header>
 
@@ -667,10 +733,13 @@
          onclick="handleLightboxBackdropClick(event)"
          class="fixed inset-0 z-50 hidden items-center justify-center p-2 sm:p-4 lightbox-backdrop overflow-hidden">
 
+        <!-- Festive Star Burst Particle Layer (Active on Takdir Acak) -->
+        <div id="destinySparkleContainer" class="fixed inset-0 pointer-events-none z-50 overflow-hidden"></div>
+
         <!-- Top Utility Bar: Card Counter & Main Close Button -->
         <div class="fixed top-2.5 left-3 right-3 sm:top-4 sm:left-6 sm:right-6 flex items-center justify-between z-40 pointer-events-none select-none">
             <div class="px-3 py-1 rounded-full bg-slate-950/90 border border-amber-400/35 text-amber-200 font-serif font-bold text-xs tracking-widest uppercase shadow-lg pointer-events-auto flex items-center gap-2">
-                <i class="fa-solid fa-clone text-amber-400 text-[11px]"></i>
+                <i id="lightboxPositionIcon" class="fa-solid fa-clone text-amber-400 text-[11px]"></i>
                 <span id="lightboxPositionBadge">1 / 66</span>
             </div>
 
@@ -683,14 +752,14 @@
         </div>
 
         <!-- Left Slide Navigation Button (<) -->
-        <button type="button" onclick="navigateLightboxCard(-1, event)"
+        <button id="lightboxPrevBtn" type="button" onclick="navigateLightboxCard(-1, event)"
                 title="Kartu Sebelumnya (Panah Kiri ←)"
                 class="fixed left-1.5 sm:left-5 top-1/2 -translate-y-1/2 z-40 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-slate-950/85 hover:bg-amber-500 border border-slate-700/90 hover:border-amber-300 text-amber-200 hover:text-slate-950 flex items-center justify-center shadow-2xl cursor-pointer transition group select-none">
             <i class="fa-solid fa-chevron-left text-sm sm:text-lg group-hover:-translate-x-0.5 transition-transform"></i>
         </button>
 
         <!-- Right Slide Navigation Button (>) -->
-        <button type="button" onclick="navigateLightboxCard(1, event)"
+        <button id="lightboxNextBtn" type="button" onclick="navigateLightboxCard(1, event)"
                 title="Kartu Berikutnya (Panah Kanan →)"
                 class="fixed right-1.5 sm:right-5 top-1/2 -translate-y-1/2 z-40 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-slate-950/85 hover:bg-amber-500 border border-slate-700/90 hover:border-amber-300 text-amber-200 hover:text-slate-950 flex items-center justify-center shadow-2xl cursor-pointer transition group select-none">
             <i class="fa-solid fa-chevron-right text-sm sm:text-lg group-hover:translate-x-0.5 transition-transform"></i>
@@ -701,9 +770,12 @@
 
             <!-- Main Zoomed Card & Bottom-Positioned "Deskripsi Selengkapnya" Button -->
             <div id="lightboxCardHolder" class="lightbox-card-holder">
-                <!-- Proportional Card Image Container (Native Right-Click Copy/Save Enabled) -->
+                <!-- Proportional Card Image Container (Double-Click to Zoom & Native Right-Click Copy/Save Enabled) -->
                 <div id="modalCardPreviewBox"
+                     title="Double-klik pada kartu untuk memperbesar (Zoom)"
                      onclick="event.stopPropagation()"
+                     ondblclick="handleLightboxCardDoubleClick(event)"
+                     onmousemove="handleLightboxCardZoomPan(event)"
                      class="lightbox-card-frame faction-good"></div>
 
                 <!-- Interactive "Deskripsi Selengkapnya" Button Positioned at the BOTTOM of the Card -->
@@ -1507,8 +1579,137 @@
         // =====================================================================
         let currentLightboxIndex = 0;
         let isDetailDrawerOpen = false;
+        let isLightboxCardZoomed = false;
+        let isRandomDestinyMode = false;
+        let lastCardTapTime = 0;
         let touchSwipeStartX = 0;
         let touchSwipeStartY = 0;
+
+        function resetLightboxCardZoom() {
+            isLightboxCardZoomed = false;
+            const previewBox = document.getElementById("modalCardPreviewBox");
+            if (previewBox) {
+                previewBox.classList.remove("is-zoomed");
+                previewBox.style.transformOrigin = "center center";
+            }
+        }
+
+        window.handleLightboxCardDoubleClick = function(e) {
+            if (e) e.stopPropagation();
+            const previewBox = document.getElementById("modalCardPreviewBox");
+            if (!previewBox) return;
+
+            isLightboxCardZoomed = !isLightboxCardZoomed;
+            if (isLightboxCardZoomed) {
+                const rect = previewBox.getBoundingClientRect();
+                const clientX = e && typeof e.clientX === "number" ? e.clientX : rect.left + rect.width / 2;
+                const clientY = e && typeof e.clientY === "number" ? e.clientY : rect.top + rect.height / 2;
+                const ox = Math.max(10, Math.min(90, ((clientX - rect.left) / rect.width) * 100));
+                const oy = Math.max(10, Math.min(90, ((clientY - rect.top) / rect.height) * 100));
+                previewBox.style.transformOrigin = `${ox.toFixed(1)}% ${oy.toFixed(1)}%`;
+                previewBox.classList.add("is-zoomed");
+            } else {
+                resetLightboxCardZoom();
+            }
+        };
+
+        window.handleLightboxCardZoomPan = function(e) {
+            if (!isLightboxCardZoomed) return;
+            const previewBox = document.getElementById("modalCardPreviewBox");
+            if (!previewBox) return;
+            const rect = previewBox.getBoundingClientRect();
+            const ox = Math.max(8, Math.min(92, ((e.clientX - rect.left) / rect.width) * 100));
+            const oy = Math.max(8, Math.min(92, ((e.clientY - rect.top) / rect.height) * 100));
+            previewBox.style.transformOrigin = `${ox.toFixed(1)}% ${oy.toFixed(1)}%`;
+        };
+
+        function triggerFestiveStarBurst(faction) {
+            const container = document.getElementById("destinySparkleContainer");
+            if (!container) return;
+            container.innerHTML = "";
+
+            const factionPalette = faction === "good"
+                ? ["#fde047", "#38bdf8", "#ffffff", "#fbbf24", "#93c5fd", "#fef08a"]
+                : faction === "werewolf"
+                ? ["#fde047", "#f87171", "#ffffff", "#fbbf24", "#fb7185", "#fef08a"]
+                : ["#fde047", "#c084fc", "#ffffff", "#fbbf24", "#e879f9", "#fef08a"];
+
+            const ringColor = faction === "good"
+                ? "rgba(56, 189, 248, 0.75)"
+                : faction === "werewolf"
+                ? "rgba(248, 113, 113, 0.75)"
+                : "rgba(192, 132, 252, 0.75)";
+
+            // 1. Expanding Magical Shockwave Rings
+            const ring1 = document.createElement("div");
+            ring1.className = "destiny-shockwave-ring";
+            ring1.style.border = `3px solid #fde047`;
+            ring1.style.boxShadow = `0 0 35px #fde047, inset 0 0 25px ${ringColor}`;
+            container.appendChild(ring1);
+
+            const ring2 = document.createElement("div");
+            ring2.className = "destiny-shockwave-ring";
+            ring2.style.border = `2px solid ${ringColor}`;
+            ring2.style.animationDelay = "110ms";
+            container.appendChild(ring2);
+
+            // 2. Bursting 4-Point & 8-Point Sparkling Stars
+            const totalBurstStars = 56;
+            for (let i = 0; i < totalBurstStars; i++) {
+                const star = document.createElement("div");
+                star.className = "sparkle-star-particle";
+                const angle = (Math.PI * 2 * i) / totalBurstStars + (Math.random() - 0.5) * 0.25;
+                const distance = 110 + Math.random() * 290;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                const size = Math.floor(12 + Math.random() * 22);
+                const color = factionPalette[i % factionPalette.length];
+                const rot = (Math.random() > 0.5 ? 1 : -1) * (140 + Math.random() * 240);
+                const dur = 850 + Math.random() * 650;
+                const delay = Math.random() * 140;
+                const scalePeak = (0.9 + Math.random() * 0.7).toFixed(2);
+
+                star.style.setProperty("--tx", `${tx.toFixed(1)}px`);
+                star.style.setProperty("--ty", `${ty.toFixed(1)}px`);
+                star.style.setProperty("--rot", `${rot.toFixed(0)}deg`);
+                star.style.setProperty("--dur", `${dur.toFixed(0)}ms`);
+                star.style.setProperty("--delay", `${delay.toFixed(0)}ms`);
+                star.style.setProperty("--sc", scalePeak);
+
+                star.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 24 24" style="filter: drop-shadow(0 0 8px ${color});">
+                    <path d="M12 0 C13.8 7.8 16.2 10.2 24 12 C16.2 13.8 13.8 16.2 12 24 C10.2 16.2 7.8 13.8 0 12 C7.8 10.2 10.2 7.8 12 0 Z" fill="${color}"/>
+                    <circle cx="12" cy="12" r="2.2" fill="#ffffff"/>
+                </svg>`;
+                container.appendChild(star);
+            }
+
+            // 3. Lingering Twinkling Glint Orbs Around the Card
+            const totalTwinkles = 28;
+            for (let j = 0; j < totalTwinkles; j++) {
+                const orb = document.createElement("div");
+                orb.className = "sparkle-twinkle-orb";
+                const tx = (Math.random() - 0.5) * 380;
+                const ty = (Math.random() - 0.5) * 510;
+                const size = Math.floor(14 + Math.random() * 18);
+                const color = factionPalette[j % factionPalette.length];
+                const dur = 1000 + Math.random() * 800;
+                const delay = 100 + Math.random() * 350;
+
+                orb.style.setProperty("--tx", `${tx.toFixed(1)}px`);
+                orb.style.setProperty("--ty", `${ty.toFixed(1)}px`);
+                orb.style.setProperty("--dur", `${dur.toFixed(0)}ms`);
+                orb.style.setProperty("--delay", `${delay.toFixed(0)}ms`);
+
+                orb.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 24 24" style="filter: drop-shadow(0 0 10px ${color});">
+                    <path d="M12 1 L14 9.5 L23 12 L14 14.5 L12 23 L10 14.5 L1 12 L10 9.5 Z" fill="${color}"/>
+                </svg>`;
+                container.appendChild(orb);
+            }
+
+            setTimeout(() => {
+                if (container) container.innerHTML = "";
+            }, 2100);
+        }
 
         function getRoleUsageGuide(card) {
             const customGuides = {
@@ -1531,23 +1732,42 @@
 
         function renderLightboxContent(card, slideDirection) {
             if (!card) return;
+            resetLightboxCardZoom();
             const cfg = factionConfig[card.faction];
             const previewBox = document.getElementById("modalCardPreviewBox");
             const urls = getDriveImageUrls(card.driveId);
 
             if (previewBox) {
-                const animClass = slideDirection > 0 ? "lightbox-slide-next" : slideDirection < 0 ? "lightbox-slide-prev" : "";
+                const animClass = isRandomDestinyMode
+                    ? "destiny-pop-reveal"
+                    : slideDirection > 0
+                    ? "lightbox-slide-next"
+                    : slideDirection < 0
+                    ? "lightbox-slide-prev"
+                    : "";
                 previewBox.className = `lightbox-card-frame ${cfg.cardClass} ${card.flags.whiteBg ? 'white-bg-fix' : ''} ${animClass}`;
                 previewBox.innerHTML = urls.length > 0
                     ? `<img src="${urls[0]}" alt="${card.name}" class="w-full h-full object-contain" data-attempt="0" onerror="handleCardImageError(this, '${card.id}')">`
                     : getCustomCardArtworkSVG(card);
             }
 
-            // Update Position Counter Badge
+            // Update Position Counter Badge & Slide Arrows Visibility
             const list = currentFilteredCards.length > 0 ? currentFilteredCards : werewolfCards;
             const posBadge = document.getElementById("lightboxPositionBadge");
-            if (posBadge) {
-                posBadge.textContent = `${currentLightboxIndex + 1} / ${list.length}`;
+            const posIcon = document.getElementById("lightboxPositionIcon");
+            const prevBtn = document.getElementById("lightboxPrevBtn");
+            const nextBtn = document.getElementById("lightboxNextBtn");
+
+            if (isRandomDestinyMode) {
+                if (posBadge) posBadge.textContent = "TAKDIR ACAK";
+                if (posIcon) posIcon.className = "fa-solid fa-wand-magic-sparkles text-amber-400 text-[11px]";
+                if (prevBtn) prevBtn.classList.add("hidden");
+                if (nextBtn) nextBtn.classList.add("hidden");
+            } else {
+                if (posBadge) posBadge.textContent = `${currentLightboxIndex + 1} / ${list.length}`;
+                if (posIcon) posIcon.className = "fa-solid fa-clone text-amber-400 text-[11px]";
+                if (prevBtn) prevBtn.classList.remove("hidden");
+                if (nextBtn) nextBtn.classList.remove("hidden");
             }
 
             // Update Gothic Panel Border Accent & Details
@@ -1575,6 +1795,7 @@
 
         window.toggleCardDetailDrawer = function(openState, ev) {
             if (ev) ev.stopPropagation();
+            resetLightboxCardZoom();
             isDetailDrawerOpen = typeof openState === "boolean" ? openState : !isDetailDrawerOpen;
             const drawer = document.getElementById("gothicDetailDrawer");
             const stage = document.getElementById("lightboxStage");
@@ -1605,6 +1826,7 @@
 
         window.navigateLightboxCard = function(step, ev) {
             if (ev) ev.stopPropagation();
+            if (isRandomDestinyMode) return;
             const list = currentFilteredCards.length > 0 ? currentFilteredCards : werewolfCards;
             if (list.length === 0) return;
             currentLightboxIndex = (currentLightboxIndex + step + list.length) % list.length;
@@ -1617,7 +1839,8 @@
             }
         };
 
-        window.openCardModal = function(cardId) {
+        window.openCardModal = function(cardId, fromDestiny = false) {
+            isRandomDestinyMode = Boolean(fromDestiny);
             const list = currentFilteredCards.length > 0 ? currentFilteredCards : werewolfCards;
             let idx = list.findIndex(c => c.id === cardId);
             if (idx === -1) {
@@ -1628,26 +1851,33 @@
             const card = (currentFilteredCards.length > 0 ? currentFilteredCards : werewolfCards)[currentLightboxIndex];
             if (!card) return;
 
-            // Default to full-image centered mode with "Deskripsi Selengkapnya" button visible on the right
             toggleCardDetailDrawer(false);
             renderLightboxContent(card, 0);
 
             const modal = document.getElementById("cardDetailModal");
             modal.classList.remove("hidden");
             modal.classList.add("flex");
+
+            if (isRandomDestinyMode) {
+                triggerFestiveStarBurst(card.faction);
+            }
         };
 
         window.closeCardModal = function() {
             const modal = document.getElementById("cardDetailModal");
             modal.classList.add("hidden");
             modal.classList.remove("flex");
+            resetLightboxCardZoom();
             toggleCardDetailDrawer(false);
+            isRandomDestinyMode = false;
+            const sparkleContainer = document.getElementById("destinySparkleContainer");
+            if (sparkleContainer) sparkleContainer.innerHTML = "";
         };
 
         window.openRandomCard = function() {
             const list = currentFilteredCards.length > 0 ? currentFilteredCards : werewolfCards;
             const rnd = list[Math.floor(Math.random() * list.length)];
-            if (rnd) openCardModal(rnd.id);
+            if (rnd) openCardModal(rnd.id, true);
         };
 
         // =====================================================================
@@ -2505,19 +2735,21 @@
                 const isLightboxVisible = cardModal && !cardModal.classList.contains("hidden");
 
                 if (isLightboxVisible) {
-                    if (e.key === "ArrowLeft") {
+                    if (e.key === "ArrowLeft" && !isRandomDestinyMode) {
                         e.preventDefault();
                         navigateLightboxCard(-1);
                         return;
                     }
-                    if (e.key === "ArrowRight") {
+                    if (e.key === "ArrowRight" && !isRandomDestinyMode) {
                         e.preventDefault();
                         navigateLightboxCard(1);
                         return;
                     }
                     if (e.key === "Escape") {
                         e.preventDefault();
-                        if (isDetailDrawerOpen) {
+                        if (isLightboxCardZoomed) {
+                            resetLightboxCardZoom();
+                        } else if (isDetailDrawerOpen) {
                             toggleCardDetailDrawer(false);
                         } else {
                             closeCardModal();
@@ -2529,7 +2761,22 @@
                 }
             });
 
-            // Mobile Touch Swipe Navigation for Lightbox (Swipe Left / Right)
+            // Mobile Double-Tap Zoom on Card & Touch Swipe Navigation for Lightbox
+            const previewBoxEl = document.getElementById("modalCardPreviewBox");
+            if (previewBoxEl) {
+                previewBoxEl.addEventListener("touchend", (e) => {
+                    const now = Date.now();
+                    if (now - lastCardTapTime < 280) {
+                        e.preventDefault();
+                        const touch = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0] : null;
+                        handleLightboxCardDoubleClick(touch || e);
+                        lastCardTapTime = 0;
+                    } else {
+                        lastCardTapTime = now;
+                    }
+                });
+            }
+
             const cardModalEl = document.getElementById("cardDetailModal");
             if (cardModalEl) {
                 cardModalEl.addEventListener("touchstart", (e) => {
@@ -2539,8 +2786,8 @@
                 }, { passive: true });
 
                 cardModalEl.addEventListener("touchend", (e) => {
+                    if (isRandomDestinyMode || isLightboxCardZoomed) return;
                     if (!e.changedTouches || e.changedTouches.length === 0) return;
-                    // Ignore swipes originating inside the scrollable gothic description drawer
                     const drawerEl = document.getElementById("gothicDetailDrawer");
                     if (isDetailDrawerOpen && drawerEl && drawerEl.contains(e.target)) return;
 
